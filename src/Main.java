@@ -1,14 +1,45 @@
 import java.util.ArrayList;
 
 public class Main {
+    static ArrayList<Integer> subtasksIdFirstEpic = new ArrayList<>();
+    static ArrayList<Integer> subtasksIdSecondEpic = new ArrayList<>();
+
+    static TaskManager taskManager = Managers.getDefault();
+    static HistoryManager historyManager = Managers.getDefaultHistory();
+
     public static void main(String[] args) {
-        TaskManager taskManager = Managers.getDefault();
-        HistoryManager historyManager = Managers.getDefaultHistory();
+        createTasks();
+
+        historyManager.add(taskManager.getEpic(2));
+        historyManager.add(taskManager.getEpic(2));
+        historyManager.add(taskManager.getEpic(2));
+        historyManager.add(taskManager.getSubtask(5));
+        historyManager.add(taskManager.getSubtask(6));
+        historyManager.add(taskManager.getTask(1));
+        System.out.println(historyManager.getHistory());
 
 
-        ArrayList<Integer> subtasksIdFirstEpic = new ArrayList<>();
-        ArrayList<Integer> subtasksIdSecondEpic = new ArrayList<>();
+        taskManager.calculateEpicStatus(2);
+        System.out.println(historyManager.getHistory());
 
+
+        taskManager.removeTaskById(0);
+        System.out.println(historyManager.getHistory());
+
+
+        taskManager.removeSubtaskById(3);
+        System.out.println(historyManager.getHistory());
+
+
+        updateTasks();
+        System.out.println(historyManager.getHistory());
+
+
+        taskManager.removeEpicById(4);
+        System.out.println(historyManager.getHistory());
+    }
+
+    private static void createTasks() {
         taskManager.createTask("Задача 1", "Описание", Status.NEW); // создание задач
         taskManager.createTask("Задача 2", "Описание", Status.IN_PROGRESS);
 
@@ -18,23 +49,9 @@ public class Main {
         taskManager.createEpic("Важный эпик 2", "Описание" , Status.NEW);
         taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 4);
         taskManager.createSubtask("Подзадача 2", "Описание", Status.NEW, 4);
+    }
 
-
-        historyManager.add(taskManager.getEpic(2));
-        historyManager.add(taskManager.getEpic(2));
-        historyManager.add(taskManager.getEpic(2));
-        historyManager.add(taskManager.getSubtask(5));
-        historyManager.add(taskManager.getSubtask(6));
-        historyManager.add(taskManager.getTask(1));
-
-
-        System.out.println(historyManager.getHistory());
-
-        taskManager.calculateEpicStatus(2);
-
-        System.out.println(historyManager.getHistory());
-
-
+    private static void updateTasks() {
         Task task1 = new Task("Задача 1", "Описание", Status.IN_PROGRESS, 0); // обновление задач
         Task task2 = new Task("Задача 2", "Описание", Status.DONE, 1);
         taskManager.updateTask(0, task1);
@@ -58,15 +75,5 @@ public class Main {
         subtasksIdSecondEpic.add(6);
         Epic epic2 = new Epic("Важный эпик 2", "Описание" , Status.IN_PROGRESS, 4, subtasksIdSecondEpic);
         taskManager.updateEpic(4, epic2);
-        taskManager.calculateEpicStatus(4);
-
-        System.out.println(historyManager.getHistory());
-
-
-        taskManager.removeTaskById(0);
-        taskManager.removeSubtaskById(3);
-        taskManager.removeEpicById(4);
-
-        System.out.println(historyManager.getHistory());
     }
 }
