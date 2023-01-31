@@ -28,8 +28,8 @@ public class Main {
     private static void createTasks() {
         taskManager.createEpic("Эпик 1", "Описание", Status.NEW); // id = 0
         taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 1
-        taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 2
-        taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 3
+        taskManager.createSubtask("Подзадача 2", "Описание", Status.NEW, 0); // id = 2
+        taskManager.createSubtask("Подзадача 3", "Описание", Status.NEW, 0); // id = 3
 
         taskManager.createEpic("Эпик 2", "Описание", Status.NEW); // id = 4
     }

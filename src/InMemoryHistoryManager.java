@@ -1,8 +1,12 @@
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class InMemoryHistoryManager implements HistoryManager {
     static final Integer HISTORY_LIMIT = 10;
-    CustomLinkedList customLinkedList = new CustomLinkedList();
+    CustomLinkedList<Task> customLinkedList = new CustomLinkedList<>();
 
     @Override
     public void remove(int id) {
