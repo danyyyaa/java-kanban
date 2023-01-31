@@ -41,11 +41,11 @@ public class InMemoryHistoryManager implements HistoryManager {
 class CustomLinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
-    protected Map<Integer, Node<Object>> idNodesMap = new HashMap<>();
+    protected Map<Integer, Node<T>> idNodesMap = new HashMap<>();
 
-    void removeNode(Node<Object> del) {
+    void removeNode(Node<T> del) {
         if (head == del) {
-            head = (Node<T>) del.next;
+            head = del.next;
         }
         if (del.next != null) {
             del.next.prev = del.prev;
@@ -54,7 +54,7 @@ class CustomLinkedList<T> {
             del.prev.next = del.next;
         }
         if (tail == del) {
-            tail = (Node<T>) del.prev;
+            tail = del.prev;
         }
 
         for (int key : idNodesMap.keySet()) {
@@ -66,14 +66,14 @@ class CustomLinkedList<T> {
     }
 
     public void linkLast(Task task) {
-        Node<Object> newNode = new Node<>(task);
+        Node<T> newNode = (Node<T>) new Node<>(task);
         if (head == null) {
-            head = tail = (Node<T>) newNode;
+            head = tail = newNode;
             head.prev = null;
         } else {
-            tail.next = (Node<T>) newNode;
-            newNode.prev = (Node<Object>) tail;
-            tail = (Node<T>) newNode;
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
         }
         tail.next = null;
         idNodesMap.put(task.getId(), newNode);
@@ -93,7 +93,7 @@ class CustomLinkedList<T> {
         return taskList;
     }
     public Node<T> getNodeById(int id) {
-        return (Node<T>) idNodesMap.get(id);
+        return idNodesMap.get(id);
     }
 
     @Override
