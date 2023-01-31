@@ -1,3 +1,6 @@
+import managers.history.HistoryManager;
+import managers.util.Managers;
+import managers.task.TaskManager;
 import tasks.Status;
 
 public class Main {

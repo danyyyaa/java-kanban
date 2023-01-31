@@ -1,3 +1,5 @@
+package managers.task;
+
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
@@ -7,13 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InMemoryClassTaskManager implements TaskManager {
-    private HashMap<Integer, Task> tasks;
-    private HashMap<Integer, Subtask> subtasks;
-    private HashMap<Integer, Epic> epicsWithoutSubtasks;
-    private ArrayList<Epic> epicList;
+    final private HashMap<Integer, Task> tasks;
+    final private HashMap<Integer, Subtask> subtasks;
+    final private HashMap<Integer, Epic> epicsWithoutSubtasks;
+    final private ArrayList<Epic> epicList;
     private Integer id;
 
-    InMemoryClassTaskManager() {
+    public InMemoryClassTaskManager() {
         id = 0;
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
