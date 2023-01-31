@@ -1,79 +1,36 @@
-import java.util.ArrayList;
-
 public class Main {
-    static ArrayList<Integer> subtasksIdFirstEpic = new ArrayList<>();
-    static ArrayList<Integer> subtasksIdSecondEpic = new ArrayList<>();
-
     static TaskManager taskManager = Managers.getDefault();
     static HistoryManager historyManager = Managers.getDefaultHistory();
 
     public static void main(String[] args) {
         createTasks();
 
-        historyManager.add(taskManager.getEpic(2));
-        historyManager.add(taskManager.getEpic(2));
-        historyManager.add(taskManager.getEpic(2));
-        historyManager.add(taskManager.getSubtask(5));
-        historyManager.add(taskManager.getSubtask(6));
-        historyManager.add(taskManager.getTask(1));
-        System.out.println(historyManager.getHistory());
+        historyManager.add(taskManager.getEpic(0)); // запрос задач
+        historyManager.add(taskManager.getEpic(4));
 
+        System.out.println(historyManager.getHistory()); // 0 4
 
-        taskManager.calculateEpicStatus(2);
-        System.out.println(historyManager.getHistory());
+        historyManager.add(taskManager.getSubtask(1));
+        historyManager.add(taskManager.getSubtask(2));
 
+        System.out.println(historyManager.getHistory()); // 0 4 1 2
 
-        taskManager.removeTaskById(0);
-        System.out.println(historyManager.getHistory());
+        historyManager.add(taskManager.getSubtask(3));
 
+        System.out.println(historyManager.getHistory()); // 0 4 1 2 3
 
-        taskManager.removeSubtaskById(3);
-        System.out.println(historyManager.getHistory());
+        historyManager.remove(2);
+        System.out.println(historyManager.getHistory()); // 0 4 1 3
 
-
-        updateTasks();
-        System.out.println(historyManager.getHistory());
-
-
-        taskManager.removeEpicById(4);
-        System.out.println(historyManager.getHistory());
+        historyManager.remove(0); // удаление эпика с 3 подзадачами
+        System.out.println(historyManager.getHistory()); // 4
     }
-
     private static void createTasks() {
-        taskManager.createTask("Задача 1", "Описание", Status.NEW); // создание задач
-        taskManager.createTask("Задача 2", "Описание", Status.IN_PROGRESS);
+        taskManager.createEpic("Эпик 1", "Описание", Status.NEW); // id = 0
+        taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 1
+        taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 2
+        taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 3
 
-        taskManager.createEpic("Вынести мусор", "Усердно", Status.NEW);
-        taskManager.createSubtask("Помыть собаку", "С мылом", Status.NEW, 2);
-
-        taskManager.createEpic("Важный эпик 2", "Описание" , Status.NEW);
-        taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 4);
-        taskManager.createSubtask("Подзадача 2", "Описание", Status.NEW, 4);
-    }
-
-    private static void updateTasks() {
-        Task task1 = new Task("Задача 1", "Описание", Status.IN_PROGRESS, 0); // обновление задач
-        Task task2 = new Task("Задача 2", "Описание", Status.DONE, 1);
-        taskManager.updateTask(0, task1);
-        taskManager.updateTask(1, task2);
-
-        System.out.println(historyManager.getHistory());
-
-        Subtask subtask = new Subtask("Помыть собаку", "С мылом", Status.IN_PROGRESS, 3, 2);
-        taskManager.updateSubtask(3, subtask);
-        subtasksIdFirstEpic.add(3);
-        Epic epic1 = new Epic("Вынести мусор", "Усердно", Status.IN_PROGRESS, 2, subtasksIdFirstEpic);
-        taskManager.updateEpic(2, epic1);
-
-
-        Subtask subtask1 = new Subtask("Подзадача 1", "Описание", Status.DONE, 5, 4);
-        Subtask subtask2 = new Subtask("Подзадача 2", "Описание", Status.DONE, 6, 4);
-        taskManager.updateSubtask(5, subtask1);
-        taskManager.updateSubtask(6, subtask2);
-
-        subtasksIdSecondEpic.add(5);
-        subtasksIdSecondEpic.add(6);
-        Epic epic2 = new Epic("Важный эпик 2", "Описание" , Status.IN_PROGRESS, 4, subtasksIdSecondEpic);
-        taskManager.updateEpic(4, epic2);
+        taskManager.createEpic("Эпик 2", "Описание", Status.NEW); // id = 4
     }
 }
