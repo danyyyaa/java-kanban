@@ -1,3 +1,8 @@
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
+import tasks.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,7 +35,7 @@ public class InMemoryClassTaskManager implements TaskManager {
         subtasks.put(id, subtask);
 
         for (Epic epic : epicList) {
-            if (epic.id.equals(epicId)) {
+            if (epic.getId().equals(epicId)) {
                 epic.getSubtasksId().add(id);
             }
         }
@@ -49,7 +54,7 @@ public class InMemoryClassTaskManager implements TaskManager {
     @Override
     public void calculateEpicStatus(Integer epicId) {
         for(Epic epic : epicList){
-            if(epic.id.equals(epicId)){
+            if(epic.getId().equals(epicId)){
 
                 int counterNew = 0;
                 int counterDone = 0;

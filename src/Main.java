@@ -1,3 +1,5 @@
+import tasks.Status;
+
 public class Main {
     static TaskManager taskManager = Managers.getDefault();
     static HistoryManager historyManager = Managers.getDefaultHistory();

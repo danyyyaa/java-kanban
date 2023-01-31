@@ -1,3 +1,5 @@
+import tasks.Task;
+
 public class Node<E> {
     protected Node<E> next;
     protected Node<E> prev;
