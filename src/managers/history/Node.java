@@ -1,16 +1,14 @@
 package managers.history;
 
-import tasks.Task;
-
 public class Node<E> {
     protected Node<E> next;
     protected Node<E> prev;
-    final private Task data;
+    final private E data;
 
-    public Node(Task data) {
+    public Node(E data) {
         this.data = data;
     }
-    public Task getData() {
+    public E getData() {
         return this.data;
     }
 }

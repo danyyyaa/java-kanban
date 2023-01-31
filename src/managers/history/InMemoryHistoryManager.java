@@ -18,11 +18,11 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (customLinkedList.getNodeById(id).getData() instanceof Epic) {
             for (int subtaskId : ((Epic) customLinkedList.getNodeById(id).getData()).getSubtasksIdList()) {
                 if (customLinkedList.idNodesMap.containsKey(subtaskId)) {
-                    customLinkedList.removeNode((Node) customLinkedList.idNodesMap.get(subtaskId));
+                    customLinkedList.removeNode(customLinkedList.idNodesMap.get(subtaskId));
                 }
             }
         }
-        customLinkedList.removeNode((Node) customLinkedList.idNodesMap.get(id));
+        customLinkedList.removeNode(customLinkedList.idNodesMap.get(id));
     }
 
     @Override
@@ -41,11 +41,11 @@ public class InMemoryHistoryManager implements HistoryManager {
 class CustomLinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
-    protected Map<Integer, Node> idNodesMap = new HashMap<>();
+    protected Map<Integer, Node<Object>> idNodesMap = new HashMap<>();
 
-    void removeNode(Node del) {
+    void removeNode(Node<Object> del) {
         if (head == del) {
-            head = del.next;
+            head = (Node<T>) del.next;
         }
         if (del.next != null) {
             del.next.prev = del.prev;
@@ -54,7 +54,7 @@ class CustomLinkedList<T> {
             del.prev.next = del.next;
         }
         if (tail == del) {
-            tail = del.prev;
+            tail = (Node<T>) del.prev;
         }
 
         for (int key : idNodesMap.keySet()) {
@@ -66,36 +66,34 @@ class CustomLinkedList<T> {
     }
 
     public void linkLast(Task task) {
-        Node newNode = new Node<>(task);
+        Node<Object> newNode = new Node<>(task);
         if (head == null) {
-            head = tail = newNode;
+            head = tail = (Node<T>) newNode;
             head.prev = null;
-            tail.next = null;
         } else {
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
-            tail.next = null;
+            tail.next = (Node<T>) newNode;
+            newNode.prev = (Node<Object>) tail;
+            tail = (Node<T>) newNode;
         }
+        tail.next = null;
         idNodesMap.put(task.getId(), newNode);
     }
 
     List<Task> getTask() {
         List<Task> taskList = new ArrayList<>();
 
-        Node current = head;
+        Node<T> current = head;
         for (int i = 0; (i < InMemoryHistoryManager.HISTORY_LIMIT) && (i < idNodesMap.size()); i++) {
             if (head == null) {
                 return null;
             }
-            System.out.println(current.getData().getId()); // удалить
-            taskList.add(current.getData());
+            taskList.add((Task) current.getData());
             current = current.next;
         }
         return taskList;
     }
-    public Node getNodeById(int id) {
-        return idNodesMap.get(id);
+    public Node<T> getNodeById(int id) {
+        return (Node<T>) idNodesMap.get(id);
     }
 
     @Override
