@@ -15,10 +15,11 @@ import java.util.List;
 public class FileBackedTasksManager extends InMemoryClassTaskManager {
     static File file;
 
-    static HistoryManager historyManager = Managers.getDefaultHistory();
+    static HistoryManager historyManager;
 
     public FileBackedTasksManager(File file) {
         this.file = file;
+        historyManager = Managers.getDefaultHistory();
     }
 
     public static void main(String[] args) throws ManagerSaveException {

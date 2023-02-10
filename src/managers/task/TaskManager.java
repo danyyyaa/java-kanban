@@ -5,6 +5,8 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
+import java.util.List;
+
 public interface TaskManager {
     void createTask(String name, String description, Status status);
     void createSubtask(String name, String description, Status status, Integer epicId);
@@ -25,4 +27,5 @@ public interface TaskManager {
     void removeTaskById(Integer id);
     void removeEpicById(Integer id);
     void removeSubtaskById(Integer id);
+    List<Task> getHistory();
 }
