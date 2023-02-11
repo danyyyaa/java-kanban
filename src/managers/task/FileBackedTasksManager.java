@@ -1,6 +1,7 @@
 package managers.task;
 
 import managers.history.HistoryManager;
+import managers.util.Managers;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
@@ -27,13 +28,16 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 2
         fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 3
         fileBackedTasksManager.createTask("Task1", "Description", Status.IN_PROGRESS); // id = 4
+        fileBackedTasksManager.createTask("Task2", "Description", Status.DONE); // id = 5
+        fileBackedTasksManager.createTask("Task3", "Description", Status.IN_PROGRESS); // id = 6
 
 
-        fileBackedTasksManager.getTask(2);
+        fileBackedTasksManager.getTask(4);
+        fileBackedTasksManager.getTask(6);
         fileBackedTasksManager.getEpic(0);
         fileBackedTasksManager.getSubtask(1);
 
-        //System.out.println(historyManager.getHistory());
+        System.out.println(historyManager.getHistory());
         //System.out.println(fileBackedTasksManager.getHistory());
     }
 
@@ -61,20 +65,18 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
     //(BufferedReader fileReader = new BufferedReader(new FileReader(file.getAbsolutePath(), StandardCharsets.UTF_8)))
     static FileBackedTasksManager loadFromFile(File file) throws ManagerSaveException {
         try {
-            String fileData = Files.readString(Path.of(file.getAbsolutePath()));
+            String fileData = Files.readString(Path.of(file.getAbsolutePath()), StandardCharsets.UTF_8);
             String[] fileLine = fileData.split("\\r?\\n");
 
             boolean isFirstIteration = true;
 
             for (String line : fileLine) {
-
                 if(isFirstIteration) {
                     isFirstIteration = false;
                     continue;
                 }
-
-                //fromString(line);
-                System.out.println(fromString(line));
+                fromString(line);
+                //System.out.println(fromString(line));
             }
 
             return new FileBackedTasksManager(file);
