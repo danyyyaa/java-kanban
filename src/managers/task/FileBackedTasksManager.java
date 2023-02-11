@@ -15,11 +15,8 @@ import java.util.List;
 public class FileBackedTasksManager extends InMemoryClassTaskManager {
     static File file;
 
-    static HistoryManager historyManager;
-
     public FileBackedTasksManager(File file) {
         this.file = file;
-        historyManager = Managers.getDefaultHistory();
     }
 
     public static void main(String[] args) throws ManagerSaveException {
@@ -31,13 +28,30 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         fileBackedTasksManager.createSubtask("Подзадача 3", "Описание", Status.NEW, 0); // id = 3
 
         fileBackedTasksManager.createEpic("Эпик 2", "Описание", Status.NEW); // id = 4
-        fileBackedTasksManager.createTask("Задача 1", "Описание", Status.IN_PROGRESS); // id = 5
+        fileBackedTasksManager.createTask("Task1", "Описание", Status.DONE); // id = 4
 
-        historyManager.add(fileBackedTasksManager.getSubtask(3));
-        historyManager.add(fileBackedTasksManager.getEpic(0));
-        historyManager.add(fileBackedTasksManager.getTask(5));
 
-        System.out.println(historyManager.getHistory()); // это работает
+        fileBackedTasksManager.getEpic(0); // запрос задач
+        fileBackedTasksManager.getEpic(4);
+
+        System.out.println(fileBackedTasksManager.getHistory()); // 0 4
+
+        fileBackedTasksManager.getSubtask(1);
+        fileBackedTasksManager.getSubtask(2);
+
+        System.out.println(fileBackedTasksManager.getHistory()); // 0 4 1 2
+
+
+        fileBackedTasksManager.getSubtask(3);
+
+        System.out.println(fileBackedTasksManager.getHistory()); // 0 4 1 2 3
+
+        fileBackedTasksManager.removeSubtaskById(2);
+        System.out.println(fileBackedTasksManager.getHistory()); // 0 4 1 3
+
+        fileBackedTasksManager.removeEpicById(0); // удаление эпика с 3 подзадачами
+        System.out.println(fileBackedTasksManager.getHistory()); // 4
+
     }
 
     public void save() throws ManagerSaveException {
@@ -55,7 +69,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         String history = "";
         for (Task task : manager.getHistory()) {
             history += task.getId().toString();
-            System.out.println(task.getId());
+            //System.out.println(task.getId());
         }
 
         return history;

@@ -12,13 +12,12 @@ public class Main {
         taskManager.getEpic(0); // запрос задач
         taskManager.getEpic(4);
 
-        System.out.println(taskManager.getHistory()); // 0 4
+        taskManager.getHistory(); // 0 4
 
         taskManager.getSubtask(1);
         taskManager.getSubtask(2);
 
         System.out.println(taskManager.getHistory()); // 0 4 1 2
-
 
         taskManager.getSubtask(3);
 
@@ -29,6 +28,8 @@ public class Main {
 
         taskManager.removeEpicById(0); // удаление эпика с 3 подзадачами
         System.out.println(taskManager.getHistory()); // 4
+
+
     }
     private static void createTasks() {
         taskManager.createEpic("Эпик 1", "Описание", Status.NEW); // id = 0
