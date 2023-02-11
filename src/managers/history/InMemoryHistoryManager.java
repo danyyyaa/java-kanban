@@ -88,7 +88,7 @@ class CustomLinkedList<T> {
                 return null;
             }
             taskList.add((Task) current.getData());
-            //System.out.println(((Task) current.getData()).getId()); // удалить
+            System.out.println(((Task) current.getData()).getId()); // удалить
             current = current.next;
         }
         return taskList;

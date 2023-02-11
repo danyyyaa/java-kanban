@@ -17,6 +17,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
     static File file;
 
     public FileBackedTasksManager(File file) {
+        super();
         this.file = file;
     }
 
@@ -31,13 +32,16 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         fileBackedTasksManager.createTask("Task2", "Description", Status.DONE); // id = 5
         fileBackedTasksManager.createTask("Task3", "Description", Status.IN_PROGRESS); // id = 6
 
+        // Error
+        //fileBackedTasksManager.removeTaskById(5);
+        //fileBackedTasksManager.getHistory();
 
         fileBackedTasksManager.getTask(4);
         fileBackedTasksManager.getTask(6);
         fileBackedTasksManager.getEpic(0);
         fileBackedTasksManager.getSubtask(1);
 
-        System.out.println(historyManager.getHistory());
+        //System.out.println(historyManager.getHistory());
         //System.out.println(fileBackedTasksManager.getHistory());
     }
 
@@ -53,7 +57,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             for (Task task : getListAllEpics()) {
                 fw.write(toString(task));
             }
-            //System.out.println("history manager : " + historyManager.getHistory());
+            System.out.println("history manager : " + this.historyManager.getHistory());
             //fw.write("\n" + historyToString(historyManager));
 
         } catch (IOException e) {
