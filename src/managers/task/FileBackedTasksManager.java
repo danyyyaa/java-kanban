@@ -7,8 +7,9 @@ import tasks.Subtask;
 import tasks.Task;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryClassTaskManager {
@@ -23,7 +24,9 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
 
         fileBackedTasksManager.createEpic("Эпик 1", "Description", Status.NEW); // id = 0
         fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 1
-        fileBackedTasksManager.createTask("Task1", "Description", Status.IN_PROGRESS); // id = 2
+        fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 2
+        fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 3
+        fileBackedTasksManager.createTask("Task1", "Description", Status.IN_PROGRESS); // id = 4
 
 
         fileBackedTasksManager.getTask(2);
@@ -46,35 +49,39 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             for (Task task : getListAllEpics()) {
                 fw.write(toString(task));
             }
-
-            fw.write("\n" + historyToString(historyManager));
+            //System.out.println("history manager : " + historyManager.getHistory());
+            //fw.write("\n" + historyToString(historyManager));
 
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка ввода");
         }
     }
 
-    static String historyToString(HistoryManager manager) {
-        String history = "";
-        /*for (Task task : manager.getHistory()) {
-            history += task.getId().toString();
-            System.out.println(task.getId());
 
-        }
-        System.out.println(history);
-*/
-        return history;
-    }
-
+    //(BufferedReader fileReader = new BufferedReader(new FileReader(file.getAbsolutePath(), StandardCharsets.UTF_8)))
     static FileBackedTasksManager loadFromFile(File file) throws ManagerSaveException {
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(file.getAbsolutePath(), StandardCharsets.UTF_8))) {
+        try {
+            String fileData = Files.readString(Path.of(file.getAbsolutePath()));
+            String[] fileLine = fileData.split("\\r?\\n");
+
+            boolean isFirstIteration = true;
+
+            for (String line : fileLine) {
+
+                if(isFirstIteration) {
+                    isFirstIteration = false;
+                    continue;
+                }
+
+                //fromString(line);
+                System.out.println(fromString(line));
+            }
 
             return new FileBackedTasksManager(file);
         } catch (IOException e) {
             throw new ManagerSaveException("Невозможно прочитать файл. Возможно файл не находится в нужной директории.");
         }
     }
-
 
     String toString(Task task) {
         String result = task.getId() + ",";
@@ -98,17 +105,46 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         return result + "\n";
     }
 
-    Task fromString(String value) {
+    static Task fromString(String value) {
+        String[] data = value.split(",");
+
+        Integer id = Integer.parseInt(data[0]);
+        String taskType = data[1];
+        String name = data[2];
+        Status status = Status.valueOf(data[3]);
+        String description = data[4];
+        Integer epicId = null;
+
+        if (taskType.equals(TasksType.SUBTASK.toString())) {
+            epicId = Integer.parseInt(data[5]);
+        }
+
+        switch (taskType) {
+            case "TASK":
+                return new Task(name, description, status, id);
+            case "SUBTASK":
+                return new Subtask(name, description, status, id, epicId);
+            case "EPIC":
+                return new Epic(name, description, status, id);
+        }
 
         return null;
     }
 
+    static String historyToString(HistoryManager manager) {
+        String history = "";
+        /*for (Task task : manager.getHistory()) {
+            history += task.getId().toString();
+            System.out.println(task.getId());
 
-
+        }
+        System.out.println(history);
+*/
+        return history;
+    }
     static List<Integer> historyFromString(String value) {
         return null;
     }
-
 
     @Override
     public void createTask(String name, String description, Status status) {

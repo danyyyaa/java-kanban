@@ -13,6 +13,11 @@ public class Epic extends Task {
         this.subtasksId = subtasksId;
     }
 
+    public Epic(String name, String description, Status status, Integer id) {
+        super(name, description, status, id);
+        subtasksId = null;
+    }
+
     public String toString() {
         return "tasks.Epic{subtasksId=" + this.subtasksId + ", name='" + this.name + "', description='" + this.description + "', id=" + this.id + ", status='" + this.status + "'}";
     }

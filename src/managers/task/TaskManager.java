@@ -12,9 +12,6 @@ public interface TaskManager {
     void createSubtask(String name, String description, Status status, Integer epicId);
     void createEpic(String name, String description, Status status);
     void calculateEpicStatus(Integer epicId);
-   /* Object getListAllTasks();
-    Object getListAllSubtasks();
-    Object getListAllEpics();*/
    List<Task> getListAllTasks();
     List<Subtask> getListAllSubtasks();
     List<Epic> getListAllEpics();

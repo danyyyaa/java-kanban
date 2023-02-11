@@ -17,7 +17,7 @@ public class InMemoryClassTaskManager implements TaskManager {
     final private HashMap<Integer, Epic> epicsWithoutSubtasks;
     final private ArrayList<Epic> epicList;
     private Integer id;
-    public static HistoryManager historyManager = Managers.getDefaultHistory();
+    public static HistoryManager historyManager;
 
     public InMemoryClassTaskManager() {
         id = 0;
@@ -25,6 +25,7 @@ public class InMemoryClassTaskManager implements TaskManager {
         subtasks = new HashMap<>();
         epicsWithoutSubtasks = new HashMap<>();
         epicList = new ArrayList<>();
+        historyManager = Managers.getDefaultHistory();
     }
 
     public List<Task> getHistory() {
@@ -95,7 +96,6 @@ public class InMemoryClassTaskManager implements TaskManager {
         for (Task task : tasks.values()) {
             tasksList.add(task);
         }
-        //return tasks.values();
         return tasksList;
     }
 
@@ -202,20 +202,11 @@ public class InMemoryClassTaskManager implements TaskManager {
     public void removeEpicById(Integer id) {
         epicsWithoutSubtasks.remove(id);
 
-       /* for (Epic epic : epicList) {
-            if (epic.getId() == id) {
-                //historyManager.remove(epic.getId());
-                epicList.remove(epic);
-                break;
-            }
-        }*/
-
         for (Epic epic : epicList) {
             if (epic.getId() == id) {
                 historyManager.remove(id);
                 for (Integer subtaskId : epic.getSubtasksId()) {
                     subtasks.remove(subtaskId);
-                    //historyManager.remove(subtaskId);
                     break;
                 }
             }
@@ -232,19 +223,10 @@ public class InMemoryClassTaskManager implements TaskManager {
                 for (Integer subtaskId : epicList.get(i).getSubtasksId()){
                     if (subtaskId == id) {
                         epicList.get(i).getSubtasksId().remove(subtaskId);
-                        //historyManager.remove(subtaskId);
                         break;
                     }
                 }
             }
         }
-        /*if (this.subtasks.containsKey(id)) {
-            Subtask subtask = this.getSubtask(id);
-            int ids = this.subtasks.get(id).getEpicId();
-            Epic epic = this.getEpic(ids);
-            epic.getSubtasksId().remove(subtask);
-            this.subtasks.remove(id);
-            historyManager.remove(id);
-        }*/
     }
 }
