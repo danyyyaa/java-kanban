@@ -1,7 +1,6 @@
 package managers.task;
 
 import managers.history.HistoryManager;
-import managers.history.InMemoryHistoryManager;
 import managers.util.Managers;
 import tasks.Epic;
 import tasks.Status;
@@ -18,7 +17,7 @@ public class InMemoryClassTaskManager implements TaskManager {
     final private HashMap<Integer, Epic> epicsWithoutSubtasks;
     final private ArrayList<Epic> epicList;
     private Integer id;
-    static HistoryManager historyManager = Managers.getDefaultHistory();
+    public static HistoryManager historyManager = Managers.getDefaultHistory();
 
     public InMemoryClassTaskManager() {
         id = 0;
@@ -91,17 +90,26 @@ public class InMemoryClassTaskManager implements TaskManager {
     }
 
     @Override
-    public Object getListAllTasks() {
-        return tasks.values();
+    public List<Task> getListAllTasks() {
+        List<Task> tasksList = new ArrayList<>();
+        for (Task task : tasks.values()) {
+            tasksList.add(task);
+        }
+        //return tasks.values();
+        return tasksList;
     }
 
     @Override
-    public Object getListAllSubtasks() {
-        return subtasks.values();
+    public List<Subtask> getListAllSubtasks() {
+        List<Subtask> subtaskList = new ArrayList<>();
+        for (Subtask subtask : subtasks.values()) {
+            subtaskList.add(subtask);
+        }
+        return subtaskList;
     }
 
     @Override
-    public Object getListAllEpics() {
+    public List<Epic> getListAllEpics() {
         return epicList;
     }
 

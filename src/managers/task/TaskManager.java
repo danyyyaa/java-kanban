@@ -12,15 +12,18 @@ public interface TaskManager {
     void createSubtask(String name, String description, Status status, Integer epicId);
     void createEpic(String name, String description, Status status);
     void calculateEpicStatus(Integer epicId);
-    Object getListAllTasks();
+   /* Object getListAllTasks();
     Object getListAllSubtasks();
-    Object getListAllEpics();
+    Object getListAllEpics();*/
+   List<Task> getListAllTasks();
+    List<Subtask> getListAllSubtasks();
+    List<Epic> getListAllEpics();
     void deleteAllTasks();
     void deleteAllSubtasks();
     void deleteAllEpics();
     Task getTask(Integer id);
-    Subtask getSubtask(Integer id);
-    Epic getEpic(Integer id);
+    Object getSubtask(Integer id);
+    Object getEpic(Integer id);
     void updateTask(Integer id, Task task);
     void updateSubtask(Integer id, Subtask subtask);
     void updateEpic(Integer id, Epic epic);
