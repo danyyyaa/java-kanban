@@ -1,7 +1,7 @@
-package managers.task;
+package managers.file;
 
 import managers.history.HistoryManager;
-import managers.util.Managers;
+import managers.task.InMemoryClassTaskManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
@@ -14,52 +14,41 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryClassTaskManager {
-    static File file;
+    static Path path;
 
-    public FileBackedTasksManager(File file) {
-        super();
-        this.file = file;
-    }
-
-    public static void main(String[] args) throws ManagerSaveException {
-        FileBackedTasksManager fileBackedTasksManager = loadFromFile(new File("123.csv"));
-
-        fileBackedTasksManager.createEpic("Эпик 1", "Description", Status.NEW); // id = 0
-        fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 1
-        fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 2
-        fileBackedTasksManager.createSubtask("Подзадача 1", "Description", Status.NEW, 0); // id = 3
-        fileBackedTasksManager.createTask("Task1", "Description", Status.IN_PROGRESS); // id = 4
-        fileBackedTasksManager.createTask("Task2", "Description", Status.DONE); // id = 5
-        fileBackedTasksManager.createTask("Task3", "Description", Status.IN_PROGRESS); // id = 6
-
-        // Error
-        //fileBackedTasksManager.removeTaskById(5);
-        //fileBackedTasksManager.getHistory();
-
-        fileBackedTasksManager.getTask(4);
-        fileBackedTasksManager.getTask(6);
-        fileBackedTasksManager.getEpic(0);
-        fileBackedTasksManager.getSubtask(1);
-
-        //System.out.println(historyManager.getHistory());
-        //System.out.println(fileBackedTasksManager.getHistory());
+    public FileBackedTasksManager(Path path) throws ManagerSaveException {
+        this.path = path;
+        loadFromFile(path);
     }
 
     public void save() throws ManagerSaveException {
-        try (FileWriter fw = new FileWriter(file, StandardCharsets.UTF_8)) {
+        try {
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("Ошибка создания/чтения файла");
+        }
+
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (FileWriter fw = new FileWriter(path.toFile(), StandardCharsets.UTF_8)) {
             fw.write("id,type,name,status,description,epic\n");
             for (Task task : getListAllTasks()) {
                 fw.write(toString(task));
             }
-            for (Task task : getListAllSubtasks()) {
+            for (Subtask task : getListAllSubtasks()) {
                 fw.write(toString(task));
             }
-            for (Task task : getListAllEpics()) {
+            for (Epic task : getListAllEpics()) {
                 fw.write(toString(task));
             }
-            System.out.println("history manager : " + this.historyManager.getHistory());
-            //fw.write("\n" + historyToString(historyManager));
-
+            //fw.write(historyToString(historyManager));
+            System.out.println("history manager: " + getHistory());
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка ввода");
         }
@@ -67,25 +56,57 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
 
 
     //(BufferedReader fileReader = new BufferedReader(new FileReader(file.getAbsolutePath(), StandardCharsets.UTF_8)))
-    static FileBackedTasksManager loadFromFile(File file) throws ManagerSaveException {
+    public void loadFromFile(Path path) throws ManagerSaveException {
         try {
-            String fileData = Files.readString(Path.of(file.getAbsolutePath()), StandardCharsets.UTF_8);
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("Ошибка создания/чтения файла");
+        }
+
+        try {
+            String fileData = Files.readString(Path.of(path.toFile().getAbsolutePath()), StandardCharsets.UTF_8);
             String[] fileLine = fileData.split("\\r?\\n");
 
             boolean isFirstIteration = true;
 
             for (String line : fileLine) {
-                if(isFirstIteration) {
+                if (isFirstIteration) {
                     isFirstIteration = false;
                     continue;
                 }
                 fromString(line);
-                //System.out.println(fromString(line));
-            }
 
-            return new FileBackedTasksManager(file);
+            }
+            setEpicSubtasksId();
+
         } catch (IOException e) {
             throw new ManagerSaveException("Невозможно прочитать файл. Возможно файл не находится в нужной директории.");
+        }
+    }
+
+    static void historyToString(HistoryManager manager) {
+
+        System.out.println("history" + manager.getHistory());
+
+
+    }
+
+    static List<Integer> historyFromString(String value) {
+        return null;
+    }
+
+    void setEpicSubtasksId() {
+        for (Subtask subtask : subtasks.values()) {
+            if (subtask.getEpicId() != null) {
+                for (Epic epic : epicList) {
+                    if (epic.getId().equals(subtask.getEpicId())
+                            && epic.getSubtasksId().contains(subtask.getEpicId())) {
+                        epic.addSubtaskId(subtask.getEpicId());
+                    }
+                }
+            }
         }
     }
 
@@ -94,7 +115,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
 
         if (task instanceof Subtask) {
             result += TasksType.SUBTASK + ",";
-        } else if (task instanceof Epic){
+        } else if (task instanceof Epic) {
             result += TasksType.EPIC + ",";
         } else {
             result += TasksType.TASK + ",";
@@ -111,7 +132,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         return result + "\n";
     }
 
-    static Task fromString(String value) {
+    void fromString(String value) {
         String[] data = value.split(",");
 
         Integer id = Integer.parseInt(data[0]);
@@ -119,7 +140,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         String name = data[2];
         Status status = Status.valueOf(data[3]);
         String description = data[4];
-        Integer epicId = null;
+        Integer epicId = -1;
 
         if (taskType.equals(TasksType.SUBTASK.toString())) {
             epicId = Integer.parseInt(data[5]);
@@ -127,29 +148,15 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
 
         switch (taskType) {
             case "TASK":
-                return new Task(name, description, status, id);
+                tasks.put(id, new Task(name, description, status, id));
+                break;
             case "SUBTASK":
-                return new Subtask(name, description, status, id, epicId);
+                subtasks.put(id, new Subtask(name, description, status, id, epicId));
+                break;
             case "EPIC":
-                return new Epic(name, description, status, id);
+                epicList.add(new Epic(name, description, status, id));
+                break;
         }
-
-        return null;
-    }
-
-    static String historyToString(HistoryManager manager) {
-        String history = "";
-        /*for (Task task : manager.getHistory()) {
-            history += task.getId().toString();
-            System.out.println(task.getId());
-
-        }
-        System.out.println(history);
-*/
-        return history;
-    }
-    static List<Integer> historyFromString(String value) {
-        return null;
     }
 
     @Override
@@ -285,7 +292,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
     @Override
     public String toString() {
         return "FileBackedTasksManager{" +
-                "file=" + file +
+                "path=" + path +
                 '}';
     }
 }

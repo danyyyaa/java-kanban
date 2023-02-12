@@ -15,13 +15,14 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        if (customLinkedList.getNodeById(id).getData() instanceof Epic) {
+        /*if ((customLinkedList.getNodeById(id).getData() instanceof Epic) && (customLinkedList.idNodesMap.size() != 0)) {
             for (int subtaskId : ((Epic) customLinkedList.getNodeById(id).getData()).getSubtasksIdList()) {
                 if (customLinkedList.idNodesMap.containsKey(subtaskId)) {
                     customLinkedList.removeNode(customLinkedList.idNodesMap.get(subtaskId));
                 }
             }
-        }
+        }*/
+
         customLinkedList.removeNode(customLinkedList.idNodesMap.get(id));
     }
 
@@ -44,17 +45,24 @@ class CustomLinkedList<T> {
     protected Map<Integer, Node<T>> idNodesMap = new HashMap<>();
 
     void removeNode(Node<T> del) {
-        if (head == del) {
-            head = del.next;
-        }
-        if (del.next != null) {
-            del.next.prev = del.prev;
-        }
-        if (del.prev != null) {
-            del.prev.next = del.next;
-        }
-        if (tail == del) {
-            tail = del.prev;
+        if (del != null) {
+            final Node<T> prev = del.prev;
+            final Node<T> next = del.next;
+            del.data = null;
+
+            if (tail == del && head != del) {
+                tail = prev;
+                tail.next = null;
+            } else if (tail == del && head == del) {
+                tail = null;
+                head = null;
+            } else if (tail != del && head != del) {
+                next.prev = prev;
+                prev.next = next;
+            } else {
+                head.prev = null;
+                head = next;
+            }
         }
 
         for (int key : idNodesMap.keySet()) {
@@ -88,7 +96,7 @@ class CustomLinkedList<T> {
                 return null;
             }
             taskList.add((Task) current.getData());
-            System.out.println(((Task) current.getData()).getId()); // удалить
+            //System.out.println(((Task) current.getData()).getId()); // удалить
             current = current.next;
         }
         return taskList;

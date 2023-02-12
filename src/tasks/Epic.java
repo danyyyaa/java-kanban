@@ -1,5 +1,6 @@
 package tasks;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Epic extends Task {
     final private ArrayList<Integer> subtasksId;
@@ -15,7 +16,7 @@ public class Epic extends Task {
 
     public Epic(String name, String description, Status status, Integer id) {
         super(name, description, status, id);
-        subtasksId = null;
+        subtasksId = new ArrayList<>();
     }
 
     public String toString() {
@@ -24,5 +25,9 @@ public class Epic extends Task {
 
     public ArrayList<Integer> getSubtasksId() {
         return this.subtasksId;
+    }
+
+    public void addSubtaskId(int id) {
+        subtasksId.add(id);
     }
 }
