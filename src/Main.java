@@ -1,7 +1,6 @@
 import managers.file.FileBackedTasksManager;
 import managers.file.ManagerSaveException;
 import managers.util.Managers;
-import managers.task.TaskManager;
 import tasks.Status;
 
 import java.nio.file.Path;
@@ -21,19 +20,14 @@ public class Main {
     public static void main(String[] args) {
         //createTasks();
 
-        /*fileManager.getSubtask(2);
-        fileManager.getTask(4);
-        fileManager.getSubtask(1);
-        fileManager.getEpic(5);
-        fileManager.getTask(9);*/
-        //fileManager.getEpic(0);
-       // fileManager.getTask(4);
-        //fileManager.getSubtask(1);
+        //fileManager.getTask(9);
 
         System.out.println(fileManager.getHistory());
-        /*System.out.println(fileManager.getListAllTasks());
         System.out.println(fileManager.getListAllSubtasks());
-        System.out.println(fileManager.getListAllEpics());*/
+        System.out.println(fileManager.getListAllTasks());
+        System.out.println(fileManager.getListAllEpics());
+
+
     }
     private static void createTasks() {
         fileManager.createEpic("Эпик 1", "Описание", Status.DONE); // id = 0

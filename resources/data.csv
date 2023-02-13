@@ -1,0 +1,12 @@
+id,type,name,status,description,epic
+4,TASK,Task,IN_PROGRESS,Описание,
+9,TASK,Task,IN_PROGRESS,Описание,
+1,SUBTASK,Подзадача 1,NEW,Описание,0,
+2,SUBTASK,Подзадача 2,NEW,Описание,0,
+6,SUBTASK,Подзадача 1,NEW,Описание,0,
+7,SUBTASK,Подзадача 2,NEW,Описание,0,
+8,SUBTASK,Подзадача 3,IN_PROGRESS,Описание,0,
+5,EPIC,Эпик 1,DONE,Описание,
+10,EPIC,Эпик 54,DONE,Описание,
+
+2,4,1,5,7,10

@@ -1,6 +1,5 @@
 package managers.file;
 
-import managers.history.HistoryManager;
 import managers.task.InMemoryClassTaskManager;
 import tasks.Epic;
 import tasks.Status;
@@ -11,7 +10,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryClassTaskManager {
     static Path path;
@@ -64,19 +62,6 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         }
     }
 
-    static void historyToString(Integer id) throws ManagerSaveException {
-        try (FileWriter fw = new FileWriter(path.toFile(), StandardCharsets.UTF_8)) {
-            //fw.write(manager.getHistory().toString());
-            fw.write(id);
-
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка записи истории");
-        }
-        //System.out.println("history" + manager.getHistory());
-    }
-
-
-    //(BufferedReader fileReader = new BufferedReader(new FileReader(file.getAbsolutePath(), StandardCharsets.UTF_8)))
     public void loadFromFile(Path path) throws ManagerSaveException {
         try {
             if (!Files.exists(path)) {
@@ -111,18 +96,12 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
 
                 if (counter == fileLine.length) {
                     history += line;
-                    for (String taskId : history.split(",")) {
-                        //System.out.println(taskId);
-                        //super.getAnyTaskById(Integer.parseInt(taskId));
-                        System.out.println(super.getAnyTaskById(Integer.parseInt(taskId)).getId());
+                    for (String taskId : history.split(",")) { // история
+                        super.getAnyTaskById(Integer.parseInt(taskId)).getId();
                     }
                 }
             }
-
-                //historyManager.add(super.getAnyTaskById(Integer.parseInt(taskId)));
-
-            //setEpicSubtasksId();
-
+            setEpicSubtasksId();
         } catch (IOException e) {
             throw new ManagerSaveException("Невозможно прочитать файл. Возможно файл не находится в нужной директории.");
         }
@@ -139,28 +118,6 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         }
         return epic;
     }
-
-
-   /* public Task getAnyTaskById(int id) {
-        Task task = null;
-
-        if (tasks.containsKey(id)) {
-            task = getTask(id);
-        }
-        if (subtasks.containsKey(id)) {
-            task = getSubtask(id);
-        }
-        if (epicList.contains(id)) {
-            task = getEpic(id);
-        }
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
-
-        return task;
-    }*/
 
     @Override
     public Task getTask(Integer id) {
@@ -182,10 +139,6 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             throw new RuntimeException(e);
         }
         return subtask;
-    }
-
-    static List<Integer> historyFromString(String value) {
-        return null;
     }
 
     void setEpicSubtasksId() {

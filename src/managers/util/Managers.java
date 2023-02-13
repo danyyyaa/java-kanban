@@ -18,9 +18,7 @@ public class Managers {
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
-    /*public static FileBackedTasksManager FileManager(Path path) {
-        return new FileBackedTasksManager(path);
-    }*/
+
     public static FileBackedTasksManager FileManager(Path path) throws ManagerSaveException {
         return new FileBackedTasksManager(path);
     }

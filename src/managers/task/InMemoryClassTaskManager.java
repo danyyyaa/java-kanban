@@ -10,6 +10,7 @@ import tasks.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class InMemoryClassTaskManager implements TaskManager {
     final protected HashMap<Integer, Task> tasks;
@@ -66,20 +67,6 @@ public class InMemoryClassTaskManager implements TaskManager {
             return getSubtask(id);
         }
         return getEpic(id);
-       /* for (Epic epic : epicList) {
-            if (epic.getId().equals(id)) { // это условие можно убрать наверно
-                return getEpic(id);
-                //return epic;
-            }
-        }*/
-         /*for (Epic epic : epicList) {
-            if (epic.getId().equals(id)) { // это условие можно убрать наверно
-                return getEpic(id);
-                //return epic;
-            }
-        }
-
-        return null;*/
     }
 
     @Override
@@ -137,20 +124,12 @@ public class InMemoryClassTaskManager implements TaskManager {
 
     @Override
     public List<Task> getListAllTasks() {
-        List<Task> tasksList = new ArrayList<>();
-        for (Task task : tasks.values()) {
-            tasksList.add(task);
-        }
-        return tasksList;
+        return new ArrayList<>(tasks.values());
     }
 
     @Override
     public List<Subtask> getListAllSubtasks() {
-        List<Subtask> subtaskList = new ArrayList<>();
-        for (Subtask subtask : subtasks.values()) {
-            subtaskList.add(subtask);
-        }
-        return subtaskList;
+        return new ArrayList<>(subtasks.values());
     }
 
     @Override
@@ -208,7 +187,7 @@ public class InMemoryClassTaskManager implements TaskManager {
     @Override
     public Epic getEpic(Integer id) {
         for (Epic epic : epicList) {
-            if (epic.getId() == id) {
+            if (Objects.equals(epic.getId(), id)) {
                 historyManager.add(epic);
                 return epic;
             }
@@ -245,9 +224,7 @@ public class InMemoryClassTaskManager implements TaskManager {
 
     @Override
     public void removeEpicById(Integer id) {
-        if (epicsWithoutSubtasks.containsKey(id)) {
-            epicsWithoutSubtasks.remove(id);
-        }
+        epicsWithoutSubtasks.remove(id);
 
         for (Epic epic : epicList) {
             if (epic.getId() == id) {
@@ -271,7 +248,7 @@ public class InMemoryClassTaskManager implements TaskManager {
 
             for (int i = 0; i < epicList.size(); i++) {
                 for (Integer subtaskId : epicList.get(i).getSubtasksId()) {
-                    if (subtaskId == id) {
+                    if (Objects.equals(subtaskId, id)) {
                         epicList.get(i).getSubtasksId().remove(subtaskId);
                         break;
                     }
