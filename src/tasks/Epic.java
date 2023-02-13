@@ -1,13 +1,10 @@
 package tasks;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Epic extends Task {
     final private ArrayList<Integer> subtasksId;
-
-    public ArrayList<Integer> getSubtasksIdList() {
-        return subtasksId;
-    }
 
     public Epic(String name, String description, Status status, Integer id, ArrayList<Integer> subtasksId) {
         super(name, description, status, id);
@@ -29,5 +26,18 @@ public class Epic extends Task {
 
     public void addSubtaskId(int id) {
         subtasksId.add(id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Epic epic = (Epic) o;
+        return Objects.equals(subtasksId, epic.subtasksId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subtasksId);
     }
 }

@@ -1,7 +1,6 @@
 package managers.task;
 
 import managers.history.HistoryManager;
-import managers.history.InMemoryHistoryManager;
 import managers.util.Managers;
 import tasks.Epic;
 import tasks.Status;
@@ -59,15 +58,28 @@ public class InMemoryClassTaskManager implements TaskManager {
         }
         return ++id;
     }
+
     public Task getAnyTaskById(int id) {
         if (tasks.containsKey(id)) {
             return getTask(id);
         } else if (subtasks.containsKey(id)) {
             return getSubtask(id);
-        } else if (epicList.contains(id)) {
-            return getEpic(id);
         }
-        return null;
+        return getEpic(id);
+       /* for (Epic epic : epicList) {
+            if (epic.getId().equals(id)) { // это условие можно убрать наверно
+                return getEpic(id);
+                //return epic;
+            }
+        }*/
+         /*for (Epic epic : epicList) {
+            if (epic.getId().equals(id)) { // это условие можно убрать наверно
+                return getEpic(id);
+                //return epic;
+            }
+        }
+
+        return null;*/
     }
 
     @Override
@@ -97,17 +109,17 @@ public class InMemoryClassTaskManager implements TaskManager {
 
     @Override
     public void calculateEpicStatus(Integer epicId) {
-        for(Epic epic : epicList){
-            if(epic.getId().equals(epicId)){
+        for (Epic epic : epicList) {
+            if (epic.getId().equals(epicId)) {
 
                 int counterNew = 0;
                 int counterDone = 0;
 
-                for(Integer id : epic.getSubtasksId()){
-                    if(subtasks.get(id).getStatus().equals(Status.DONE)){
+                for (Integer id : epic.getSubtasksId()) {
+                    if (subtasks.get(id).getStatus().equals(Status.DONE)) {
                         counterDone++;
                     }
-                    if(subtasks.get(id).getStatus().equals(Status.NEW)){
+                    if (subtasks.get(id).getStatus().equals(Status.NEW)) {
                         counterNew++;
                     }
                 }
@@ -242,17 +254,13 @@ public class InMemoryClassTaskManager implements TaskManager {
                 if (historyManager.getHistory().contains(id)) {
                     historyManager.remove(id);
                 }
-                //if (epic.getSubtasksId().size() != 0) {
-                    for (Integer subtaskId : epic.getSubtasksId()) {
-                        subtasks.remove(subtaskId);
-                        //break;
-                    }
-                //}
+                for (Integer subtaskId : epic.getSubtasksId()) {
+                    subtasks.remove(subtaskId);
+                }
                 epicList.remove(epic);
                 break;
             }
         }
-
     }
 
     @Override
@@ -262,7 +270,7 @@ public class InMemoryClassTaskManager implements TaskManager {
             historyManager.remove(id);
 
             for (int i = 0; i < epicList.size(); i++) {
-                for (Integer subtaskId : epicList.get(i).getSubtasksId()){
+                for (Integer subtaskId : epicList.get(i).getSubtasksId()) {
                     if (subtaskId == id) {
                         epicList.get(i).getSubtasksId().remove(subtaskId);
                         break;

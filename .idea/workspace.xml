@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="начинаю переделывать все">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="начинаю делать историю">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/123.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryClassTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryClassTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/ManagerSaveException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/ManagerSaveException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/TasksType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/TasksType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/util/Managers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/util/Managers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Epic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676136871412</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="начинаю делать историю">
+      <created>1676194325271</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676194325271</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -93,7 +94,8 @@
     <MESSAGE value="все работает" />
     <MESSAGE value="на всякий случай" />
     <MESSAGE value="начинаю переделывать все" />
-    <option name="LAST_COMMIT_MESSAGE" value="начинаю переделывать все" />
+    <MESSAGE value="начинаю делать историю" />
+    <option name="LAST_COMMIT_MESSAGE" value="начинаю делать историю" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -104,28 +106,27 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/managers/task/InMemoryClassTaskManager.java</url>
-          <line>234</line>
+          <line>246</line>
           <properties class="managers.task.InMemoryClassTaskManager" method="removeEpicById">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java</url>
-          <line>88</line>
-          <properties class="managers.file.FileBackedTasksManager" method="historyToString">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="30" />
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="32" />
+          <url>file://$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
+        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
+        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
+        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
