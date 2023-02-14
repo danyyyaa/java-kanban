@@ -99,6 +99,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             throw new ManagerSaveException("Невозможно прочитать файл. Возможно файл не находится в нужной директории.");
         }
     }
+
     void readHistory(String line) {
         for (String taskId : line.split(",")) {
             if (getTasks().containsKey(Integer.parseInt(taskId))) {
