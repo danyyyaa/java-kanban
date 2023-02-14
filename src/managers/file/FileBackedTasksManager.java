@@ -92,8 +92,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
                     fromString(line);
                 }
                 if (counter == fileLine.length) {
-                    history.append(line);
-                    readHistory(history);
+                    readHistory(history.append(line));
                 }
             }
             setEpicSubtasksId();
