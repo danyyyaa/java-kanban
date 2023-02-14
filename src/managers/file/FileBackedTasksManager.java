@@ -80,11 +80,9 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             int counter = 0;
             for (String line : fileLine) {
                 counter++;
-                if (isFirstIteration) {
+
+                if ((counter == fileLine.length - 1) || isFirstIteration) {
                     isFirstIteration = false;
-                    continue;
-                }
-                if (counter == fileLine.length - 1) {
                     continue;
                 }
                 if (!(line.isBlank()) && !(counter == fileLine.length)) {
