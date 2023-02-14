@@ -76,7 +76,6 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             String fileData = Files.readString(Path.of(path.toFile().getAbsolutePath()), StandardCharsets.UTF_8);
             String[] fileLine = fileData.split("\\r?\\n");
             boolean isFirstIteration = true;
-            StringBuilder history = new StringBuilder();
 
             int counter = 0;
             for (String line : fileLine) {
@@ -92,7 +91,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
                     fromString(line);
                 }
                 if (counter == fileLine.length) {
-                    readHistory(history.append(line));
+                    readHistory(line);
                 }
             }
             setEpicSubtasksId();
@@ -100,7 +99,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             throw new ManagerSaveException("Невозможно прочитать файл. Возможно файл не находится в нужной директории.");
         }
     }
-    void readHistory(StringBuilder line) {
+    void readHistory(String line) {
         for (String taskId : line.toString().split(",")) {
             if (getTasks().containsKey(Integer.parseInt(taskId))) {
                 historyManager.add(tasks.get(Integer.parseInt(taskId)));
@@ -115,7 +114,6 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             }
         }
     }
-
 
     @Override
     public Epic getEpic(Integer id) {
