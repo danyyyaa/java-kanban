@@ -15,7 +15,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
     static Path path;
 
     public FileBackedTasksManager(Path path) throws ManagerSaveException {
-        this.path = path;
+        FileBackedTasksManager.path = path;
         loadFromFile(path);
     }
 
@@ -63,12 +63,12 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
     }
 
     public void loadFromFile(Path path) throws ManagerSaveException {
-        try {
-            if (!Files.exists(path)) {
+        if (!Files.exists(path)) {
+            try {
                 Files.createFile(path);
+            } catch (IOException e) {
+                throw new ManagerSaveException("Ошибка создания/чтения файла");
             }
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка создания/чтения файла");
         }
 
         try {

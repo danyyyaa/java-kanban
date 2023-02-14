@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="начинаю чистить код">
+    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="6 тз готовое">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryClassTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryClassTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/util/Managers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/util/Managers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Epic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +29,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/java-sprint2-hw&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/dev/FirstTZ&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -94,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676296799998</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="6 тз готовое">
+      <created>1676298478838</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1676298478838</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -104,7 +107,8 @@
     <MESSAGE value="начинаю переделывать все" />
     <MESSAGE value="начинаю делать историю" />
     <MESSAGE value="начинаю чистить код" />
-    <option name="LAST_COMMIT_MESSAGE" value="начинаю чистить код" />
+    <MESSAGE value="6 тз готовое" />
+    <option name="LAST_COMMIT_MESSAGE" value="6 тз готовое" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -113,6 +117,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
