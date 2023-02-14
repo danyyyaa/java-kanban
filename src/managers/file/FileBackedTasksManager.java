@@ -10,6 +10,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class FileBackedTasksManager extends InMemoryClassTaskManager {
     static Path path;
@@ -48,7 +49,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
 
             fw.write("\n");
             int counter = 0;
-            for (Task task : getHistory()) { // запись истории
+            for (Task task : getHistory()) {
                 fw.write(task.getId().toString());
 
                 if (counter < getHistory().size() - 1) {
@@ -75,8 +76,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
             String fileData = Files.readString(Path.of(path.toFile().getAbsolutePath()), StandardCharsets.UTF_8);
             String[] fileLine = fileData.split("\\r?\\n");
             boolean isFirstIteration = true;
-            String history = "";
-
+            StringBuilder history = new StringBuilder();
 
             int counter = 0;
             for (String line : fileLine) {
@@ -85,25 +85,35 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
                     isFirstIteration = false;
                     continue;
                 }
-
                 if (counter == fileLine.length - 1) {
                     continue;
                 }
-
                 if (!(line.isBlank()) && !(counter == fileLine.length)) {
                     fromString(line);
                 }
-
                 if (counter == fileLine.length) {
-                    history += line;
-                    for (String taskId : history.split(",")) { // история
-                        super.getAnyTaskById(Integer.parseInt(taskId)).getId();
-                    }
+                    history.append(line);
+                    readHistory(history);
                 }
             }
             setEpicSubtasksId();
         } catch (IOException e) {
             throw new ManagerSaveException("Невозможно прочитать файл. Возможно файл не находится в нужной директории.");
+        }
+    }
+    void readHistory(StringBuilder line) {
+        for (String taskId : line.toString().split(",")) {
+            if (getTasks().containsKey(Integer.parseInt(taskId))) {
+                historyManager.add(tasks.get(Integer.parseInt(taskId)));
+            }
+            if (getSubtasks().containsKey(Integer.parseInt(taskId))) {
+                historyManager.add(subtasks.get(Integer.parseInt(taskId)));
+            }
+            for (Epic epic : getEpicList()) {
+                if (epic.getId().equals(Integer.valueOf(taskId))) {
+                    historyManager.add(epic);
+                }
+            }
         }
     }
 

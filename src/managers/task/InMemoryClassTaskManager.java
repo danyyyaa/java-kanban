@@ -256,4 +256,16 @@ public class InMemoryClassTaskManager implements TaskManager {
             }
         }
     }
+
+    public HashMap<Integer, Task> getTasks() {
+        return tasks;
+    }
+
+    public HashMap<Integer, Subtask> getSubtasks() {
+        return subtasks;
+    }
+
+    public ArrayList<Epic> getEpicList() {
+        return epicList;
+    }
 }
