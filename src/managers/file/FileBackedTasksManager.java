@@ -100,7 +100,7 @@ public class FileBackedTasksManager extends InMemoryClassTaskManager {
         }
     }
     void readHistory(String line) {
-        for (String taskId : line.toString().split(",")) {
+        for (String taskId : line.split(",")) {
             if (getTasks().containsKey(Integer.parseInt(taskId))) {
                 historyManager.add(tasks.get(Integer.parseInt(taskId)));
             }
