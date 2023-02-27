@@ -29,15 +29,13 @@ public class InMemoryTaskManager implements TaskManager {
         historyManager = Managers.getDefaultHistory();
     }
 
-    public List<Task> getHistory() {
+    public List<Task> getHistory() { // сделал
         return historyManager.getHistory();
     }
 
     @Override
-    public void createTask(String name, String description, Status status) {
-        id = idGenerator();
-        Task task = new Task(name, description, status, id);
-        tasks.put(id, task);
+    public void createTask(String name, String description, Status status) { // сделал
+        tasks.put(idGenerator(), new Task(name, description, status, id));
     }
 
     private int idGenerator() {
@@ -72,10 +70,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void createSubtask(String name, String description, Status status, Integer epicId) {
         id = idGenerator();
-
-        Subtask subtask = new Subtask(name, description, status, id, epicId);
-
-        subtasks.put(id, subtask);
+        subtasks.put(id, new Subtask(name, description, status, id, epicId));
 
         for (Epic epic : epicList) {
             if (epic.getId().equals(epicId)) {
@@ -86,16 +81,14 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createEpic(String name, String description, Status status) {
-        ArrayList<Integer> subtasksId = new ArrayList<>();
         id = idGenerator();
 
-        Epic epic = new Epic(name, description, status, id, subtasksId);
-        epicsWithoutSubtasks.put(id, epic);
-        epicList.add(epic);
+        epicsWithoutSubtasks.put(id, new Epic(name, description, status, id, new ArrayList<>()));
+        epicList.add(new Epic(name, description, status, id, new ArrayList<>()));
     }
 
     @Override
-    public void calculateEpicStatus(Integer epicId) {
+    public void calculateEpicStatus(Integer epicId) { // сделал
         for (Epic epic : epicList) {
             if (epic.getId().equals(epicId)) {
 
@@ -123,17 +116,17 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<Task> getListAllTasks() {
+    public List<Task> getListAllTasks() { // сделал
         return new ArrayList<>(tasks.values());
     }
 
     @Override
-    public List<Subtask> getListAllSubtasks() {
+    public List<Subtask> getListAllSubtasks() { // сделал
         return new ArrayList<>(subtasks.values());
     }
 
     @Override
-    public List<Epic> getListAllEpics() {
+    public List<Epic> getListAllEpics() { // сделал
         return epicList;
     }
 
@@ -173,7 +166,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getTask(Integer id) {
+    public Task getTask(Integer id) { // сделал
         historyManager.add(tasks.get(id));
         return tasks.get(id);
     }
