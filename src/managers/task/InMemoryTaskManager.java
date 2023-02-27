@@ -35,7 +35,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createTask(String name, String description, Status status) { // сделал
-        tasks.put(idGenerator(), new Task(name, description, status, id));
+        int id = idGenerator();
+        tasks.put(id, new Task(name, description, status, id));
     }
 
     private int idGenerator() {
@@ -68,19 +69,19 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void createSubtask(String name, String description, Status status, Integer epicId) {
+    public void createSubtask(String name, String description, Status status, Integer epicId) { // сделал
         id = idGenerator();
-        subtasks.put(id, new Subtask(name, description, status, id, epicId));
 
         for (Epic epic : epicList) {
             if (epic.getId().equals(epicId)) {
                 epic.getSubtasksId().add(id);
+                subtasks.put(id, new Subtask(name, description, status, id, epicId));
             }
         }
     }
 
     @Override
-    public void createEpic(String name, String description, Status status) {
+    public void createEpic(String name, String description, Status status) { // сделал
         id = idGenerator();
 
         epicsWithoutSubtasks.put(id, new Epic(name, description, status, id, new ArrayList<>()));
@@ -172,13 +173,13 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Subtask getSubtask(Integer id) {
+    public Subtask getSubtask(Integer id) { // сделал
         historyManager.add(subtasks.get(id));
         return subtasks.get(id);
     }
 
     @Override
-    public Epic getEpic(Integer id) {
+    public Epic getEpic(Integer id) { // сделал
         for (Epic epic : epicList) {
             if (Objects.equals(epic.getId(), id)) {
                 historyManager.add(epic);
@@ -250,15 +251,15 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    public HashMap<Integer, Task> getTasks() {
+    public HashMap<Integer, Task> getTasks() { // сделал
         return tasks;
     }
 
-    public HashMap<Integer, Subtask> getSubtasks() {
+    public HashMap<Integer, Subtask> getSubtasks() { // сделал
         return subtasks;
     }
 
-    public ArrayList<Epic> getEpicList() {
+    public ArrayList<Epic> getEpicList() { // сделал
         return epicList;
     }
 }
