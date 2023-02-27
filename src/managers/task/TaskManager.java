@@ -19,8 +19,8 @@ public interface TaskManager {
     void deleteAllSubtasks();
     void deleteAllEpics();
     Task getTask(Integer id);
-    Object getSubtask(Integer id);
-    Object getEpic(Integer id);
+    Subtask getSubtask(Integer id);
+    Epic getEpic(Integer id);
     void updateTask(Integer id, Task task);
     void updateSubtask(Integer id, Subtask subtask);
     void updateEpic(Integer id, Epic epic);

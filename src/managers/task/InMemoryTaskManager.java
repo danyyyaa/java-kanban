@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class InMemoryClassTaskManager implements TaskManager {
+public class InMemoryTaskManager implements TaskManager {
     final protected HashMap<Integer, Task> tasks;
     final protected HashMap<Integer, Subtask> subtasks;
     final private HashMap<Integer, Epic> epicsWithoutSubtasks;
@@ -20,7 +20,7 @@ public class InMemoryClassTaskManager implements TaskManager {
     private static Integer id;
     public HistoryManager historyManager;
 
-    public InMemoryClassTaskManager() {
+    public InMemoryTaskManager() {
         id = -1;
         tasks = new HashMap<>();
         subtasks = new HashMap<>();

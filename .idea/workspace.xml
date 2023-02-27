@@ -5,13 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="6 тз 2 итерация">
+      <change afterPath="$PROJECT_DIR$/src/managers/history/HistoryManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tasks/EpicTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-kanban.iml" beforeDir="false" afterPath="$PROJECT_DIR$/java-kanban.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryClassTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/task/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/TaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/util/Managers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/util/Managers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Epic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -20,18 +38,54 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2LZoVCHdyjor9ti9A4PKUIFdp4T" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "true",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/user/Desktop/java-kanban"
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "last_opened_file_path": "C:/Users/user/dev/java-kanban"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+      <recent name="managers.history.InMemoryHistoryManager" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="managers.task" />
+      <recent name="managers.history" />
+      <recent name="tasks" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in java-kanban" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

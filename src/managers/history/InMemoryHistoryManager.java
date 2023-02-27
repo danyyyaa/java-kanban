@@ -16,7 +16,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void remove(int id) {
         /*if ((customLinkedList.getNodeById(id).getData() instanceof Epic) && (customLinkedList.idNodesMap.size() != 0)) {
-            for (int subtaskId : ((Epic) customLinkedList.getNodeById(id).getData()).getSubtasksIdList()) {
+            for (int subtaskId : ((Epic) customLinkedList.getNodeById(id).getData()).getSubtasksId()) {
                 if (customLinkedList.idNodesMap.containsKey(subtaskId)) {
                     customLinkedList.removeNode(customLinkedList.idNodesMap.get(subtaskId));
                 }

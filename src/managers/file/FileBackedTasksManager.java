@@ -1,6 +1,6 @@
 package managers.file;
 
-import managers.task.InMemoryClassTaskManager;
+import managers.task.InMemoryTaskManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
@@ -10,9 +10,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Objects;
 
-public class FileBackedTasksManager extends InMemoryClassTaskManager {
+public class FileBackedTasksManager extends InMemoryTaskManager {
     static Path path;
 
     public FileBackedTasksManager(Path path) throws ManagerSaveException {
