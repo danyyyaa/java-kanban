@@ -163,6 +163,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
+    public Task getAnyTaskById(int id) {
+        Task task = super.getAnyTaskById(id);
+        try {
+            save();
+        } catch (ManagerSaveException e) {
+            throw new RuntimeException(e);
+        }
+        return task;
+    }
+
+    @Override
     public Epic getEpic(int id) {
         Epic epic = super.getEpic(id);
         try {
@@ -207,7 +218,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             }
         }
     }
-
 
     @Override
     public void createTask(String name, String description, Status status) {

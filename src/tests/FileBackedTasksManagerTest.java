@@ -12,7 +12,6 @@ import java.nio.file.Path;
 class FileBackedTasksManagerTest extends InMemoryTaskManagerTest {
     private FileBackedTasksManager fileManager;
 
-
     @BeforeEach
     public void createe() {
         try {
@@ -25,7 +24,7 @@ class FileBackedTasksManagerTest extends InMemoryTaskManagerTest {
 
     @Test
     void edfsgsdfg() {
-
+        fileManager.getEpic(0);
     }
 
 }

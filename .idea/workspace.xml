@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="feat: сделать класс для тестов FileBackedTasksManagerTest">
-      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
+    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="refactor: убрать epicListWithoutSubtasks из InMemoryTaskManager">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677600673432</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="refactor: убрать epicListWithoutSubtasks из InMemoryTaskManager">
+      <created>1677601103553</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1677601103553</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,7 +296,8 @@
     <MESSAGE value="feat: покрыл тестами InMemoryTaskManager" />
     <MESSAGE value="refactor: заменить Integer на int" />
     <MESSAGE value="feat: сделать класс для тестов FileBackedTasksManagerTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: сделать класс для тестов FileBackedTasksManagerTest" />
+    <MESSAGE value="refactor: убрать epicListWithoutSubtasks из InMemoryTaskManager" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: убрать epicListWithoutSubtasks из InMemoryTaskManager" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
