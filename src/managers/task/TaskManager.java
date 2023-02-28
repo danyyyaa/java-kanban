@@ -12,7 +12,7 @@ public interface TaskManager {
     void createSubtask(String name, String description, Status status, Integer epicId);
     void createEpic(String name, String description, Status status);
     void calculateEpicStatus(Integer epicId);
-   List<Task> getListAllTasks();
+    List<Task> getListAllTasks();
     List<Subtask> getListAllSubtasks();
     List<Epic> getListAllEpics();
     void deleteAllTasks();
@@ -28,4 +28,5 @@ public interface TaskManager {
     void removeEpicById(Integer id);
     void removeSubtaskById(Integer id);
     List<Task> getHistory();
+    Task getAnyTaskById(int id);
 }
