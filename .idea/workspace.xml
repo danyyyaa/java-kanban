@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="feat: покрыл тестами InMemoryTaskManager">
+    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="refactor: заменить Integer на int">
+      <change afterPath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/TaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/history/HistoryManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/HistoryManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +27,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -36,33 +40,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/dev/java-kanban&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "true",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "tests.InMemoryTaskManagerTest",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers": "true",
+    "create.test.in.the.same.root": "true",
+    "last_opened_file_path": "C:/Users/user/dev/java-kanban"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
+      <recent name="tests.InMemoryTaskManagerTest" />
+      <recent name="managers.task.InMemoryTaskManagerTest" />
       <recent name="" />
       <recent name="managers.history.InMemoryHistoryManager" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="tests" />
+      <recent name="managers.tests" />
+      <recent name="managers.file" />
       <recent name="managers.task" />
       <recent name="managers.history" />
-      <recent name="tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.managers.task in java-kanban">
+  <component name="RunManager" selected="JUnit.FileBackedTasksManagerTest">
     <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <option name="PACKAGE_NAME" value="" />
@@ -71,11 +81,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FileBackedTasksManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.FileBackedTasksManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="managers.task in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="managers.task.*" />
+          <option name="PATTERN" value="managers.tests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -87,6 +112,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FileBackedTasksManagerTest" />
         <item itemvalue="JUnit.managers.task in java-kanban" />
         <item itemvalue="JUnit.All in java-kanban" />
       </list>
@@ -220,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677569202319</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="refactor: заменить Integer на int">
+      <created>1677569961963</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677569961963</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -235,6 +268,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="починил" />
     <MESSAGE value="все работает" />
     <MESSAGE value="на всякий случай" />
@@ -247,7 +281,8 @@
     <MESSAGE value="feat: написать всего 27 тестов" />
     <MESSAGE value="feat: исправить сабтаски, 46 тестов" />
     <MESSAGE value="feat: покрыл тестами InMemoryTaskManager" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: покрыл тестами InMemoryTaskManager" />
+    <MESSAGE value="refactor: заменить Integer на int" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: заменить Integer на int" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -269,7 +304,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/java_kanban$All_in_java_kanban.ic" NAME="All in java-kanban Coverage Results" MODIFIED="1677559368402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/java_kanban$managers_task_in_java_kanban.ic" NAME="managers.task in java-kanban Coverage Results" MODIFIED="1677568954150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/java_kanban$managers_task_in_java_kanban.ic" NAME="managers.task in java-kanban Coverage Results" MODIFIED="1677573603355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>managers.task.*</FILTER>
     </SUITE>
   </component>

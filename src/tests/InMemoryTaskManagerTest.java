@@ -1,5 +1,6 @@
-package managers.task;
+package tests;
 
+import managers.task.TaskManager;
 import managers.util.Managers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import tasks.Task;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InMemoryTaskManagerTest {
+public class InMemoryTaskManagerTest {
     private TaskManager taskManager;
 
     @BeforeEach

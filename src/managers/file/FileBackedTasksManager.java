@@ -19,7 +19,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         loadFromFile(path);
     }
 
-    public void save() throws ManagerSaveException {
+    private void save() throws ManagerSaveException {
         try {
             if (!Files.exists(path)) {
                 Files.createFile(path);
@@ -62,7 +62,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    public void loadFromFile(Path path) throws ManagerSaveException {
+    private void loadFromFile(Path path) throws ManagerSaveException {
         if (!Files.exists(path)) {
             try {
                 Files.createFile(path);
@@ -97,7 +97,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    void readHistory(String line) {
+    private void readHistory(String line) {
         for (String taskId : line.split(",")) {
             if (getTasks().containsKey(Integer.parseInt(taskId))) {
                 historyManager.add(tasks.get(Integer.parseInt(taskId)));
@@ -110,6 +110,55 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     historyManager.add(epic);
                 }
             }
+        }
+    }
+
+    private String toString(Task task) {
+        String result = task.getId() + ",";
+
+        if (task instanceof Subtask) {
+            result += TasksType.SUBTASK + ",";
+        } else if (task instanceof Epic) {
+            result += TasksType.EPIC + ",";
+        } else {
+            result += TasksType.TASK + ",";
+        }
+
+        result += task.getName() + ",";
+        result += task.getStatus() + ",";
+        result += task.getDescription() + ",";
+
+        if (task instanceof Subtask) {
+            result += ((Subtask) task).getEpicId() + ",";
+        }
+
+        return result + "\n";
+    }
+
+    private void fromString(String value) {
+        String[] data = value.split(",");
+
+        Integer id = Integer.parseInt(data[0]);
+        String taskType = data[1];
+        String name = data[2];
+        Status status = Status.valueOf(data[3]);
+        String description = data[4];
+        int epicId = -1;
+
+        if (taskType.equals(TasksType.SUBTASK.toString())) {
+            epicId = Integer.parseInt(data[5]);
+        }
+
+        switch (taskType) {
+            case "TASK":
+                tasks.put(id, new Task(name, description, status, id));
+                break;
+            case "SUBTASK":
+                subtasks.put(id, new Subtask(name, description, status, id, epicId));
+                break;
+            case "EPIC":
+                epicList.add(new Epic(name, description, status, id));
+                break;
         }
     }
 
@@ -159,54 +208,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    String toString(Task task) {
-        String result = task.getId() + ",";
-
-        if (task instanceof Subtask) {
-            result += TasksType.SUBTASK + ",";
-        } else if (task instanceof Epic) {
-            result += TasksType.EPIC + ",";
-        } else {
-            result += TasksType.TASK + ",";
-        }
-
-        result += task.getName() + ",";
-        result += task.getStatus() + ",";
-        result += task.getDescription() + ",";
-
-        if (task instanceof Subtask) {
-            result += ((Subtask) task).getEpicId() + ",";
-        }
-
-        return result + "\n";
-    }
-
-    void fromString(String value) {
-        String[] data = value.split(",");
-
-        Integer id = Integer.parseInt(data[0]);
-        String taskType = data[1];
-        String name = data[2];
-        Status status = Status.valueOf(data[3]);
-        String description = data[4];
-        int epicId = -1;
-
-        if (taskType.equals(TasksType.SUBTASK.toString())) {
-            epicId = Integer.parseInt(data[5]);
-        }
-
-        switch (taskType) {
-            case "TASK":
-                tasks.put(id, new Task(name, description, status, id));
-                break;
-            case "SUBTASK":
-                subtasks.put(id, new Subtask(name, description, status, id, epicId));
-                break;
-            case "EPIC":
-                epicList.add(new Epic(name, description, status, id));
-                break;
-        }
-    }
 
     @Override
     public void createTask(String name, String description, Status status) {
