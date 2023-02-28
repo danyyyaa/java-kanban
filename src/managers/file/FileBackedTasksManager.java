@@ -114,7 +114,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Epic getEpic(Integer id) {
+    public Epic getEpic(int id) {
         Epic epic = super.getEpic(id);
         try {
             save();
@@ -136,7 +136,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Subtask getSubtask(Integer id) {
+    public Subtask getSubtask(int id) {
         Subtask subtask = super.getSubtask(id);
         try {
             save();
@@ -219,7 +219,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createSubtask(String name, String description, Status status, Integer epicId) {
+    public void createSubtask(String name, String description, Status status, int epicId) {
         super.createSubtask(name, description, status, epicId);
         try {
             save();
@@ -239,7 +239,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void calculateEpicStatus(Integer epicId) {
+    public void calculateEpicStatus(int epicId) {
         super.calculateEpicStatus(epicId);
         try {
             save();
@@ -279,7 +279,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void updateTask(Integer id, Task task) {
+    public void updateTask(int id, Task task) {
         super.updateTask(id, task);
         try {
             save();
@@ -289,7 +289,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void updateSubtask(Integer id, Subtask subtask) {
+    public void updateSubtask(int id, Subtask subtask) {
         super.updateSubtask(id, subtask);
         try {
             save();
@@ -299,7 +299,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void updateEpic(Integer id, Epic epic) {
+    public void updateEpic(int id, Epic epic) {
         super.updateEpic(id, epic);
         try {
             save();
@@ -309,7 +309,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeTaskById(Integer id) {
+    public void removeTaskById(int id) {
         super.removeTaskById(id);
         try {
             save();
@@ -319,7 +319,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeEpicById(Integer id) {
+    public void removeEpicById(int id) {
         super.removeEpicById(id);
         try {
             save();
@@ -329,7 +329,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeSubtaskById(Integer id) {
+    public void removeSubtaskById(int id) {
         super.removeSubtaskById(id);
         try {
             save();

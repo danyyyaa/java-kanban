@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface TaskManager {
     void createTask(String name, String description, Status status);
-    void createSubtask(String name, String description, Status status, Integer epicId);
+    void createSubtask(String name, String description, Status status, int epicId);
     void createEpic(String name, String description, Status status);
-    void calculateEpicStatus(Integer epicId);
+    void calculateEpicStatus(int epicId);
     List<Task> getListAllTasks();
     List<Subtask> getListAllSubtasks();
     List<Epic> getListAllEpics();
@@ -19,14 +19,14 @@ public interface TaskManager {
     void deleteAllSubtasks();
     void deleteAllEpics();
     Task getTask(Integer id);
-    Subtask getSubtask(Integer id);
-    Epic getEpic(Integer id);
-    void updateTask(Integer id, Task task);
-    void updateSubtask(Integer id, Subtask subtask);
-    void updateEpic(Integer id, Epic epic);
-    void removeTaskById(Integer id);
-    void removeEpicById(Integer id);
-    void removeSubtaskById(Integer id);
+    Subtask getSubtask(int id);
+    Epic getEpic(int id);
+    void updateTask(int id, Task task);
+    void updateSubtask(int id, Subtask subtask);
+    void updateEpic(int id, Epic epic);
+    void removeTaskById(int id);
+    void removeEpicById(int id);
+    void removeSubtaskById(int id);
     List<Task> getHistory();
     Task getAnyTaskById(int id);
 }
