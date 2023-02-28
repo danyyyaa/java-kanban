@@ -1,40 +1,41 @@
-import managers.file.FileBackedTasksManager;
-import managers.file.ManagerSaveException;
+import managers.history.HistoryManager;
 import managers.util.Managers;
+import managers.task.TaskManager;
 import tasks.Status;
 
-import java.nio.file.Path;
-
 public class Main {
-    static String path = "resources/data.csv";
-    static FileBackedTasksManager fileManager;
-
-    static {
-        try {
-            fileManager = Managers.FileManager(Path.of(path));
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    static TaskManager taskManager = Managers.getDefault();
+    static HistoryManager historyManager = Managers.getDefaultHistory();
 
     public static void main(String[] args) {
-        //createTasks();
+        createTasks();
 
-        //fileManager.getTask(9);
+        historyManager.add(taskManager.getEpic(0)); // запрос задач
+        historyManager.add(taskManager.getEpic(4));
 
-        System.out.println(fileManager.getHistory());
-        System.out.println(fileManager.getListAllSubtasks());
-        System.out.println(fileManager.getListAllTasks());
-        System.out.println(fileManager.getListAllEpics());
+        System.out.println(historyManager.getHistory()); // 0 4
 
+        historyManager.add(taskManager.getSubtask(1));
+        historyManager.add(taskManager.getSubtask(2));
 
+        System.out.println(historyManager.getHistory()); // 0 4 1 2
+
+        historyManager.add(taskManager.getSubtask(3));
+
+        System.out.println(historyManager.getHistory()); // 0 4 1 2 3
+
+        historyManager.remove(2);
+        System.out.println(historyManager.getHistory()); // 0 4 1 3
+
+        historyManager.remove(0); // удаление эпика с 3 подзадачами
+        System.out.println(historyManager.getHistory()); // 4
     }
-
     private static void createTasks() {
-        fileManager.createEpic("Эпик 1", "Описание", Status.DONE); // id = 0
-        fileManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 1
-        fileManager.createSubtask("Подзадача 2", "Описание", Status.NEW, 0); // id = 2
-        fileManager.createSubtask("Подзадача 3", "Описание", Status.IN_PROGRESS, 0); // id = 3
-        fileManager.createTask("Task", "Описание", Status.IN_PROGRESS); // id = 4
+        taskManager.createEpic("Эпик 1", "Описание", Status.NEW); // id = 0
+        taskManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0); // id = 1
+        taskManager.createSubtask("Подзадача 2", "Описание", Status.NEW, 0); // id = 2
+        taskManager.createSubtask("Подзадача 3", "Описание", Status.NEW, 0); // id = 3
+
+        taskManager.createEpic("Эпик 2", "Описание", Status.NEW); // id = 4
     }
 }

@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="refactor: заменить Integer на int">
-      <change afterPath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/history/HistoryManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/HistoryManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" afterDir="false" />
+    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="feat: сделать класс для тестов FileBackedTasksManagerTest">
+      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +67,7 @@
       <recent name="managers.history" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FileBackedTasksManagerTest">
+  <component name="RunManager">
     <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <option name="PACKAGE_NAME" value="" />
@@ -253,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677569961963</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: сделать класс для тестов FileBackedTasksManagerTest">
+      <created>1677600673432</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1677600673432</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,7 +284,8 @@
     <MESSAGE value="feat: исправить сабтаски, 46 тестов" />
     <MESSAGE value="feat: покрыл тестами InMemoryTaskManager" />
     <MESSAGE value="refactor: заменить Integer на int" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: заменить Integer на int" />
+    <MESSAGE value="feat: сделать класс для тестов FileBackedTasksManagerTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: сделать класс для тестов FileBackedTasksManagerTest" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
