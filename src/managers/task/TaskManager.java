@@ -5,12 +5,15 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TaskManager {
-    void createTask(String name, String description, Status status);
-    void createSubtask(String name, String description, Status status, int epicId);
-    void createEpic(String name, String description, Status status);
+    void createTask(String name, String description, Status status, String startDate, String duration);
+    void createSubtask(String name, String description, Status status, int epicId, String startDate, String duration);
+    void createEpic(String name, String description, Status status, String startDate, String duration);
     void calculateEpicStatus(int epicId);
     List<Task> getListAllTasks();
     List<Subtask> getListAllSubtasks();

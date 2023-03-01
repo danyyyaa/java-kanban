@@ -7,6 +7,9 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,9 +35,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void createTask(String name, String description, Status status) {
+    public void createTask(String name, String description, Status status, String startDate, String duration) {
         int id = idGenerator();
-        tasks.put(id, new Task(name, description, status, id));
+        tasks.put(id, new Task(name, description, status, id, startDate, duration));
     }
 
     private int idGenerator() {
@@ -67,22 +70,23 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void createSubtask(String name, String description, Status status, int epicId) {
+    public void createSubtask(String name, String description, Status status,
+                              int epicId, String startDate, String duration) {
         id = idGenerator();
 
         for (Epic epic : epicList) {
             if (epic.getId().equals(epicId)) {
                 epic.getSubtasksId().add(id);
-                subtasks.put(id, new Subtask(name, description, status, id, epicId));
+                subtasks.put(id, new Subtask(name, description, status, id, epicId, startDate, duration));
             }
         }
     }
 
     @Override
-    public void createEpic(String name, String description, Status status) {
+    public void createEpic(String name, String description, Status status, String startDate, String duration) {
         id = idGenerator();
 
-        epicList.add(new Epic(name, description, status, id, new ArrayList<>()));
+        epicList.add(new Epic(name, description, status, id, new ArrayList<>(), startDate, duration));
     }
 
     @Override

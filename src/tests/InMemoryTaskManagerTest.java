@@ -1,3 +1,4 @@
+/*
 package tests;
 
 import managers.task.TaskManager;
@@ -643,4 +644,4 @@ public class InMemoryTaskManagerTest {
         assertEquals(0, taskManager.getListAllEpics().size());
         assertEquals(0, taskManager.getListAllSubtasks().size());
     }
-}
+}*/

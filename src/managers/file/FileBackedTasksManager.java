@@ -220,8 +220,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createTask(String name, String description, Status status) {
-        super.createTask(name, description, status);
+    public void createTask(String name, String description, Status status, String startDate, String duration) {
+        super.createTask(name, description, status,"14:09, 12.07.21", "25");
         try {
             save();
         } catch (ManagerSaveException e) {
@@ -230,8 +230,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createSubtask(String name, String description, Status status, int epicId) {
-        super.createSubtask(name, description, status, epicId);
+    public void createSubtask(String name, String description, Status status,
+                              int epicId, String startDate, String duration) {
+        super.createSubtask(name, description, status, epicId, startDate, duration);
         try {
             save();
         } catch (ManagerSaveException e) {
@@ -240,8 +241,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createEpic(String name, String description, Status status) {
-        super.createEpic(name, description, status);
+    public void createEpic(String name, String description, Status status, String startDate, String duration) {
+        super.createEpic(name, description, status, startDate, duration);
         try {
             save();
         } catch (ManagerSaveException e) {

@@ -3,6 +3,8 @@ package tasks;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Objects;
 
 public class Task {
@@ -13,6 +15,8 @@ public class Task {
 
     protected LocalDateTime startDate;
     protected Duration duration;
+
+    protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm, dd.MM.yy");
 
     public Status getStatus() {
         return status;
@@ -26,13 +30,13 @@ public class Task {
 
     }
 
-    public Task(String name, String description, Status status, Integer id, LocalDateTime startDate, Duration duration) {
+    public Task(String name, String description, Status status, Integer id, String startDate, String duration) {
         this.name = name;
         this.description = description;
         this.status = status;
         this.id = id;
-        this.startDate = startDate;
-        this.duration = duration;
+        this.startDate = LocalDateTime.parse(startDate, DATE_TIME_FORMATTER);
+        this.duration = Duration.ofMinutes(Long.parseLong(duration));
     }
 
     public LocalDateTime getEndTime() {
