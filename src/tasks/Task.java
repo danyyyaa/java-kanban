@@ -43,16 +43,6 @@ public class Task {
         this.duration = Duration.ofMinutes(Long.parseLong(duration));
     }
 
-    @Override
-    public String toString() {
-        return "tasks.Task{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", status='" + status + '\'' +
-                '}';
-    }
-
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -97,5 +87,17 @@ public class Task {
 
     public void setDuration(String duration) {
         this.duration = Duration.parse(duration);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                '}';
     }
 }

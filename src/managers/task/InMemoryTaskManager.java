@@ -7,16 +7,25 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+class DateComparator implements Comparator<Task> {
+
+    @Override
+    public int compare(Task o1, Task o2) {
+        if (o1.getStartTime().isAfter(o2.getStartTime())) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+}
 
 public class InMemoryTaskManager implements TaskManager {
     final protected Map<Integer, Task> tasks;
     final protected Map<Integer, Subtask> subtasks;
-    //final protected ArrayList<Epic> epics;
     final protected Map<Integer, Epic> epics;
     private static int id;
     public HistoryManager historyManager;
@@ -28,6 +37,28 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks = new HashMap<>();
         epics = new HashMap<>();
         historyManager = Managers.getDefaultHistory();
+    }
+
+
+
+    public List<Task> getPrioritizedTasks() {
+        //TreeSet<Task> treeSet = new TreeSet<>(getListAllTypeTasks());
+        DateComparator comparator = new DateComparator();
+
+        Set<Task> treeSet = new TreeSet<>(comparator);
+        treeSet.addAll(getListAllTypeTasks());
+
+        return new ArrayList<>(treeSet);
+    }
+
+    protected List<Task> getListAllTypeTasks() {
+        List<Task> tasksAllType = new ArrayList<>();
+
+        tasksAllType.addAll(tasks.values());
+        tasksAllType.addAll(subtasks.values());
+        tasksAllType.addAll(epics.values());
+
+        return tasksAllType;
     }
 
     public void calculateEpicTime(int epicId) {
