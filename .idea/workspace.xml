@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="feat: начать добавлять время">
+    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="feat: добавить время ко всем типам задач и изменить сигнатуру методов их создания">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/task/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/TaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Epic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/Subtask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Subtask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +274,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677606414935</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="feat: добавить время ко всем типам задач и изменить сигнатуру методов их создания">
+      <created>1677647372791</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1677647372791</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,7 +313,8 @@
     <MESSAGE value="feat: сделать класс для тестов FileBackedTasksManagerTest" />
     <MESSAGE value="refactor: убрать epicListWithoutSubtasks из InMemoryTaskManager" />
     <MESSAGE value="feat: начать добавлять время" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: начать добавлять время" />
+    <MESSAGE value="feat: добавить время ко всем типам задач и изменить сигнатуру методов их создания" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: добавить время ко всем типам задач и изменить сигнатуру методов их создания" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

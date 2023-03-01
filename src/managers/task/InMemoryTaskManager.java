@@ -10,6 +10,7 @@ import tasks.Task;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ public class InMemoryTaskManager implements TaskManager {
     final protected ArrayList<Epic> epicList;
     private static int id;
     public HistoryManager historyManager;
+    protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm, dd.MM.yy");
 
     public InMemoryTaskManager() {
         id = -1;
@@ -30,14 +32,34 @@ public class InMemoryTaskManager implements TaskManager {
         historyManager = Managers.getDefaultHistory();
     }
 
+    public void calculateEpicTime(int epicId) {
+        getEpic(epicId).setEndTime(getEpic(epicId).getStartTime());
+
+        for (Epic epic : epicList) {
+
+            if (epic.getId().equals(epicId)) {
+
+                for (int id : epic.getSubtasksId()) {
+                    if (getSubtask(id).getStartTime().isBefore(epic.getStartTime())) {
+                        epic.setStartTime(getSubtask(id).getStartTime());
+                    }
+
+                    if (getSubtask(id).getStartTime().isAfter(epic.getEndTime())) {
+                        epic.setEndTime(getSubtask(id).getEndTime());
+                    }
+                }
+            }
+        }
+    }
+
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
 
     @Override
-    public void createTask(String name, String description, Status status, String startDate, String duration) {
+    public void createTask(String name, String description, Status status, String startTime, String duration) {
         int id = idGenerator();
-        tasks.put(id, new Task(name, description, status, id, startDate, duration));
+        tasks.put(id, new Task(name, description, status, id, startTime, duration));
     }
 
     private int idGenerator() {
@@ -71,22 +93,22 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createSubtask(String name, String description, Status status,
-                              int epicId, String startDate, String duration) {
+                              int epicId, String startTime, String duration) {
         id = idGenerator();
 
         for (Epic epic : epicList) {
             if (epic.getId().equals(epicId)) {
                 epic.getSubtasksId().add(id);
-                subtasks.put(id, new Subtask(name, description, status, id, epicId, startDate, duration));
+                subtasks.put(id, new Subtask(name, description, status, id, epicId, startTime, duration));
             }
         }
     }
 
     @Override
-    public void createEpic(String name, String description, Status status, String startDate, String duration) {
+    public void createEpic(String name, String description, Status status, String startTime, String duration) {
         id = idGenerator();
 
-        epicList.add(new Epic(name, description, status, id, new ArrayList<>(), startDate, duration));
+        epicList.add(new Epic(name, description, status, id, new ArrayList<>(), startTime, duration));
     }
 
     @Override

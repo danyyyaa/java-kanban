@@ -11,10 +11,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TaskManager {
-    void createTask(String name, String description, Status status, String startDate, String duration);
-    void createSubtask(String name, String description, Status status, int epicId, String startDate, String duration);
-    void createEpic(String name, String description, Status status, String startDate, String duration);
+    void createTask(String name, String description, Status status, String startTime, String duration);
+    void createSubtask(String name, String description, Status status, int epicId, String startTime, String duration);
+    void createEpic(String name, String description, Status status, String startTime, String duration);
     void calculateEpicStatus(int epicId);
+    void calculateEpicTime(int epicId);
     List<Task> getListAllTasks();
     List<Subtask> getListAllSubtasks();
     List<Epic> getListAllEpics();
