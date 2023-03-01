@@ -22,7 +22,7 @@ public interface TaskManager {
     void deleteAllTasks();
     void deleteAllSubtasks();
     void deleteAllEpics();
-    Task getTask(Integer id);
+    Task getTask(int id);
     Subtask getSubtask(int id);
     Epic getEpic(int id);
     void updateTask(int id, Task task);

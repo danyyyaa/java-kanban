@@ -105,7 +105,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             if (getSubtasks().containsKey(Integer.parseInt(taskId))) {
                 historyManager.add(subtasks.get(Integer.parseInt(taskId)));
             }
-            for (Epic epic : getEpicList()) {
+            for (Epic epic : epics.values()) { // изменить
                 if (epic.getId().equals(Integer.valueOf(taskId))) {
                     historyManager.add(epic);
                 }
@@ -157,7 +157,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 subtasks.put(id, new Subtask(name, description, status, id, epicId));
                 break;
             case "EPIC":
-                epicList.add(new Epic(name, description, status, id));
+                epics.put(id, new Epic(name, description, status, id));
                 break;
         }
     }
@@ -185,7 +185,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Task getTask(Integer id) {
+    public Task getTask(int id) {
         Task task = super.getTask(id);
         try {
             save();
@@ -209,7 +209,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     void setEpicSubtasksId() {
         for (Subtask subtask : subtasks.values()) {
             if (subtask.getEpicId() != null) {
-                for (Epic epic : epicList) {
+                for (Epic epic : epics.values()) { // изменить
                     if (epic.getId().equals(subtask.getEpicId())
                             && epic.getSubtasksId().contains(subtask.getEpicId())) {
                         epic.addSubtaskId(subtask.getEpicId());

@@ -1,4 +1,4 @@
-/*
+
 package tests;
 
 import managers.task.TaskManager;
@@ -22,7 +22,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void calculateEpicStatusWithEmptySubtasksList() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.calculateEpicStatus(0);
 
         assertEquals(Status.NEW, taskManager.getEpic(0).getStatus());
@@ -30,10 +30,10 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void calculateEpicStatusWithNEWSubtasksStatus() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         taskManager.calculateEpicStatus(0);
 
@@ -43,9 +43,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void calculateEpicStatusWithDONESubtasksStatus() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.DONE, 0);
-        taskManager.createSubtask("name", "description", Status.DONE, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.DONE, 0,"14:09, 12.07.21", "20");
+        taskManager.createSubtask("name", "description", Status.DONE, 0,"14:09, 12.07.21", "20");
 
         taskManager.calculateEpicStatus(0);
 
@@ -54,9 +54,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void calculateEpicStatusWithNEWAndDONESubtasksStatus() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.DONE, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.DONE, 0,"14:09, 12.07.21", "20");
 
         taskManager.calculateEpicStatus(0);
 
@@ -65,9 +65,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void calculateEpicStatusWithIN_PROGRESSSubtasksStatus() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.IN_PROGRESS, 0);
-        taskManager.createSubtask("name", "description", Status.IN_PROGRESS, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.IN_PROGRESS, 0,"14:09, 12.07.21", "20");
+        taskManager.createSubtask("name", "description", Status.IN_PROGRESS, 0,"14:09, 12.07.21", "20");
 
         taskManager.calculateEpicStatus(0);
 
@@ -76,7 +76,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getHistoryWithStandardBehaviour() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.getTask(0);
 
         assertEquals(1, taskManager.getHistory().size());
@@ -90,7 +90,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createFirstTask() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         final Task task = new Task("name", "description", Status.NEW, 0);
 
         assertEquals(1, taskManager.getListAllTasks().size());
@@ -99,8 +99,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createTasks() {
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         final Task task = new Task("name", "description", Status.NEW, 0);
         final Task task1 = new Task("name", "description", Status.NEW, 1);
 
@@ -116,7 +116,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getNotEmptyListAllTasks() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         assertEquals(1, taskManager.getListAllTasks().size());
     }
 
@@ -127,8 +127,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getNotEmptyListAllSubtasks() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         assertEquals(1, taskManager.getListAllSubtasks().size());
     }
 
@@ -139,7 +139,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getNotEmptyListAllEpics() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         assertEquals(1, taskManager.getListAllEpics().size());
     }
 
@@ -150,15 +150,15 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getTaskWithExistingId() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
 
         assertEquals(0, taskManager.getTask(0).getId());
     }
 
     @Test
     void getTaskWithTwoElementsList() {
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
 
         assertEquals(0, taskManager.getTask(0).getId());
         assertEquals(1, taskManager.getTask(1).getId());
@@ -166,8 +166,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getSubtaskWithExistingId() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         assertEquals(1, taskManager.getSubtask(1).getId());
     }
@@ -179,9 +179,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getSubtaskWithTwoElementList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         assertEquals(1, taskManager.getSubtask(1).getId());
         assertEquals(2, taskManager.getSubtask(2).getId());
@@ -194,15 +194,15 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getEpicWithExistingId() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
 
         assertEquals(0, taskManager.getEpic(0).getId());
     }
 
     @Test
     void getEpicWithTwoElementsList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
 
         assertEquals(0, taskManager.getEpic(0).getId());
         assertEquals(1, taskManager.getEpic(1).getId());
@@ -210,7 +210,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createFirstEpic() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         final Epic epic = new Epic("name", "description", Status.NEW, 0);
 
         assertEquals(1, taskManager.getListAllEpics().size());
@@ -219,8 +219,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createEpics() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
 
         final Epic epic = new Epic("name", "description", Status.NEW, 0);
         final Epic epic1 = new Epic("name", "description", Status.NEW, 1);
@@ -232,30 +232,30 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void createSubtaskWithoutEpic() {
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         assertEquals(0, taskManager.getListAllSubtasks().size());
     }
 
     @Test
     void createFirstSubtask() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         assertEquals(1, taskManager.getListAllSubtasks().size());
     }
 
     @Test
     void createSubtasks() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         assertEquals(2, taskManager.getListAllSubtasks().size());
     }
 
     @Test
     void getTaskListWithOneElement() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         assertEquals(1, taskManager.getListAllTasks().size());
     }
 
@@ -266,23 +266,23 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getTaskListWithTwoElements() {
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         assertEquals(2, taskManager.getListAllTasks().size());
     }
 
     @Test
     void getSubtasksListWithOneElement() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         assertEquals(1, taskManager.getListAllSubtasks().size());
     }
 
     @Test
     void getSubtasksListWithTwoElements() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         assertEquals(2, taskManager.getListAllSubtasks().size());
     }
 
@@ -293,14 +293,14 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getEpicsListWithOneElement() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         assertEquals(1, taskManager.getListAllEpics().size());
     }
 
     @Test
     void getEpicsListWithTwoElements() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         assertEquals(2, taskManager.getListAllEpics().size());
     }
 
@@ -317,7 +317,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateTaskWithEmptyList() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         final Task task = new Task("name", "description", Status.NEW, 0);
 
         taskManager.updateTask(0, new Task("name", "description", Status.NEW, 0));
@@ -328,8 +328,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateTaskWithNotEmptyList() {
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.IN_PROGRESS);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.IN_PROGRESS,"14:09, 12.07.21", "20");
 
         final Task task = new Task("name", "description", Status.NEW, 0);
         final Task task1 = new Task("name", "description", Status.IN_PROGRESS, 1);
@@ -345,15 +345,15 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateSubtaskMissedId() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.updateSubtask(0, new Subtask("name", "description", Status.NEW, 1, 0));
         assertEquals(0, taskManager.getListAllSubtasks().size());
     }
 
     @Test
     void updateSubtaskWithEmptyList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0);
 
         taskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0));
@@ -364,9 +364,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateSubtaskWithNotEmptyList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0);
         final Subtask subtask1 = new Subtask("name", "description", Status.NEW, 2, 0);
 
@@ -387,7 +387,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateEpicWithEmptyList() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         final Epic epic = new Epic("name", "description", Status.NEW, 0);
 
         taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0));
@@ -398,8 +398,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateEpicWithNotEmptyList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
 
         final Epic epic = new Epic("name", "description", Status.NEW, 0);
         final Epic epic1 = new Epic("name", "description", Status.NEW, 1);
@@ -421,9 +421,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getAnyTaskByIdWithExistingId() {
-        taskManager.createEpic("name", "description", Status.NEW); // id = 0
-        taskManager.createTask("name", "description", Status.NEW); // id = 1
-        taskManager.createSubtask("name", "description", Status.NEW, 0); // id = 2
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77"); // id = 0
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20"); // id = 1
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77"); // id = 2
 
         assertEquals(0, taskManager.getAnyTaskById(0).getId());
         assertEquals(1, taskManager.getAnyTaskById(1).getId());
@@ -432,13 +432,13 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void getAnyTaskByIdWithNotEmptyList() {
-        taskManager.createEpic("name", "description", Status.NEW); // id = 0
-        taskManager.createTask("name", "description", Status.NEW); // id = 1
-        taskManager.createSubtask("name", "description", Status.NEW, 0); // id = 2
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77"); // id = 0
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20"); // id = 1
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77"); // id = 2
 
-        taskManager.createEpic("name", "description", Status.NEW); // id = 3
-        taskManager.createTask("name", "description", Status.NEW); // id = 4
-        taskManager.createSubtask("name", "description", Status.NEW, 3); // id = 5
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77"); // id = 3
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20"); // id = 4
+        taskManager.createSubtask("name", "description", Status.NEW, 3,"14:09, 12.07.21", "20"); // id = 5
 
         assertEquals(0, taskManager.getAnyTaskById(0).getId());
         assertEquals(1, taskManager.getAnyTaskById(1).getId());
@@ -456,7 +456,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deleteAllTasksWithOneElementInList() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.deleteAllTasks();
 
         assertEquals(0, taskManager.getListAllTasks().size());
@@ -464,8 +464,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deleteAllTasksWithTwoElementsInList() {
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.deleteAllTasks();
         assertEquals(0, taskManager.getListAllTasks().size());
     }
@@ -478,8 +478,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deleteAllSubtasksWithOneElementInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         taskManager.deleteAllSubtasks();
 
         assertEquals(0, taskManager.getEpic(0).getSubtasksId().size());
@@ -488,9 +488,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deleteAllTasksWithTwoElementInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         taskManager.deleteAllSubtasks();
 
         assertEquals(0, taskManager.getEpic(0).getSubtasksId().size());
@@ -505,7 +505,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deleteAllEpicsWithOneElementInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.deleteAllEpics();
 
         assertEquals(0, taskManager.getListAllEpics().size());
@@ -513,10 +513,10 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void deleteAllEpicsWithTwoElementInListAndWithSubtasks() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         taskManager.deleteAllEpics();
         assertEquals(0, taskManager.getListAllEpics().size());
@@ -531,15 +531,15 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeTaskByIdWithOneElementInList() {
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.removeTaskById(0);
         assertEquals(0, taskManager.getListAllTasks().size());
     }
 
     @Test
     void removeTaskByIdWithTwoElementsInList() {
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.removeTaskById(0);
         taskManager.removeTaskById(1);
         assertEquals(0, taskManager.getListAllTasks().size());
@@ -547,9 +547,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeTaskByIdWithTreeElementsInList() {
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.NEW);
-        taskManager.createTask("name", "description", Status.NEW);
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.removeTaskById(1);
 
         assertEquals(2, taskManager.getListAllTasks().size());
@@ -563,8 +563,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeSubtaskByIdWithOneElementInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         taskManager.removeSubtaskById(1);
         assertEquals(0, taskManager.getListAllSubtasks().size());
@@ -572,9 +572,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeSubtaskByIdWithTwoElementsInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         taskManager.removeSubtaskById(1);
         taskManager.removeSubtaskById(2);
@@ -584,10 +584,10 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeSubtaskByIdWithTreeElementsInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
 
         taskManager.removeSubtaskById(2);
 
@@ -603,15 +603,15 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeEpicByIdWithOneElementInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.removeEpicById(0);
         assertEquals(0, taskManager.getListAllEpics().size());
     }
 
     @Test
     void removeEpicByIdWithTwoElementInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.removeEpicById(0);
         taskManager.removeEpicById(1);
         assertEquals(0, taskManager.getListAllEpics().size());
@@ -619,9 +619,9 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeEpicByIdWithTreeElementInList() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.removeEpicById(1);
 
         assertEquals(2, taskManager.getListAllEpics().size());
@@ -629,13 +629,13 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void removeNotEmptyEpicById() {
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
-        taskManager.createEpic("name", "description", Status.NEW);
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
 
-        taskManager.createSubtask("name", "description", Status.NEW, 0);
-        taskManager.createSubtask("name", "description", Status.NEW, 1);
-        taskManager.createSubtask("name", "description", Status.NEW, 1);
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 1,"14:09, 12.07.21", "20");
+        taskManager.createSubtask("name", "description", Status.NEW, 1,"14:09, 12.07.21", "20");
 
         taskManager.removeEpicById(0);
         taskManager.removeEpicById(1);
@@ -644,4 +644,4 @@ public class InMemoryTaskManagerTest {
         assertEquals(0, taskManager.getListAllEpics().size());
         assertEquals(0, taskManager.getListAllSubtasks().size());
     }
-}*/
+}
