@@ -7,6 +7,8 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -15,7 +17,7 @@ class DateComparator implements Comparator<Task> {
 
     @Override
     public int compare(Task o1, Task o2) {
-        if (o1.getStartTime().isAfter(o2.getStartTime())) {
+        if (o1.getStartTime().plus(o1.getDuration()).isAfter(o2.getStartTime().plus(o1.getDuration()))) {
             return 1;
         } else {
             return -1;
@@ -30,6 +32,7 @@ public class InMemoryTaskManager implements TaskManager {
     private static int id;
     public HistoryManager historyManager;
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm, dd.MM.yy");
+    public Map<LocalDateTime, LocalDateTime> timeLocalDateTimeMap;
 
     public InMemoryTaskManager() {
         id = -1;
@@ -37,12 +40,48 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks = new HashMap<>();
         epics = new HashMap<>();
         historyManager = Managers.getDefaultHistory();
+        timeLocalDateTimeMap = new HashMap<>();
     }
 
+    private void timeValidation(String startTime, String duration, int id) {
+        Duration formattedDuration = Duration.ofMinutes(Long.parseLong(duration));
+        LocalDateTime startCurrentTask = LocalDateTime.parse(startTime, DATE_TIME_FORMATTER);
+        LocalDateTime endCurrentTask = LocalDateTime.parse(startTime, DATE_TIME_FORMATTER).plus(formattedDuration);
 
+        for (Map.Entry<LocalDateTime, LocalDateTime> map : timeLocalDateTimeMap.entrySet()) {
+            LocalDateTime startOtherTask = map.getKey();
+            LocalDateTime endOtherTask = map.getValue();
+
+            boolean condition1 = startOtherTask.isBefore(startCurrentTask) && startOtherTask.isBefore(endCurrentTask)
+                    && endOtherTask.isAfter(startCurrentTask) && endOtherTask.isAfter(endCurrentTask);
+            boolean condition2 = startOtherTask.isAfter(startCurrentTask) && startOtherTask.isBefore(endCurrentTask)
+                    && endOtherTask.isAfter(endCurrentTask) && endOtherTask.isAfter(startCurrentTask);
+            boolean condition3 = startOtherTask.isBefore(startCurrentTask) && startOtherTask.isBefore(endCurrentTask)
+                    && endOtherTask.isAfter(startCurrentTask) && endOtherTask.isBefore(endCurrentTask);
+            boolean condition4 = startOtherTask.isAfter(startCurrentTask) && startOtherTask.isBefore(endCurrentTask)
+                    && endOtherTask.isAfter(startCurrentTask) && endOtherTask.isBefore(endCurrentTask);
+
+            if (condition1 || condition2 || condition3 || condition4) {
+                removeAnyTaskById(id);
+                throw new RuntimeException("Ошибка, пересечение задач по времени.");
+            }
+        }
+        timeLocalDateTimeMap.put(startCurrentTask, endCurrentTask);
+    }
+
+    public void removeAnyTaskById(int id) {
+        if (tasks.containsKey(id)) {
+            removeTaskById(id);
+        }
+        if (subtasks.containsKey(id)) {
+            removeSubtaskById(id);
+        }
+        if (epics.containsKey(id)) {
+            removeEpicById(id);
+        }
+    }
 
     public List<Task> getPrioritizedTasks() {
-        //TreeSet<Task> treeSet = new TreeSet<>(getListAllTypeTasks());
         DateComparator comparator = new DateComparator();
 
         Set<Task> treeSet = new TreeSet<>(comparator);
@@ -103,6 +142,7 @@ public class InMemoryTaskManager implements TaskManager {
         return ++id;
     }
 
+    @Override
     public Task getAnyTaskById(int id) {
         if (tasks.containsKey(id)) {
             return getTask(id);
@@ -121,12 +161,14 @@ public class InMemoryTaskManager implements TaskManager {
             epics.get(epicId).getSubtasksId().add(id);
             subtasks.put(id, new Subtask(name, description, status, id, epicId, startTime, duration));
         }
+        timeValidation(startTime, duration, id);
     }
 
     @Override
     public void createTask(String name, String description, Status status, String startTime, String duration) {
         int id = idGenerator();
         tasks.put(id, new Task(name, description, status, id, startTime, duration));
+        timeValidation(startTime, duration, id);
     }
 
     @Override
@@ -134,6 +176,7 @@ public class InMemoryTaskManager implements TaskManager {
         id = idGenerator();
 
         epics.put(id, new Epic(name, description, status, id, new ArrayList<>(), startTime, duration));
+        timeValidation(startTime, duration, id);
     }
 
     @Override
@@ -239,6 +282,8 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateTask(int id, Task task) {
         if (tasks.containsKey(id)) {
             tasks.put(id, task);
+            timeValidation(task.getStartTime().format(DATE_TIME_FORMATTER),
+                    String.valueOf(task.getDuration().getSeconds() / 60), id);
         }
     }
 
@@ -246,6 +291,8 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubtask(int id, Subtask subtask) {
         if (subtasks.containsKey(id)) {
             subtasks.put(id, subtask);
+            timeValidation(subtask.getStartTime().format(DATE_TIME_FORMATTER),
+                    String.valueOf(subtask.getDuration().getSeconds() / 60), id);
         }
     }
 
@@ -253,6 +300,8 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateEpic(int id, Epic epic) {
         if (epics.containsKey(id)) {
             epics.put(id, epic);
+            timeValidation(epic.getStartTime().format(DATE_TIME_FORMATTER),
+                    String.valueOf(epic.getDuration().getSeconds() / 60), id);
         }
     }
 

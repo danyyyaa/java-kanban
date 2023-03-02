@@ -85,6 +85,10 @@ public class Task {
         return duration;
     }
 
+    public String getStringDuration() {
+        return duration.toString();
+    }
+
     public void setDuration(String duration) {
         this.duration = Duration.parse(duration);
     }

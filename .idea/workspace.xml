@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="refactor: сменить коллекцию эпика с arraylist на hashmap">
+    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="feat: добавил сортировку задач по startTime">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/task/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/TaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -294,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677660447642</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="feat: добавил сортировку задач по startTime">
+      <created>1677663287114</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1677663287114</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -329,7 +335,8 @@
     <MESSAGE value="feat: добавить время ко всем типам задач и изменить сигнатуру методов их создания" />
     <MESSAGE value="feat: добавить время старта, время окончания для всех типов задач" />
     <MESSAGE value="refactor: сменить коллекцию эпика с arraylist на hashmap" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: сменить коллекцию эпика с arraylist на hashmap" />
+    <MESSAGE value="feat: добавил сортировку задач по startTime" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: добавил сортировку задач по startTime" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -338,11 +345,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>14</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
