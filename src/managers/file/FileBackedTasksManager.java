@@ -35,15 +35,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
 
         try (FileWriter fw = new FileWriter(path.toFile(), StandardCharsets.UTF_8)) {
-            fw.write("id,type,name,status,description,epic\n");
+            fw.write("id,type,name,status,description,startTime,duration,endTime,epic\n");
             for (Task task : getListAllTasks()) {
                 fw.write(toString(task));
             }
-            for (Subtask task : getListAllSubtasks()) {
-                fw.write(toString(task));
+            for (Subtask subtask : getListAllSubtasks()) {
+                fw.write(toString(subtask));
             }
-            for (Epic task : getListAllEpics()) {
-                fw.write(toString(task));
+            for (Epic epic : getListAllEpics()) {
+                fw.write(toString(epic));
             }
 
             fw.write("\n");
@@ -56,7 +56,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 }
                 counter++;
             }
-
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка ввода");
         }
@@ -98,16 +97,18 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     private void readHistory(String line) {
-        for (String taskId : line.split(",")) {
-            if (getTasks().containsKey(Integer.parseInt(taskId))) {
-                historyManager.add(tasks.get(Integer.parseInt(taskId)));
-            }
-            if (getSubtasks().containsKey(Integer.parseInt(taskId))) {
-                historyManager.add(subtasks.get(Integer.parseInt(taskId)));
-            }
-            for (Epic epic : epics.values()) { // изменить
-                if (epic.getId().equals(Integer.valueOf(taskId))) {
-                    historyManager.add(epic);
+        if (getHistory().size() != 0) {
+            for (String taskId : line.split(",")) {
+                if (getTasks().containsKey(Integer.parseInt(taskId))) {
+                    historyManager.add(tasks.get(Integer.parseInt(taskId)));
+                }
+                if (getSubtasks().containsKey(Integer.parseInt(taskId))) {
+                    historyManager.add(subtasks.get(Integer.parseInt(taskId)));
+                }
+                for (Epic epic : epics.values()) { // изменить
+                    if (epic.getId().equals(Integer.valueOf(taskId))) {
+                        historyManager.add(epic);
+                    }
                 }
             }
         }
@@ -127,6 +128,16 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         result += task.getName() + ",";
         result += task.getStatus() + ",";
         result += task.getDescription() + ",";
+
+        result += task.getStartTime() + ",";
+        result += task.getDuration() + ",";
+
+        if (task instanceof Epic) {
+            super.calculateEpicTime(task.getId());
+            //System.out.println(super.getEpic(0));
+        }
+
+        result += task.getEndTime() + ",";
 
         if (task instanceof Subtask) {
             result += ((Subtask) task).getEpicId() + ",";
@@ -221,7 +232,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     @Override
     public void createTask(String name, String description, Status status, String startDate, String duration) {
-        super.createTask(name, description, status,"14:09, 12.07.21", "25");
+        super.createTask(name, description, status, "14:09, 12.07.21", "25");
         try {
             save();
         } catch (ManagerSaveException e) {
@@ -231,8 +242,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     @Override
     public void createSubtask(String name, String description, Status status,
-                              int epicId, String startDate, String duration) {
-        super.createSubtask(name, description, status, epicId, startDate, duration);
+                              int epicId, String startTime, String duration) {
+        super.createSubtask(name, description, status, epicId, startTime, duration);
         try {
             save();
         } catch (ManagerSaveException e) {
@@ -313,6 +324,16 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     @Override
     public void updateEpic(int id, Epic epic) {
         super.updateEpic(id, epic);
+        try {
+            save();
+        } catch (ManagerSaveException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void removeAnyTaskById(int id) {
+        super.removeAnyTaskById(id);
         try {
             save();
         } catch (ManagerSaveException e) {

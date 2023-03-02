@@ -18,14 +18,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        //createTasks();
+        createTasks();
 
-        //fileManager.getTask(9);
+        //fileManager.getTask(4);
+        //System.out.println(fileManager.getHistory());
 
-        System.out.println(fileManager.getHistory());
+
+        /*System.out.println(fileManager.getHistory());
         System.out.println(fileManager.getListAllSubtasks());
         System.out.println(fileManager.getListAllTasks());
-        System.out.println(fileManager.getListAllEpics());
+        System.out.println(fileManager.getListAllEpics());*/
 
 
     }
@@ -34,7 +36,7 @@ public class Main {
         fileManager.createEpic("Эпик 1", "Описание", Status.DONE, "14:00, 12.07.21", "1"); // id = 0
         fileManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0, "14:00, 11.07.21", "1"); // id = 1
         fileManager.createSubtask("Подзадача 2", "Описание", Status.NEW, 0, "14:00, 10.07.21", "1"); // id = 2
-        fileManager.createSubtask("Подзадача 3", "Описание", Status.IN_PROGRESS, 0, "14:00, 9.07.21", "1"); // id = 3
-        fileManager.createTask("Task", "Описание", Status.IN_PROGRESS, "14:00, 8.07.21", "1"); // id = 4
+        fileManager.createSubtask("Подзадача 3", "Описание", Status.IN_PROGRESS, 0, "14:00, 09.07.21", "1"); // id = 3
+        fileManager.createTask("Task", "Описание", Status.IN_PROGRESS, "14:00, 08.07.21", "1"); // id = 4
     }
 }

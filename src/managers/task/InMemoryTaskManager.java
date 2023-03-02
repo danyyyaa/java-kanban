@@ -89,12 +89,10 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(treeSet);
     }
 
-
     @Override
     public void calculateEpicTime(int epicId) {
-        epics.get(epicId).setEndTime(epics.get(epicId).getStartTime());
-
         if (epics.containsKey(epicId)) {
+            epics.get(epicId).setEndTime(epics.get(epicId).getStartTime());
             for (int id : epics.get(epicId).getSubtasksId()) {
                 if (getSubtask(id).getStartTime().isBefore(epics.get(epicId).getStartTime())) {
                     epics.get(epicId).setStartTime(getSubtask(id).getStartTime());
