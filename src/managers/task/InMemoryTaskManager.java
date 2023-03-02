@@ -81,25 +81,16 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
+    @Override
     public List<Task> getPrioritizedTasks() {
-        DateComparator comparator = new DateComparator();
-
-        Set<Task> treeSet = new TreeSet<>(comparator);
+        Set<Task> treeSet = new TreeSet<>(new DateComparator());
         treeSet.addAll(getListAllTypeTasks());
 
         return new ArrayList<>(treeSet);
     }
 
-    protected List<Task> getListAllTypeTasks() {
-        List<Task> tasksAllType = new ArrayList<>();
 
-        tasksAllType.addAll(tasks.values());
-        tasksAllType.addAll(subtasks.values());
-        tasksAllType.addAll(epics.values());
-
-        return tasksAllType;
-    }
-
+    @Override
     public void calculateEpicTime(int epicId) {
         epics.get(epicId).setEndTime(epics.get(epicId).getStartTime());
 
@@ -114,6 +105,16 @@ public class InMemoryTaskManager implements TaskManager {
                 }
             }
         }
+    }
+
+    protected List<Task> getListAllTypeTasks() {
+        List<Task> tasksAllType = new ArrayList<>();
+
+        tasksAllType.addAll(tasks.values());
+        tasksAllType.addAll(subtasks.values());
+        tasksAllType.addAll(epics.values());
+
+        return tasksAllType;
     }
 
     public List<Task> getHistory() {
@@ -176,7 +177,6 @@ public class InMemoryTaskManager implements TaskManager {
         id = idGenerator();
 
         epics.put(id, new Epic(name, description, status, id, new ArrayList<>(), startTime, duration));
-        timeValidation(startTime, duration, id);
     }
 
     @Override
@@ -300,8 +300,6 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateEpic(int id, Epic epic) {
         if (epics.containsKey(id)) {
             epics.put(id, epic);
-            timeValidation(epic.getStartTime().format(DATE_TIME_FORMATTER),
-                    String.valueOf(epic.getDuration().getSeconds() / 60), id);
         }
     }
 

@@ -31,7 +31,8 @@ public class Task {
         this.description = description;
         this.status = status;
         this.id = id;
-
+        this.startTime = null;
+        this.duration = null;
     }
 
     public Task(String name, String description, Status status, Integer id, String startDate, String duration) {

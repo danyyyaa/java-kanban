@@ -1,4 +1,3 @@
-
 package tests;
 
 import managers.task.TaskManager;
@@ -38,7 +37,6 @@ public class InMemoryTaskManagerTest {
         taskManager.calculateEpicStatus(0);
 
         assertEquals(Status.NEW, taskManager.getEpic(0).getStatus());
-
     }
 
     @Test
@@ -591,7 +589,6 @@ public class InMemoryTaskManagerTest {
 
         taskManager.removeSubtaskById(2);
 
-
         assertEquals(2, taskManager.getListAllSubtasks().size());
     }
 
@@ -643,5 +640,90 @@ public class InMemoryTaskManagerTest {
 
         assertEquals(0, taskManager.getListAllEpics().size());
         assertEquals(0, taskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void removeAnyTaskByIdWithOneElementInMap() {
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+
+        taskManager.removeAnyTaskById(0);
+        taskManager.removeAnyTaskById(1);
+        taskManager.removeAnyTaskById(2);
+
+        assertEquals(0,taskManager.getListAllTasks().size());
+        assertEquals(0, taskManager.getListAllSubtasks().size());
+        assertEquals(0, taskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void removeAnyTaskByIdWithMissedId() {
+        taskManager.removeAnyTaskById(0);
+        taskManager.removeAnyTaskById(1);
+        taskManager.removeAnyTaskById(2);
+
+        assertEquals(0,taskManager.getListAllTasks().size());
+        assertEquals(0, taskManager.getListAllSubtasks().size());
+        assertEquals(0, taskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void removeAnyTaskByIdWithTwoElementsInMap() {
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+
+        taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        taskManager.createSubtask("name", "description", Status.NEW, 3, "14:09, 12.07.21", "77");
+        taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+
+        taskManager.removeAnyTaskById(0);
+        taskManager.removeAnyTaskById(1);
+        taskManager.removeAnyTaskById(2);
+        taskManager.removeAnyTaskById(3);
+        taskManager.removeAnyTaskById(4);
+        taskManager.removeAnyTaskById(5);
+
+        assertEquals(0,taskManager.getListAllTasks().size());
+        assertEquals(0, taskManager.getListAllSubtasks().size());
+        assertEquals(0, taskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void calculateEpicStartTime() {
+        taskManager.createEpic("name", "description", Status.NEW, "15:09, 12.07.21", "77");
+
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "1");
+
+        taskManager.calculateEpicTime(0);
+        assertEquals("2021-07-12T14:00", taskManager.getEpic(0).getStartTime().toString());
+    }
+
+    @Test
+    void calculateEpicEndTime() {
+        taskManager.createEpic("name", "description", Status.NEW, "15:09, 10.07.21", "77");
+
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "1");
+
+        taskManager.calculateEpicTime(0);
+        assertEquals("2021-07-12T14:10", taskManager.getEpic(0).getEndTime().toString());
+    }
+
+    @Test
+    void getPrioritizedTasks() {
+        taskManager.createTask("name", "description", Status.NEW,"13:10, 12.07.21", "1");
+        taskManager.createTask("name", "description", Status.NEW,"13:00, 12.07.21", "1");
+        taskManager.createTask("name", "description", Status.NEW,"13:05, 12.07.21", "1");
+        taskManager.createTask("name", "description", Status.NEW,"13:15, 12.07.21", "1");
+
+        StringBuilder result = new StringBuilder();
+        for (Task task : taskManager.getPrioritizedTasks()) {
+            result.append(task.getId());
+        }
+
+        assertEquals("1203", result.toString());
     }
 }

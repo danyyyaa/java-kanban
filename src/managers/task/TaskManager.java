@@ -34,4 +34,5 @@ public interface TaskManager {
     List<Task> getHistory();
     Task getAnyTaskById(int id);
     List<Task> getPrioritizedTasks();
+    void removeAnyTaskById(int id);
 }
