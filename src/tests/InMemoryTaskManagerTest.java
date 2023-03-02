@@ -320,7 +320,7 @@ public class InMemoryTaskManagerTest {
         taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         final Task task = new Task("name", "description", Status.NEW, 0);
 
-        taskManager.updateTask(0, new Task("name", "description", Status.NEW, 0));
+        taskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
 
         assertEquals(0, taskManager.getTask(0).getId());
         assertEquals(task, taskManager.getTask(0));
@@ -334,8 +334,8 @@ public class InMemoryTaskManagerTest {
         final Task task = new Task("name", "description", Status.NEW, 0);
         final Task task1 = new Task("name", "description", Status.IN_PROGRESS, 1);
 
-        taskManager.updateTask(0, new Task("name", "description", Status.NEW, 0));
-        taskManager.updateTask(1, new Task("name", "description", Status.IN_PROGRESS, 1));
+        taskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
+        taskManager.updateTask(1, new Task("name", "description", Status.IN_PROGRESS, 1, "14:09, 13.07.21", "77"));
 
         assertEquals(0, taskManager.getTask(0).getId());
         assertEquals(1, taskManager.getTask(1).getId());
@@ -356,7 +356,7 @@ public class InMemoryTaskManagerTest {
         taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0);
 
-        taskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0));
+        taskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:09, 13.07.21", "77"));
 
         assertEquals(1, taskManager.getSubtask(1).getId());
         assertEquals(subtask, taskManager.getSubtask(1));
@@ -370,8 +370,8 @@ public class InMemoryTaskManagerTest {
         final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0);
         final Subtask subtask1 = new Subtask("name", "description", Status.NEW, 2, 0);
 
-        taskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0));
-        taskManager.updateSubtask(2, new Subtask("name", "description", Status.NEW, 2, 0));
+        taskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:09, 13.07.21", "77"));
+        taskManager.updateSubtask(2, new Subtask("name", "description", Status.NEW, 2, 0, "14:09, 13.07.21", "77"));
 
         assertEquals(1, taskManager.getSubtask(1).getId());
         assertEquals(2, taskManager.getSubtask(2).getId());
@@ -390,7 +390,7 @@ public class InMemoryTaskManagerTest {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         final Epic epic = new Epic("name", "description", Status.NEW, 0);
 
-        taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0));
+        taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
 
         assertEquals(0, taskManager.getEpic(0).getId());
         assertEquals(epic, taskManager.getEpic(0));
@@ -404,8 +404,8 @@ public class InMemoryTaskManagerTest {
         final Epic epic = new Epic("name", "description", Status.NEW, 0);
         final Epic epic1 = new Epic("name", "description", Status.NEW, 1);
 
-        taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0));
-        taskManager.updateEpic(1, new Epic("name", "description", Status.NEW, 1));
+        taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
+        taskManager.updateEpic(1, new Epic("name", "description", Status.NEW, 1, "14:09, 13.07.21", "77"));
 
         assertEquals(0, taskManager.getEpic(0).getId());
         assertEquals(1, taskManager.getEpic(1).getId());

@@ -19,7 +19,7 @@ public class Main {
         /*taskManager.updateSubtask(4, new Subtask("name", "description",
                 Status.NEW, 4, 0, "14:09, 12.07.21", "444"));*/
 
-        taskManager.updateTask(1, new Task("name", "description", Status.NEW, 1, "13:00, 12.07.21", "20"));
+
 
 
 
