@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class FileBackedTasksManagerTest {
     private FileBackedTasksManager fileManager;
-    final String path = "src/tests/resources/tests data.csv";
+    final String path = "src/tests data.csv";
 
     @BeforeEach
     public void setUp() {
