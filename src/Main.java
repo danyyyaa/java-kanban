@@ -1,5 +1,6 @@
 import managers.file.FileBackedTasksManager;
 import managers.file.ManagerSaveException;
+import managers.task.TaskManager;
 import managers.util.Managers;
 import tasks.Status;
 
@@ -17,15 +18,18 @@ public class Main {
         }
     }
 
+    //static TaskManager taskManager = Managers.getDefault();
+
     public static void main(String[] args) {
-        createTasks();
+        //createTasks();
 
-        //fileManager.getTask(4);
-        //System.out.println(fileManager.getHistory());
+        fileManager.calculateEpicTime(0);
 
-
-        /*System.out.println(fileManager.getHistory());
-        System.out.println(fileManager.getListAllSubtasks());
+       // fileManager.getEpic(0);
+        /*fileManager.getAnyTaskById(4);
+        fileManager.calculateEpicTime(0);
+        System.out.println(fileManager.getHistory());*/
+        /*System.out.println(fileManager.getListAllSubtasks());
         System.out.println(fileManager.getListAllTasks());
         System.out.println(fileManager.getListAllEpics());*/
 
@@ -34,8 +38,8 @@ public class Main {
 
     private static void createTasks() {
         fileManager.createEpic("Эпик 1", "Описание", Status.DONE, "14:00, 12.07.21", "1"); // id = 0
-        fileManager.createSubtask("Подзадача 1", "Описание", Status.NEW, 0, "14:00, 11.07.21", "1"); // id = 1
-        fileManager.createSubtask("Подзадача 2", "Описание", Status.NEW, 0, "14:00, 10.07.21", "1"); // id = 2
+        fileManager.createSubtask("Подзадача 1", "Описание", Status.IN_PROGRESS, 0, "14:00, 11.07.21", "1"); // id = 1
+        fileManager.createSubtask("Подзадача 2", "Описание", Status.IN_PROGRESS, 0, "14:00, 10.07.21", "1"); // id = 2
         fileManager.createSubtask("Подзадача 3", "Описание", Status.IN_PROGRESS, 0, "14:00, 09.07.21", "1"); // id = 3
         fileManager.createTask("Task", "Описание", Status.IN_PROGRESS, "14:00, 08.07.21", "1"); // id = 4
     }

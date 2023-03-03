@@ -6,42 +6,17 @@ import java.util.Objects;
 
 public class Epic extends Task {
     final private ArrayList<Integer> subtasksId;
-    Status status;
-    protected LocalDateTime endTime;
+    private LocalDateTime endTime;
 
     public Epic(String name, String description, Status status, Integer id,
-                ArrayList<Integer> subtasksId, String startDate, String duration) {
-        super(name, description, status, id, startDate, duration);
+                ArrayList<Integer> subtasksId, String startTime, String duration) {
+        super(name, description, status, id, startTime, duration);
         this.subtasksId = subtasksId;
-        this.status = status;
     }
 
     public Epic(String name, String description, Status status, Integer id, String startTime, String duration) {
         super(name, description, status, id, startTime, duration);
-        subtasksId = new ArrayList<>();
-        this.status = status;
-        this.startTime = LocalDateTime.parse(startTime, DATE_TIME_FORMATTER);
-        this.duration = Duration.ofMinutes(Long.parseLong(duration));
-    }
-
-    public Epic(String name, String description, Status status, Integer id, ArrayList<Integer> subtasksId) {
-        super(name, description, status, id);
-        this.subtasksId = subtasksId;
-        this.status = status;
-        this.startTime = null;
-        this.duration = null;
-    }
-
-    public Epic(String name, String description, Status status, Integer id) {
-        super(name, description, status, id);
-        subtasksId = new ArrayList<>();
-        this.status = status;
-        this.startTime = null;
-        this.duration = null;
-    }
-
-    public String toString() {
-        return "tasks.Epic{subtasksId=" + this.subtasksId + ", name='" + this.name + "', description='" + this.description + "', id=" + this.id + ", status='" + this.status + "'}";
+        this.subtasksId = new ArrayList<>();
     }
 
     public ArrayList<Integer> getSubtasksId() {
@@ -82,5 +57,19 @@ public class Epic extends Task {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Epic{" +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id + ", " +
+                "subtasksId=" + subtasksId +
+                ", status=" + status +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", endTime=" + endTime +
+                '}';
     }
 }

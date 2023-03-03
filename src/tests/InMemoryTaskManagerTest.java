@@ -89,7 +89,7 @@ public class InMemoryTaskManagerTest {
     @Test
     void createFirstTask() {
         taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
-        final Task task = new Task("name", "description", Status.NEW, 0);
+        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
 
         assertEquals(1, taskManager.getListAllTasks().size());
         assertEquals(task, taskManager.getTask(0));
@@ -99,8 +99,8 @@ public class InMemoryTaskManagerTest {
     void createTasks() {
         taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
-        final Task task = new Task("name", "description", Status.NEW, 0);
-        final Task task1 = new Task("name", "description", Status.NEW, 1);
+        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        final Task task1 = new Task("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1");
 
         assertEquals(2, taskManager.getListAllTasks().size());
         assertEquals(task, taskManager.getTask(0));
@@ -209,7 +209,7 @@ public class InMemoryTaskManagerTest {
     @Test
     void createFirstEpic() {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-        final Epic epic = new Epic("name", "description", Status.NEW, 0);
+        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
 
         assertEquals(1, taskManager.getListAllEpics().size());
         assertEquals(epic, taskManager.getEpic(0));
@@ -220,8 +220,8 @@ public class InMemoryTaskManagerTest {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
 
-        final Epic epic = new Epic("name", "description", Status.NEW, 0);
-        final Epic epic1 = new Epic("name", "description", Status.NEW, 1);
+        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        final Epic epic1 = new Epic("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1");
 
         assertEquals(2, taskManager.getListAllEpics().size());
         assertEquals(epic, taskManager.getEpic(0));
@@ -309,14 +309,14 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateTaskMissedId() {
-        taskManager.updateTask(0, new Task("name", "description", Status.NEW, 1));
+        taskManager.updateTask(0, new Task("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1"));
         assertEquals(0, taskManager.getListAllTasks().size());
     }
 
     @Test
     void updateTaskWithEmptyList() {
         taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
-        final Task task = new Task("name", "description", Status.NEW, 0);
+        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
 
         taskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
 
@@ -329,8 +329,8 @@ public class InMemoryTaskManagerTest {
         taskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         taskManager.createTask("name", "description", Status.IN_PROGRESS,"14:09, 12.07.21", "20");
 
-        final Task task = new Task("name", "description", Status.NEW, 0);
-        final Task task1 = new Task("name", "description", Status.IN_PROGRESS, 1);
+        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        final Task task1 = new Task("name", "description", Status.IN_PROGRESS, 1, "14:00, 12.07.21", "1");
 
         taskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
         taskManager.updateTask(1, new Task("name", "description", Status.IN_PROGRESS, 1, "14:09, 13.07.21", "77"));
@@ -344,7 +344,7 @@ public class InMemoryTaskManagerTest {
     @Test
     void updateSubtaskMissedId() {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-        taskManager.updateSubtask(0, new Subtask("name", "description", Status.NEW, 1, 0));
+        taskManager.updateSubtask(0, new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 12.07.21", "1"));
         assertEquals(0, taskManager.getListAllSubtasks().size());
     }
 
@@ -352,7 +352,7 @@ public class InMemoryTaskManagerTest {
     void updateSubtaskWithEmptyList() {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
-        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0);
+        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 12.07.21", "1");
 
         taskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:09, 13.07.21", "77"));
 
@@ -365,8 +365,8 @@ public class InMemoryTaskManagerTest {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
-        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0);
-        final Subtask subtask1 = new Subtask("name", "description", Status.NEW, 2, 0);
+        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 12.07.21", "1");
+        final Subtask subtask1 = new Subtask("name", "description", Status.NEW, 2, 0, "14:00, 12.07.21", "1");
 
         taskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:09, 13.07.21", "77"));
         taskManager.updateSubtask(2, new Subtask("name", "description", Status.NEW, 2, 0, "14:09, 13.07.21", "77"));
@@ -379,14 +379,14 @@ public class InMemoryTaskManagerTest {
 
     @Test
     void updateEpicMissedId() {
-        taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0));
+        taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1"));
         assertEquals(0, taskManager.getListAllEpics().size());
     }
 
     @Test
     void updateEpicWithEmptyList() {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-        final Epic epic = new Epic("name", "description", Status.NEW, 0);
+        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
 
         taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
 
@@ -399,8 +399,8 @@ public class InMemoryTaskManagerTest {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
 
-        final Epic epic = new Epic("name", "description", Status.NEW, 0);
-        final Epic epic1 = new Epic("name", "description", Status.NEW, 1);
+        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        final Epic epic1 = new Epic("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1");
 
         taskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
         taskManager.updateEpic(1, new Epic("name", "description", Status.NEW, 1, "14:09, 13.07.21", "77"));

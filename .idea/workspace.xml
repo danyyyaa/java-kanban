@@ -4,72 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="refactor: покрыть тестами InMemoryTaskManager">
+    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-kanban.iml" beforeDir="false" afterPath="$PROJECT_DIR$/java-kanban.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Epic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/Subtask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Subtask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/HistoryManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/HistoryManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="JUnit5 Test Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2LZoVCHdyjor9ti9A4PKUIFdp4T" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2MSfCBxi8znnoCUmG5DPb0bJtv3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;tests.InMemoryTaskManagerTest&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers&quot;: &quot;true&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/dev/java-kanban&quot;
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="tests.InMemoryTaskManagerTest" />
-      <recent name="managers.task.InMemoryTaskManagerTest" />
-      <recent name="" />
-      <recent name="managers.history.InMemoryHistoryManager" />
-    </key>
-    <key name="CreateTestDialog.RecentsKey">
-      <recent name="tests" />
-      <recent name="managers.tests" />
-      <recent name="managers.file" />
-      <recent name="managers.task" />
-      <recent name="managers.history" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
@@ -79,330 +53,40 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileBackedTasksManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.FileBackedTasksManagerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InMemoryTaskManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.InMemoryTaskManagerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="managers.task in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="managers.tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="managers.task" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in java-kanban" />
-        <item itemvalue="JUnit.managers.task in java-kanban" />
-        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
-        <item itemvalue="JUnit.FileBackedTasksManagerTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8b6a9d44-2bf8-4864-b773-8882ed009adc" name="Changes" comment="" />
-      <created>1676087986596</created>
+      <changelist id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="" />
+      <created>1677765778569</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1676087986596</updated>
+      <updated>1677765778569</updated>
     </task>
-    <task id="LOCAL-00001" summary="починил">
-      <created>1676092091673</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1676092091673</updated>
-    </task>
-    <task id="LOCAL-00002" summary="починил">
-      <created>1676103487612</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1676103487612</updated>
-    </task>
-    <task id="LOCAL-00003" summary="все работает">
-      <created>1676113454161</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1676113454161</updated>
-    </task>
-    <task id="LOCAL-00004" summary="на всякий случай">
-      <created>1676115172209</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1676115172209</updated>
-    </task>
-    <task id="LOCAL-00005" summary="начинаю переделывать все">
-      <created>1676136871412</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1676136871412</updated>
-    </task>
-    <task id="LOCAL-00006" summary="начинаю делать историю">
-      <created>1676194325271</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1676194325271</updated>
-    </task>
-    <task id="LOCAL-00007" summary="начинаю чистить код">
-      <created>1676296799998</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1676296799998</updated>
-    </task>
-    <task id="LOCAL-00008" summary="6 тз готовое">
-      <created>1676298478838</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1676298478838</updated>
-    </task>
-    <task id="LOCAL-00009" summary="6 тз 2 итерация">
-      <created>1676369881564</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1676369881564</updated>
-    </task>
-    <task id="LOCAL-00010" summary="6 тз 2 итерация">
-      <created>1676370173062</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1676370173062</updated>
-    </task>
-    <task id="LOCAL-00011" summary="6 тз 2 итерация">
-      <created>1676370277136</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1676370277136</updated>
-    </task>
-    <task id="LOCAL-00012" summary="6 тз 2 итерация">
-      <created>1676370422286</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1676370422286</updated>
-    </task>
-    <task id="LOCAL-00013" summary="6 тз 2 итерация">
-      <created>1676370482009</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1676370482009</updated>
-    </task>
-    <task id="LOCAL-00014" summary="feat: исправить изменение статуса эпика и добавить тесты для historyManager и изменения статуса эпика">
-      <created>1677486132272</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1677486132272</updated>
-    </task>
-    <task id="LOCAL-00015" summary="feat: написать всего 27 тестов">
-      <created>1677491992612</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1677491992612</updated>
-    </task>
-    <task id="LOCAL-00016" summary="feat: исправить сабтаски, 46 тестов">
-      <created>1677514218804</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1677514218804</updated>
-    </task>
-    <task id="LOCAL-00017" summary="feat: покрыл тестами InMemoryTaskManager">
-      <created>1677569202319</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1677569202319</updated>
-    </task>
-    <task id="LOCAL-00018" summary="refactor: заменить Integer на int">
-      <created>1677569961963</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1677569961963</updated>
-    </task>
-    <task id="LOCAL-00019" summary="feat: сделать класс для тестов FileBackedTasksManagerTest">
-      <created>1677600673432</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1677600673432</updated>
-    </task>
-    <task id="LOCAL-00020" summary="refactor: убрать epicListWithoutSubtasks из InMemoryTaskManager">
-      <created>1677601103553</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1677601103553</updated>
-    </task>
-    <task id="LOCAL-00021" summary="feat: начать добавлять время">
-      <created>1677606414935</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1677606414935</updated>
-    </task>
-    <task id="LOCAL-00022" summary="feat: добавить время ко всем типам задач и изменить сигнатуру методов их создания">
-      <created>1677647372791</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1677647372791</updated>
-    </task>
-    <task id="LOCAL-00023" summary="feat: добавить время старта, время окончания для всех типов задач">
-      <created>1677651064891</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1677651064891</updated>
-    </task>
-    <task id="LOCAL-00024" summary="refactor: сменить коллекцию эпика с arraylist на hashmap">
-      <created>1677660447642</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1677660447642</updated>
-    </task>
-    <task id="LOCAL-00025" summary="feat: добавил сортировку задач по startTime">
-      <created>1677663287114</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1677663287114</updated>
-    </task>
-    <task id="LOCAL-00026" summary="feat: сделать валидацию по пересечениям времени задач">
-      <created>1677736820751</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1677736820751</updated>
-    </task>
-    <task id="LOCAL-00027" summary="refactor: подправить тесты и метод removeSubtaskById">
-      <created>1677738188958</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1677738188958</updated>
-    </task>
-    <task id="LOCAL-00028" summary="refactor: покрыть тестами InMemoryTaskManager">
-      <created>1677746860808</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1677746860808</updated>
-    </task>
-    <option name="localTasksCounter" value="29" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="починил" />
-    <MESSAGE value="все работает" />
-    <MESSAGE value="на всякий случай" />
-    <MESSAGE value="начинаю переделывать все" />
-    <MESSAGE value="начинаю делать историю" />
-    <MESSAGE value="начинаю чистить код" />
-    <MESSAGE value="6 тз готовое" />
-    <MESSAGE value="6 тз 2 итерация" />
-    <MESSAGE value="feat: исправить изменение статуса эпика и добавить тесты для historyManager и изменения статуса эпика" />
-    <MESSAGE value="feat: написать всего 27 тестов" />
-    <MESSAGE value="feat: исправить сабтаски, 46 тестов" />
-    <MESSAGE value="feat: покрыл тестами InMemoryTaskManager" />
-    <MESSAGE value="refactor: заменить Integer на int" />
-    <MESSAGE value="feat: сделать класс для тестов FileBackedTasksManagerTest" />
-    <MESSAGE value="refactor: убрать epicListWithoutSubtasks из InMemoryTaskManager" />
-    <MESSAGE value="feat: начать добавлять время" />
-    <MESSAGE value="feat: добавить время ко всем типам задач и изменить сигнатуру методов их создания" />
-    <MESSAGE value="feat: добавить время старта, время окончания для всех типов задач" />
-    <MESSAGE value="refactor: сменить коллекцию эпика с arraylist на hashmap" />
-    <MESSAGE value="feat: добавил сортировку задач по startTime" />
-    <MESSAGE value="feat: сделать валидацию по пересечениям времени задач" />
-    <MESSAGE value="refactor: подправить тесты и метод removeSubtaskById" />
-    <MESSAGE value="refactor: покрыть тестами InMemoryTaskManager" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: покрыть тестами InMemoryTaskManager" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Main.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
-        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
-        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
-        <watch expression="((CustomLinkedList)((InMemoryHistoryManager)historyManager).customLinkedList).idNodesMap" custom="managers.history.InMemoryHistoryManager,managers.history.CustomLinkedList" />
-      </configuration>
-    </watches-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="tasks.Status" memberName="ordinal" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/java_kanban$InMemoryTaskManagerTest.ic" NAME="InMemoryTaskManagerTest Coverage Results" MODIFIED="1677737357435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>tests.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/java_kanban$All_in_java_kanban.ic" NAME="All in java-kanban Coverage Results" MODIFIED="1677746393674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/java_kanban$managers_task_in_java_kanban.ic" NAME="managers.task in java-kanban Coverage Results" MODIFIED="1677744393545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>managers.tests.*</FILTER>
-    </SUITE>
+    <SUITE FILE_PATH="coverage/java_kanban$All_in_java_kanban.ic" NAME="All in java-kanban Coverage Results" MODIFIED="1677819088433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

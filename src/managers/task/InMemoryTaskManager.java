@@ -60,8 +60,11 @@ public class InMemoryTaskManager implements TaskManager {
                     && endOtherTask.isAfter(startCurrentTask) && endOtherTask.isBefore(endCurrentTask);
             boolean condition4 = startOtherTask.isAfter(startCurrentTask) && startOtherTask.isBefore(endCurrentTask)
                     && endOtherTask.isAfter(startCurrentTask) && endOtherTask.isBefore(endCurrentTask);
+            boolean condition5 = startOtherTask.equals(startCurrentTask) &&
+                    (endOtherTask.isAfter(endCurrentTask) || endOtherTask.isBefore(endCurrentTask));
+            boolean condition6 = startOtherTask.isEqual(startCurrentTask) && endOtherTask.isEqual(endCurrentTask);
 
-            if (condition1 || condition2 || condition3 || condition4) {
+            if (condition1 || condition2 || condition3 || condition4 || condition5 || condition6) {
                 removeAnyTaskById(id);
                 throw new RuntimeException("Ошибка, пересечение задач по времени.");
             }
@@ -89,7 +92,7 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(treeSet);
     }
 
-    @Override
+    /*@Override
     public void calculateEpicTime(int epicId) {
         if (epics.containsKey(epicId)) {
             epics.get(epicId).setEndTime(epics.get(epicId).getStartTime());
@@ -100,6 +103,22 @@ public class InMemoryTaskManager implements TaskManager {
 
                 if (getSubtask(id).getStartTime().isAfter(epics.get(epicId).getEndTime())) {
                     epics.get(epicId).setEndTime(getSubtask(id).getEndTime());
+                }
+            }
+        }
+    }*/
+
+    @Override
+    public void calculateEpicTime(int epicId) {
+        if (epics.containsKey(epicId)) {
+            epics.get(epicId).setEndTime(epics.get(epicId).getStartTime());
+            for (int id : epics.get(epicId).getSubtasksId()) {
+                if (subtasks.get(id).getStartTime().isBefore(epics.get(epicId).getStartTime())) {
+                    epics.get(epicId).setStartTime(subtasks.get(id).getStartTime());
+                }
+
+                if (subtasks.get(id).getStartTime().isAfter(epics.get(epicId).getEndTime())) {
+                    epics.get(epicId).setEndTime(subtasks.get(id).getEndTime());
                 }
             }
         }
