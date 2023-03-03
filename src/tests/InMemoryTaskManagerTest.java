@@ -1,5 +1,6 @@
 package tests;
 
+import managers.task.InMemoryTaskManager;
 import managers.task.TaskManager;
 import managers.util.Managers;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ public class InMemoryTaskManagerTest {
     private TaskManager taskManager;
 
     @BeforeEach
-    public void create() {
+    public void setUp() {
         taskManager = Managers.getDefault();
     }
 
@@ -485,7 +486,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    void deleteAllTasksWithTwoElementInList() {
+    void deleteAllSubtasksWithTwoElementInList() {
         taskManager.createEpic("name", "description", Status.NEW, "14:09, 10.07.21", "77");
         taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
         taskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 11.07.21", "77");
