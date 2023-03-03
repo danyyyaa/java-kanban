@@ -1,4 +1,3 @@
-/*
 package tests;
 
 import managers.file.FileBackedTasksManager;
@@ -6,7 +5,6 @@ import managers.file.ManagerSaveException;
 import managers.util.Managers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 import java.nio.file.Path;
 
@@ -28,4 +26,4 @@ class FileBackedTasksManagerTest extends InMemoryTaskManagerTest {
         fileManager.getEpic(0);
     }
 
-}*/
+}

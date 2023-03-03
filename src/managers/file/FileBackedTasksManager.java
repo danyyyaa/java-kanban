@@ -95,15 +95,27 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
                 counter++;
 
-                if ((counter == fileLine.length - 1) || isFirstIteration) {
+                /*if ((counter == fileLine.length - 1) || isFirstIteration) {
+                    isFirstIteration = false;
+                    continue;
+                }*/
+
+                if (line.isBlank()) {
+                    continue;
+                }
+
+                if (isFirstIteration) {
                     isFirstIteration = false;
                     continue;
                 }
-                if (!(line.isBlank()) && !(counter == fileLine.length)) {
+                if (!(counter == fileLine.length) | counter - fromStringCounter == 2) {
                     fromString(line);
                     fromStringCounter++;
                 }
-                if (counter == fileLine.length && fromStringCounter != counter) {
+                /*if (counter == fileLine.length) {
+                    readHistory(line);
+                }*/
+                if (counter == fileLine.length && counter -fromStringCounter != 2) {
                     readHistory(line);
                 }
             }
@@ -112,7 +124,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
         setEpicSubtasksId();
     }
-
 
     private void readHistory(String line) {
         try {
@@ -123,14 +134,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 if (getSubtasks().containsKey(Integer.parseInt(taskId))) {
                     historyManager.add(subtasks.get(Integer.parseInt(taskId)));
                 }
-                for (Epic epic : epics.values()) { // изменить
+                if (getEpics().containsKey((Integer.parseInt(taskId)))) {
+                    historyManager.add(epics.get(Integer.parseInt(taskId)));
+                }
+                /*for (Epic epic : epics.values()) { // изменить
                     if (epic.getId().equals(Integer.valueOf(taskId))) {
                         historyManager.add(epic);
                     }
-                }
+                }*/
             }
         } catch (NumberFormatException e) {
-            //throw new RuntimeException("")
+
         }
     }
 

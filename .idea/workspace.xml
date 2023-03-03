@@ -4,22 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="fix: много">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-kanban.iml" beforeDir="false" afterPath="$PROJECT_DIR$/java-kanban.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/history/InMemoryHistoryManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Epic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/Subtask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Subtask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/HistoryManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/HistoryManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/resources/tests data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/resources/tests data.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +37,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.FileBackedTasksManagerTest">
     <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <option name="PACKAGE_NAME" value="" />
@@ -53,8 +46,40 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FileBackedTasksManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.FileBackedTasksManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InMemoryTaskManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.InMemoryTaskManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FileBackedTasksManagerTest" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
         <item itemvalue="JUnit.All in java-kanban" />
       </list>
     </recent_temporary>
@@ -68,18 +93,21 @@
       <option name="presentableId" value="Default" />
       <updated>1677765778569</updated>
     </task>
+    <task id="LOCAL-00001" summary="fix: много">
+      <created>1677828647971</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677828647971</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: много" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: много" />
+  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="tasks.Status" memberName="ordinal" />
@@ -87,6 +115,12 @@
     </pin-to-top-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/java_kanban$InMemoryTaskManagerTest.ic" NAME="InMemoryTaskManagerTest Coverage Results" MODIFIED="1677835863035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>tests.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_kanban$FileBackedTasksManagerTest.ic" NAME="FileBackedTasksManagerTest Coverage Results" MODIFIED="1677835841305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>tests.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/java_kanban$All_in_java_kanban.ic" NAME="All in java-kanban Coverage Results" MODIFIED="1677819088433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

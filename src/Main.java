@@ -23,7 +23,9 @@ public class Main {
     public static void main(String[] args) {
         //createTasks();
 
-        fileManager.calculateEpicTime(0);
+        //fileManager.getEpic(0);
+        //fileManager.calculateEpicTime(0);
+        fileManager.calculateEpicStatus(0);
 
        // fileManager.getEpic(0);
         /*fileManager.getAnyTaskById(4);

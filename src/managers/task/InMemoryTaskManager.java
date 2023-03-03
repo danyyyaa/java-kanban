@@ -92,22 +92,6 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(treeSet);
     }
 
-    /*@Override
-    public void calculateEpicTime(int epicId) {
-        if (epics.containsKey(epicId)) {
-            epics.get(epicId).setEndTime(epics.get(epicId).getStartTime());
-            for (int id : epics.get(epicId).getSubtasksId()) {
-                if (getSubtask(id).getStartTime().isBefore(epics.get(epicId).getStartTime())) {
-                    epics.get(epicId).setStartTime(getSubtask(id).getStartTime());
-                }
-
-                if (getSubtask(id).getStartTime().isAfter(epics.get(epicId).getEndTime())) {
-                    epics.get(epicId).setEndTime(getSubtask(id).getEndTime());
-                }
-            }
-        }
-    }*/
-
     @Override
     public void calculateEpicTime(int epicId) {
         if (epics.containsKey(epicId)) {
@@ -137,7 +121,6 @@ public class InMemoryTaskManager implements TaskManager {
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
-
 
     private int idGenerator() {
         int id = InMemoryTaskManager.id;
