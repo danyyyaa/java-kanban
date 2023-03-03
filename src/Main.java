@@ -3,6 +3,7 @@ import managers.file.ManagerSaveException;
 import managers.task.TaskManager;
 import managers.util.Managers;
 import tasks.Status;
+import tasks.Task;
 
 import java.nio.file.Path;
 
@@ -18,22 +19,20 @@ public class Main {
         }
     }
 
-    //static TaskManager taskManager = Managers.getDefault();
-
     public static void main(String[] args) {
         //createTasks();
 
-        //fileManager.getEpic(0);
-        //fileManager.calculateEpicTime(0);
-        fileManager.calculateEpicStatus(0);
-
-       // fileManager.getEpic(0);
-        /*fileManager.getAnyTaskById(4);
+        fileManager.getEpic(0);
         fileManager.calculateEpicTime(0);
-        System.out.println(fileManager.getHistory());*/
-        /*System.out.println(fileManager.getListAllSubtasks());
+
+        for (Task task : fileManager.getPrioritizedTasks()) {
+            System.out.println(task.getId());
+        }
+
+        System.out.println(fileManager.getHistory());
+        System.out.println(fileManager.getListAllSubtasks());
         System.out.println(fileManager.getListAllTasks());
-        System.out.println(fileManager.getListAllEpics());*/
+        System.out.println(fileManager.getListAllEpics());
 
 
     }

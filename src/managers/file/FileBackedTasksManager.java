@@ -10,10 +10,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import static managers.file.TasksType.*;
@@ -95,27 +92,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
                 counter++;
 
-                /*if ((counter == fileLine.length - 1) || isFirstIteration) {
-                    isFirstIteration = false;
-                    continue;
-                }*/
-
-                if (line.isBlank()) {
-                    continue;
-                }
-
-                if (isFirstIteration) {
+                if (line.isBlank() || isFirstIteration) {
                     isFirstIteration = false;
                     continue;
                 }
+
                 if (!(counter == fileLine.length) | counter - fromStringCounter == 2) {
                     fromString(line);
                     fromStringCounter++;
                 }
-                /*if (counter == fileLine.length) {
-                    readHistory(line);
-                }*/
-                if (counter == fileLine.length && counter -fromStringCounter != 2) {
+
+                if (counter == fileLine.length && counter - fromStringCounter != 2) {
                     readHistory(line);
                 }
             }
@@ -126,25 +113,16 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     private void readHistory(String line) {
-        try {
-            for (String taskId : line.split(",")) {
-                if (getTasks().containsKey(Integer.parseInt(taskId))) {
-                    historyManager.add(tasks.get(Integer.parseInt(taskId)));
-                }
-                if (getSubtasks().containsKey(Integer.parseInt(taskId))) {
-                    historyManager.add(subtasks.get(Integer.parseInt(taskId)));
-                }
-                if (getEpics().containsKey((Integer.parseInt(taskId)))) {
-                    historyManager.add(epics.get(Integer.parseInt(taskId)));
-                }
-                /*for (Epic epic : epics.values()) { // изменить
-                    if (epic.getId().equals(Integer.valueOf(taskId))) {
-                        historyManager.add(epic);
-                    }
-                }*/
+        for (String taskId : line.split(",")) {
+            if (getTasks().containsKey(Integer.parseInt(taskId))) {
+                historyManager.add(tasks.get(Integer.parseInt(taskId)));
             }
-        } catch (NumberFormatException e) {
-
+            if (getSubtasks().containsKey(Integer.parseInt(taskId))) {
+                historyManager.add(subtasks.get(Integer.parseInt(taskId)));
+            }
+            if (getEpics().containsKey((Integer.parseInt(taskId)))) {
+                historyManager.add(epics.get(Integer.parseInt(taskId)));
+            }
         }
     }
 
@@ -405,12 +383,5 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         } catch (ManagerSaveException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    @Override
-    public String toString() {
-        return "FileBackedTasksManager{" +
-                "path=" + path +
-                '}';
     }
 }

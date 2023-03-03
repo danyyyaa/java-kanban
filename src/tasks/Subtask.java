@@ -8,17 +8,6 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
-    /*@Override
-    public String toString() {
-        return "tasks.Subtask{" +
-                "epicId=" + epicId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", status='" + status + '\'' +
-                '}';
-    }*/
-
     public Integer getEpicId() {
         return epicId;
     }
