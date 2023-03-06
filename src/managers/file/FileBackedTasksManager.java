@@ -248,11 +248,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     private void setEpicSubtasksId() {
         for (Subtask subtask : subtasks.values()) {
             if (subtask.getEpicId() != null) {
-                for (Epic epic : epics.values()) { // изменить
-                    if (epic.getId().equals(subtask.getEpicId())) {
-                        epic.addSubtaskId(subtask.getId());
-                    }
-                }
+                int epicId = subtask.getEpicId();
+                epics.get(epicId).addSubtaskId(subtask.getId());
             }
         }
     }
