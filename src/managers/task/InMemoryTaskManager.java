@@ -9,21 +9,8 @@ import tasks.Task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-class DateComparator implements Comparator<Task> {
-
-    @Override
-    public int compare(Task o1, Task o2) {
-        if (o1.getStartTime().plus(o1.getDuration()).isAfter(o2.getStartTime().plus(o1.getDuration()))) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-}
 
 public class InMemoryTaskManager implements TaskManager {
     final protected Map<Integer, Task> tasks;
@@ -41,6 +28,20 @@ public class InMemoryTaskManager implements TaskManager {
         epics = new HashMap<>();
         historyManager = Managers.getDefaultHistory();
         timeLocalDateTimeMap = new HashMap<>();
+    }
+
+    @Override
+    public List<Task> getPrioritizedTasks() {
+        Set<Task> treeSet = new TreeSet<>((o1, o2) -> {
+            if (o1.getStartTime().plus(o1.getDuration()).isAfter(o2.getStartTime().plus(o1.getDuration()))) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        treeSet.addAll(getListAllTypeTasks());
+
+        return new ArrayList<>(treeSet);
     }
 
     private void timeValidation(String startTime, String duration, int id) {
@@ -82,14 +83,6 @@ public class InMemoryTaskManager implements TaskManager {
         if (epics.containsKey(id)) {
             removeEpicById(id);
         }
-    }
-
-    @Override
-    public List<Task> getPrioritizedTasks() {
-        Set<Task> treeSet = new TreeSet<>(new DateComparator());
-        treeSet.addAll(getListAllTypeTasks());
-
-        return new ArrayList<>(treeSet);
     }
 
     @Override
