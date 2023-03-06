@@ -5,4 +5,4 @@ id,type,name,status,description,startTime,duration,endTime,epic
 3,SUBTASK,Подзадача 3,IN_PROGRESS,Описание,2021-07-09T14:00,PT1M,2021-07-09T14:01,0,
 0,EPIC,Эпик 1,IN_PROGRESS,Описание,2021-07-09T14:00,PT1M,2021-07-11T14:01,
 
-1,0
+1

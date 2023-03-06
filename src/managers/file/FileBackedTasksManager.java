@@ -85,24 +85,27 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             String fileData = Files.readString(Path.of(path.toFile().getAbsolutePath()), StandardCharsets.UTF_8);
             String[] fileLine = fileData.split("\\r?\\n");
             boolean isFirstIteration = true;
+            boolean isBlankLine = true;
 
-            int fromStringCounter = 0;
             int counter = 0;
             for (String line : fileLine) {
 
                 counter++;
 
-                if (line.isBlank() || isFirstIteration) {
+                if (isFirstIteration) {
                     isFirstIteration = false;
                     continue;
                 }
-
-                if (!(counter == fileLine.length) | counter - fromStringCounter == 2) {
-                    fromString(line);
-                    fromStringCounter++;
+                if (line.isBlank()) {
+                    isBlankLine = false;
+                    continue;
                 }
 
-                if (counter == fileLine.length && counter - fromStringCounter != 2) {
+                if (isBlankLine) {
+                    fromString(line);
+                }
+
+                if (counter == fileLine.length && !isBlankLine) {
                     readHistory(line);
                 }
             }

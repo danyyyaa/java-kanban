@@ -22,19 +22,20 @@ public class Main {
     public static void main(String[] args) {
         //createTasks();
 
-        fileManager.getEpic(0);
+        //fileManager.getEpic(0);
         fileManager.calculateEpicTime(0);
 
         for (Task task : fileManager.getPrioritizedTasks()) {
             System.out.println(task.getId());
         }
+        System.out.println("---------");
 
-        System.out.println(fileManager.getHistory());
+        for (Task task : fileManager.getHistory()) {
+            System.out.println(task.getId());
+        }
         System.out.println(fileManager.getListAllSubtasks());
         System.out.println(fileManager.getListAllTasks());
         System.out.println(fileManager.getListAllEpics());
-
-
     }
 
     private static void createTasks() {
