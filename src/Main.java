@@ -1,9 +1,11 @@
 import managers.file.FileBackedTasksManager;
 import managers.file.ManagerSaveException;
+import managers.server.HttpTaskServer;
 import managers.task.TaskManager;
 import managers.util.Managers;
 import tasks.Status;
 import tasks.Task;
+
 
 import java.nio.file.Path;
 
@@ -21,21 +23,10 @@ public class Main {
 
     public static void main(String[] args) {
         //createTasks();
+        HttpTaskServer httpTaskServer = new HttpTaskServer();
 
-        //fileManager.getEpic(0);
-        fileManager.calculateEpicTime(0);
 
-        for (Task task : fileManager.getPrioritizedTasks()) {
-            System.out.println(task.getId());
-        }
-        System.out.println("---------");
 
-        for (Task task : fileManager.getHistory()) {
-            System.out.println(task.getId());
-        }
-        System.out.println(fileManager.getListAllSubtasks());
-        System.out.println(fileManager.getListAllTasks());
-        System.out.println(fileManager.getListAllEpics());
     }
 
     private static void createTasks() {

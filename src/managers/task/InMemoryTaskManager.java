@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class InMemoryTaskManager implements TaskManager {
     final protected Map<Integer, Task> tasks;
@@ -135,6 +136,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return ++id;
     }
+
 
     @Override
     public Task getAnyTaskById(int id) {

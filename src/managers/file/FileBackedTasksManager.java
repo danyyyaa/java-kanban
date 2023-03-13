@@ -170,6 +170,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
         String description = data[4];
         String startTime = LocalDateTime.parse(data[5]).format(DATE_TIME_FORMATTER);
+
         String duration = data[6].substring(2, data[6].length() - 1);
 
 
