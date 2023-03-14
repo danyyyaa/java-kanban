@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="feat: реализовать load в классе KVServer">
+    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="feat: реализовать клиент и загрузку в нем">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-kanban.iml" beforeDir="false" afterPath="$PROJECT_DIR$/java-kanban.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/server/KVTaskClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/KVTaskClient.java" afterDir="false" />
     </list>
@@ -189,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678776287039</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: реализовать клиент и загрузку в нем">
+      <created>1678784219165</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1678784219165</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,7 +220,8 @@
     <MESSAGE value="refactor: убрать вложенный цикл в setEpicSubtasksId" />
     <MESSAGE value="feat: написать сервер и добавить почти все get запросы" />
     <MESSAGE value="feat: реализовать load в классе KVServer" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: реализовать load в классе KVServer" />
+    <MESSAGE value="feat: реализовать клиент и загрузку в нем" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: реализовать клиент и загрузку в нем" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

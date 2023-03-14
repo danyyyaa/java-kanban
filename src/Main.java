@@ -18,7 +18,15 @@ public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
         new KVServer().start();
         KVTaskClient client = new KVTaskClient(new URL("http://localhost:" + KVServer.PORT));
-        client.load("qwe");
+
+        client.put("1", "11");
+        client.put("1", "2");
+        client.put("2", "33");
+        String response = client.load("1");
+        String response1 = client.load("2");
+
+        System.out.println("response: " + response);
+        System.out.println("response1: " + response1);
 
     }
 
