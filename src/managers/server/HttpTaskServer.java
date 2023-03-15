@@ -1,6 +1,6 @@
 package managers.server;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -14,14 +14,20 @@ import tasks.Task;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class HttpTaskServer {
     static FileBackedTasksManager fileManager;
@@ -29,6 +35,11 @@ public class HttpTaskServer {
     private static final int PORT = 8080;
     private static final Gson gson = new Gson();
     private HttpServer httpServer;
+
+    /*private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) -> {
+        Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+    }).create();*/
 
     static {
         try {
@@ -100,8 +111,37 @@ public class HttpTaskServer {
             System.out.println(i + " " + pathParts[i]);
         }*/
 
+        switch (requestMethod) {
+            case "GET":
+                if (pathParts.length == 3 && pathParts[2].equals("tasks")) {
+                    return Endpoint.GET_ALL_TASKS;
+                }
 
-        if (pathParts.length == 3 && pathParts[2].equals("tasks") && requestMethod.equals("GET")) {
+                if (pathParts.length == 3 && pathParts[2].equals("subtasks")) {
+                    return Endpoint.GET_ALL_SUBTASKS;
+                }
+
+                if (pathParts.length == 3 && pathParts[2].equals("epics")) {
+                    return Endpoint.GET_ALL_EPICS;
+                }
+
+                if (pathParts.length == 3 && pathParts[2].equals("history")) {
+                    return Endpoint.GET_HISTORY;
+                }
+
+                if (pathParts.length == 3 && pathParts[2].equals("prioritizedtasks")) {
+                    return Endpoint.GET_PRIORITIZED_TASK;
+                }
+                break;
+            case "POST":
+
+                break;
+            case "DELETE":
+
+                break;
+        }
+
+        /*if (pathParts.length == 3 && pathParts[2].equals("tasks") && requestMethod.equals("GET")) {
             return Endpoint.GET_ALL_TASKS;
         }
 
@@ -120,14 +160,12 @@ public class HttpTaskServer {
         if (pathParts.length == 3 && pathParts[2].equals("prioritizedtasks") && requestMethod.equals("GET")) {
             return Endpoint.GET_PRIORITIZED_TASK;
         }
-
-
-
+*/
 
         return Endpoint.UNKNOWN;
     }
 
-    private static void handleGetPrioritizedTasks (HttpExchange exchange) throws IOException {
+    private static void handleGetPrioritizedTasks(HttpExchange exchange) throws IOException {
         List<Task> bytes = fileManager.getPrioritizedTasks();
         byte[] response = gson.toJson(bytes).getBytes();
 
@@ -137,7 +175,9 @@ public class HttpTaskServer {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        } /*finally {
+            exchange.close();
+        }*/
     }
 
     private static void handleGetHistory(HttpExchange exchange) throws IOException {
@@ -208,6 +248,12 @@ public class HttpTaskServer {
         exchange.close();
     }
 
+    protected void sendText(HttpExchange exchange, String text) throws IOException {
+        byte[] resp = text.getBytes(UTF_8);
+        exchange.getResponseHeaders().add("Content-Type", "application/json");
+        exchange.sendResponseHeaders(200, resp.length);
+        exchange.getResponseBody().write(resp);
+    }
 
     enum Endpoint {
         GET_ALL_TASKS, // done

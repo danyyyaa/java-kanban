@@ -8,6 +8,8 @@ import managers.server.HttpTaskManager;
 import managers.task.InMemoryTaskManager;
 import managers.task.TaskManager;
 
+import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 
 public class Managers {
@@ -16,9 +18,9 @@ public class Managers {
         return new InMemoryTaskManager();
     }
 
-   /* public static TaskManager getDefault() throws ManagerSaveException {
-        return new HttpTaskManager();
-    }*/
+    public static TaskManager getDefaultHttp(URL url) throws IOException, InterruptedException {
+        return new HttpTaskManager(url);
+    }
 
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
