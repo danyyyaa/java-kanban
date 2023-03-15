@@ -98,7 +98,7 @@ public class KVServer {
 
     private void register(HttpExchange h) throws IOException {
         try {
-            System.out.println("\n/register");
+            System.out.println("\n/register\n");
             if ("GET".equals(h.getRequestMethod())) {
                 sendText(h, apiToken);
             } else {
@@ -135,5 +135,10 @@ public class KVServer {
         h.getResponseHeaders().add("Content-Type", "application/json");
         h.sendResponseHeaders(200, resp.length);
         h.getResponseBody().write(resp);
+    }
+
+    public void stop() {
+        server.stop(0);
+        System.out.println("Остановлен сервер на порту " + PORT);
     }
 }

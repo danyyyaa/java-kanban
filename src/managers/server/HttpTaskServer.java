@@ -1,30 +1,21 @@
 package managers.server;
 
 import com.google.gson.*;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
 import managers.file.FileBackedTasksManager;
-import managers.file.ManagerSaveException;
-import managers.util.Managers;
+import managers.task.TaskManager;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -35,19 +26,20 @@ public class HttpTaskServer {
     private static final int PORT = 8080;
     private static final Gson gson = new Gson();
     private HttpServer httpServer;
+    private TaskManager taskManager;
 
     /*private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) -> {
         Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }).create();*/
 
-    static {
-        try {
-            fileManager = Managers.FileManager(Path.of("resources/data.csv"));
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
+    /*public HttpTaskServer() throws IOException {
+        HttpServer httpServer = HttpServer.create();
+        httpServer.bind(new InetSocketAddress(8080), 0);
+        httpServer.createContext("/tasks", new TasksHandler(new FileBackedTasksManager()));
+        httpServer.start();
+    }*/
 
     public HttpTaskServer() {
         try {
@@ -56,10 +48,15 @@ public class HttpTaskServer {
             httpServer.createContext("/tasks", new TasksHandler());
             httpServer.start();
 
-            System.out.println("HTTP-сервер запущен на " + PORT + " порту!");
+            System.out.println("HTTP-сервер запущен на " + PORT + " порту!\n");
         } catch (IOException e) {
             System.out.println("Ошибка создания сервера.");
         }
+    }
+
+    public void stop() {
+        httpServer.stop(0);
+        System.out.println("Остановлен сервер на порту " + PORT);
     }
 
     static class TasksHandler implements HttpHandler {

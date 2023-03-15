@@ -24,10 +24,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         loadFromFile(path);
     }
 
-    public FileBackedTasksManager() {
-    }
+    public FileBackedTasksManager() {}
 
-    private void save() throws ManagerSaveException {
+
+    public void save() throws ManagerSaveException {
         try (PrintWriter pw = new PrintWriter(path.toFile())) {
             pw.write("id,type,name,status,description,startTime,duration,endTime,epic\n");
             for (Task task : tasks.values()) {
@@ -74,6 +74,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             System.out.println(e.getMessage());
         }
     }
+
+    public void loadFromFile() {};
 
     public void loadFromFile(Path path) throws ManagerSaveException {
         if (!Files.exists(path)) {

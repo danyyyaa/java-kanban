@@ -8,50 +8,44 @@ import managers.task.TaskManager;
 import managers.util.Managers;
 import tasks.Status;
 import tasks.Task;
+
 import java.io.IOException;
 
 
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        /*new KVServer().start();
-        //TaskManager httpManager = Managers.getDefaultHttp(new URL("http://localhost:" + KVServer.PORT));
-        HttpTaskManager httpManager = new HttpTaskManager(new URL("http://localhost:" + KVServer.PORT));
-
-        httpManager.put("1", "один");
-        String one = httpManager.load("1");
-        System.out.println(one);*/
-
-        new HttpTaskServer();
+        KVServer kvServer = new KVServer();
+        kvServer.start();
+        //HttpTaskManager httpTaskManager = new HttpTaskManager(new URL("http://localhost:" + KVServer.PORT));
+        HttpTaskManager httpTaskManager = new HttpTaskManager(new URL("http://localhost:" + KVServer.PORT));
 
 
-        //new KVServer().start();
-        /*KVTaskClient client = new KVTaskClient(new URL("http://localhost:" + KVServer.PORT));
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        List<Task> tasks = new ArrayList<>(httpTaskManager.getListAllTasks());
+        List<Task> subtasks = new ArrayList<>(httpTaskManager.getListAllSubtasks());
+        List<Task> epics = new ArrayList<>(httpTaskManager.getListAllEpics());
 
-        client.put("1", "11");
-        client.put("1", "2");
-        client.put("2", "33");
-        String response = client.load("1");
-        String response1 = client.load("2");
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
 
-        System.out.println("response: " + response);
-        System.out.println("response1: " + response1);*/
+        for (Task task : subtasks) {
+            System.out.println(task);
+        }
 
-        /*HttpTaskManager httpTaskManager = new HttpTaskManager(new URL("http://localhost:" + KVServer.PORT));
-        httpTaskManager.kvTaskClient.put("1", "11");
-        httpTaskManager.kvTaskClient.put("1", "2");
-        httpTaskManager.kvTaskClient.put("2", "33");
+        for (Task task : epics) {
+            System.out.println(task);
+        }
 
-        String response = httpTaskManager.kvTaskClient.load("1");
-        String response1 = httpTaskManager.kvTaskClient.load("2");
+        httpTaskManager.stop();
+        kvServer.stop();
 
-
-
-        System.out.println("response: " + response);
-        System.out.println("response1: " + response1);*/
     }
 
     private static void createTasks() {

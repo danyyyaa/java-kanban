@@ -1,15 +1,24 @@
 package managers.server;
 
+
+
 import managers.file.FileBackedTasksManager;
-import managers.file.ManagerSaveException;
+import managers.task.TaskManager;
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
+import tasks.Task;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.file.Path;
+import java.util.List;
 
 public class HttpTaskManager extends FileBackedTasksManager {
-    private final URL url;
+    public final URL url;
     public final KVTaskClient kvTaskClient;
     public final HttpTaskServer httpTaskServer;
 
@@ -19,11 +28,62 @@ public class HttpTaskManager extends FileBackedTasksManager {
         this.httpTaskServer = new HttpTaskServer();
     }
 
-    public void put(String key, String value) throws IOException, InterruptedException {
-        kvTaskClient.put(key, value);
+    public KVTaskClient getKvTaskClient() {
+        return kvTaskClient;
     }
 
-    public String load(String key) throws IOException, InterruptedException {
-        return kvTaskClient.load(key);
+    public void stop() {
+        httpTaskServer.stop();
     }
+
+    @Override
+    public void save() {
+
+        URI tasksUri = URI.create("http://localhost:8078/save/tasks?API_TOKEN=" + kvTaskClient.getApiToken());
+        URI epicUri = URI.create("http://localhost:8078/save/epics?API_TOKEN=" + kvTaskClient.getApiToken());
+        URI subtasksUri = URI.create("http://localhost:8078/save/subtasks?API_TOKEN=" + kvTaskClient.getApiToken());
+        // и для истории
+        URI historyUri = URI.create("http://localhost:8078/save/history?API_TOKEN=" + kvTaskClient.getApiToken());
+
+        HttpRequest requestTasks = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString("{}")) // тело запроса - все задачи в формате json: "[{"id":1}, {"id":2}]"
+                .uri(tasksUri)
+                .build();
+        // + запросы для эпиков, подзадач и истории
+        HttpRequest requestSubtasks = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString("{}")) // тело запроса - все задачи в формате json: "[{"id":1}, {"id":2}]"
+                .uri(subtasksUri)
+                .build();
+        HttpRequest requestEpics = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString("{}")) // тело запроса - все задачи в формате json: "[{"id":1}, {"id":2}]"
+                .uri(epicUri)
+                .build();
+        HttpRequest requestHistory = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString("{}")) // тело запроса - все задачи в формате json: "[{"id":1}, {"id":2}]"
+                .uri(historyUri)
+                .build();
+
+        try {
+            kvTaskClient.getClient().send(requestTasks, HttpResponse.BodyHandlers.ofString());
+            kvTaskClient.getClient().send(requestSubtasks, HttpResponse.BodyHandlers.ofString());
+            kvTaskClient.getClient().send(requestEpics, HttpResponse.BodyHandlers.ofString());
+            kvTaskClient.getClient().send(requestHistory, HttpResponse.BodyHandlers.ofString());
+
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Ошибка получения данных с сервера.");
+        }
+    }
+
+    @Override
+    public void loadFromFile() {
+        URI tasksUri = URI.create("http://localhost:8078/load/tasks?API_TOKEN=" + kvTaskClient.getApiToken());
+        URI epicUri = URI.create("http://localhost:8078/load/epics?API_TOKEN=" + kvTaskClient.getApiToken());
+        URI subtasksUri = URI.create("http://localhost:8078/load/subtasks?API_TOKEN=" + kvTaskClient.getApiToken());
+
+        // делаем запросы к kvserver, получаем от него задачи в формате json и складываем их в хэш мапы
+    }
+
 }
+
+
+

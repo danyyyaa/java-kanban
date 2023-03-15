@@ -10,6 +10,15 @@ import java.net.http.HttpResponse;
 public class KVTaskClient {
     private final URL url;
     private final HttpClient client;
+
+    public HttpClient getClient() {
+        return client;
+    }
+
+    public String getApiToken() {
+        return apiToken;
+    }
+
     private final String apiToken;
 
     public KVTaskClient(URL url) throws IOException, InterruptedException {
