@@ -1,28 +1,17 @@
 package managers.server;
 
-
-
 import com.google.gson.*;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import managers.file.FileBackedTasksManager;
-import tasks.Subtask;
 import tasks.Task;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class HttpTaskManager extends FileBackedTasksManager {
     public final URL url;
-    KVServer kvServer;
+    private final KVServer kvServer;
     public final KVTaskClient kvTaskClient;
     public final HttpTaskServer httpTaskServer;
     private final Gson gson;
@@ -31,7 +20,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
         this.url = url;
         gson = new Gson();
         kvServer = new KVServer();
-        this.httpTaskServer = new HttpTaskServer();
+        httpTaskServer = new HttpTaskServer();
         startServers();
         kvTaskClient = new KVTaskClient(url);
     }
@@ -51,49 +40,21 @@ public class HttpTaskManager extends FileBackedTasksManager {
     @Override
     public void load() {
         try {
-            List<Task> tasksJson = StringToJsonFormat(kvTaskClient.load("tasks"));
-            List<Task> subtasksJson = StringToJsonFormat(kvTaskClient.load("subtasks"));
-            List<Task> epicsJson = StringToJsonFormat(kvTaskClient.load("epics"));
-
-            for (Task task : tasksJson) {
+            for (Task task : StringToJsonFormat(kvTaskClient.load("tasks"))) {
                 tasks.put(task.getId(), task);
             }
 
-            for (Task task : subtasksJson) {
+            for (Task task : StringToJsonFormat(kvTaskClient.load("subtasks"))) {
                 tasks.put(task.getId(), task);
             }
 
-            for (Task task : epicsJson) {
+            for (Task task : StringToJsonFormat(kvTaskClient.load("epics"))) {
                 tasks.put(task.getId(), task);
             }
 
-
-            /*String responseTasksJson = kvTaskClient.load("tasks");
-            String responseSubtasksJson = kvTaskClient.load("subtasks");
-            String responseEpicsJson = kvTaskClient.load("epics");
-            String responseHistoryJson = kvTaskClient.load("history");
-
-            responseTasksJson = responseTasksJson.substring(2, responseTasksJson.length() - 2);
-            StringBuilder tasksStringJson = new StringBuilder();
-
-            for (String s : responseTasksJson.split("\\\\")) {
-                tasksStringJson.append(s);
+            for (Task task : StringToJsonFormat(kvTaskClient.load("history"))) {
+                historyManager.add(task);
             }
-
-            String[] splitTasksJson = tasksStringJson.toString().split("},\\{");
-
-
-            for (int i = 0; i < splitTasksJson.length; i++) {
-                if (i != splitTasksJson.length - 1) {
-                    splitTasksJson[i] += "}";
-                }
-                if (i != 0) {
-                    splitTasksJson[i] = "{" + splitTasksJson[i];
-                }
-                Task task = gson.fromJson(splitTasksJson[i], Task.class);
-                tasks.put(task.getId(), task);
-            }*/
-
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

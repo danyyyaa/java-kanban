@@ -29,9 +29,10 @@ public class Main {
         httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 15.07.21", "20");
 
 
+        httpTaskManager.save();
         httpTaskManager.load();
 
-        for (Task task : httpTaskManager.getListAllTasks()) {
+       /* for (Task task : httpTaskManager.getListAllTasks()) {
             System.out.println(task.getId());
         }
 
@@ -41,7 +42,7 @@ public class Main {
 
         for (Epic epic : httpTaskManager.getListAllEpics()) {
             System.out.println(epic.getId());
-        }
+        }*/
 
         httpTaskManager.stop();
     }
