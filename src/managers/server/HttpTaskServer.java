@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -41,18 +42,14 @@ public class HttpTaskServer {
         httpServer.start();
     }*/
 
-    public HttpTaskServer() {
-        try {
-            httpServer = HttpServer.create();
-            httpServer.bind(new InetSocketAddress(PORT), 0);
-            httpServer.createContext("/tasks", new TasksHandler());
-            httpServer.start();
 
-            System.out.println("HTTP-сервер запущен на " + PORT + " порту!\n");
-        } catch (IOException e) {
-            System.out.println("Ошибка создания сервера.");
-        }
+    public HttpTaskServer() throws IOException {
+        HttpServer httpServer = HttpServer.create();
+        httpServer.bind(new InetSocketAddress(8080), 0);
+        httpServer.createContext("/tasks/task", new TasksHandler(new FileBackedTasksManager()));
+        httpServer.start();
     }
+
 
     public void stop() {
         httpServer.stop(0);
@@ -60,53 +57,55 @@ public class HttpTaskServer {
     }
 
     static class TasksHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            Endpoint endpoint = getEndpoint(exchange.getRequestURI().getPath(), exchange.getRequestMethod());
+        private TaskManager taskManager;
+        private Gson gson;
 
-            switch (endpoint) {
-                case GET_ALL_TASKS:
-                    handleGetAllTasks(exchange);
-                    System.out.println("getAllTasks");
-                    break;
-                case GET_ALL_SUBTASKS:
-                    handleGetAllSubtasks(exchange);
-                    System.out.println("getAllSubtasks");
-                    break;
-                case GET_ALL_EPICS:
-                    handleGetAllEpics(exchange);
-                    System.out.println("getAllEpics");
-                    break;
-                case GET_TASK:
-                    System.out.println("getTask");
-                    break;
-                case GET_SUBTASK:
-                    System.out.println("getSubtask");
-                    break;
-                case GET_EPIC:
-                    System.out.println("getEpic");
-                    break;
-                case GET_HISTORY:
-                    handleGetHistory(exchange);
-                    System.out.println("getHistory");
-                case GET_PRIORITIZED_TASK:
-                    handleGetPrioritizedTasks(exchange);
-                    System.out.println("getPrioritizedTasks");
-                    break;
-                default:
-                    writeResponse(exchange, "Такого эндпоинта не существует", 404);
+        public TasksHandler(TaskManager taskManager) {
+            /*GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter());
+            gson = gsonBuilder.create();*/
+            gson = new Gson();
+            this.taskManager = taskManager;
+        }
+
+
+        @Override
+        public void handle(HttpExchange httpExchange) throws IOException {
+            String requestMethod = httpExchange.getRequestMethod();
+
+            if ("DELETE".equals(requestMethod)) {
+                // taskManager.deleteTasks();
+            }
+            if (!"GET".equals(requestMethod)) {
+                httpExchange.sendResponseHeaders(405,0);
+                throw new RuntimeException();
+            }
+            if (httpExchange.getRequestURI().toString().contains("?id=")) {
+                // taskManager.getById();
+            } else {
+                // taskManager.getAll();
+                httpExchange.sendResponseHeaders(200,0);
+                OutputStream outputStream = httpExchange.getResponseBody();
+                outputStream.write(gson.toJson(new Object()).getBytes(StandardCharsets.UTF_8));
+                httpExchange.close();
             }
 
         }
     }
 
-    private static Endpoint getEndpoint(String requestPath, String requestMethod) {
+
+
+
+
+
+
+   /* private static Endpoint getEndpoint(String requestPath, String requestMethod) {
         String[] pathParts = requestPath.split("[/?]");
 
-        /*System.out.println(requestPath);
+        *//*System.out.println(requestPath);
         for (int i = 0; i < pathParts.length; i++) {
             System.out.println(i + " " + pathParts[i]);
-        }*/
+        }*//*
 
         switch (requestMethod) {
             case "GET":
@@ -138,7 +137,7 @@ public class HttpTaskServer {
                 break;
         }
 
-        /*if (pathParts.length == 3 && pathParts[2].equals("tasks") && requestMethod.equals("GET")) {
+        *//*if (pathParts.length == 3 && pathParts[2].equals("tasks") && requestMethod.equals("GET")) {
             return Endpoint.GET_ALL_TASKS;
         }
 
@@ -157,7 +156,7 @@ public class HttpTaskServer {
         if (pathParts.length == 3 && pathParts[2].equals("prioritizedtasks") && requestMethod.equals("GET")) {
             return Endpoint.GET_PRIORITIZED_TASK;
         }
-*/
+*//*
 
         return Endpoint.UNKNOWN;
     }
@@ -172,9 +171,9 @@ public class HttpTaskServer {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } /*finally {
+        } *//*finally {
             exchange.close();
-        }*/
+        }*//*
     }
 
     private static void handleGetHistory(HttpExchange exchange) throws IOException {
@@ -262,5 +261,5 @@ public class HttpTaskServer {
         GET_HISTORY,
         GET_PRIORITIZED_TASK,
         UNKNOWN
-    }
+    }*/
 }

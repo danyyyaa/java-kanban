@@ -38,7 +38,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
 
     @Override
     public void save() {
-
         URI tasksUri = URI.create("http://localhost:8078/save/tasks?API_TOKEN=" + kvTaskClient.getApiToken());
         URI epicUri = URI.create("http://localhost:8078/save/epics?API_TOKEN=" + kvTaskClient.getApiToken());
         URI subtasksUri = URI.create("http://localhost:8078/save/subtasks?API_TOKEN=" + kvTaskClient.getApiToken());
@@ -81,6 +80,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
         URI subtasksUri = URI.create("http://localhost:8078/load/subtasks?API_TOKEN=" + kvTaskClient.getApiToken());
 
         // делаем запросы к kvserver, получаем от него задачи в формате json и складываем их в хэш мапы
+
     }
 
 }

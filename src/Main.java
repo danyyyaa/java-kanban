@@ -1,20 +1,10 @@
-import managers.file.FileBackedTasksManager;
-import managers.file.ManagerSaveException;
 import managers.server.HttpTaskManager;
-import managers.server.HttpTaskServer;
 import managers.server.KVServer;
-import managers.server.KVTaskClient;
-import managers.task.TaskManager;
-import managers.util.Managers;
 import tasks.Status;
 import tasks.Task;
 
 import java.io.IOException;
-
-
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +32,8 @@ public class Main {
         for (Task task : epics) {
             System.out.println(task);
         }
+
+        httpTaskManager.loadFromFile();
 
         httpTaskManager.stop();
         kvServer.stop();
