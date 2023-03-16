@@ -33,7 +33,7 @@ public class Main {
             System.out.println(task);
         }
 
-        httpTaskManager.loadFromFile();
+        httpTaskManager.load();
 
         httpTaskManager.stop();
         kvServer.stop();

@@ -21,7 +21,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public FileBackedTasksManager(Path path) throws ManagerSaveException {
         FileBackedTasksManager.path = path;
-        loadFromFile(path);
+        load(path);
     }
 
     public FileBackedTasksManager() {}
@@ -75,9 +75,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    public void loadFromFile() {};
+    public void load() {};
 
-    public void loadFromFile(Path path) throws ManagerSaveException {
+    public void load(Path path) throws ManagerSaveException {
         if (!Files.exists(path)) {
             try {
                 Files.createFile(path);

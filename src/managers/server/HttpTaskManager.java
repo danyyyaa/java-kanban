@@ -74,7 +74,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
     }
 
     @Override
-    public void loadFromFile() {
+    public void load() {
         URI tasksUri = URI.create("http://localhost:8078/load/tasks?API_TOKEN=" + kvTaskClient.getApiToken());
         URI epicUri = URI.create("http://localhost:8078/load/epics?API_TOKEN=" + kvTaskClient.getApiToken());
         URI subtasksUri = URI.create("http://localhost:8078/load/subtasks?API_TOKEN=" + kvTaskClient.getApiToken());
