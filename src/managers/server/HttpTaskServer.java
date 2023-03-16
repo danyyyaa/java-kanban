@@ -22,38 +22,21 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class HttpTaskServer {
-    static FileBackedTasksManager fileManager;
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final int PORT = 8080;
     private static final Gson gson = new Gson();
     private HttpServer httpServer;
     private TaskManager taskManager;
 
-    /*private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) -> {
-        Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
-        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-    }).create();*/
-
-
-    /*public HttpTaskServer() throws IOException {
-        HttpServer httpServer = HttpServer.create();
-        httpServer.bind(new InetSocketAddress(8080), 0);
-        httpServer.createContext("/tasks", new TasksHandler(new FileBackedTasksManager()));
-        httpServer.start();
-    }*/
-
-
     public HttpTaskServer() throws IOException {
-        HttpServer httpServer = HttpServer.create();
+        httpServer = HttpServer.create();
         httpServer.bind(new InetSocketAddress(8080), 0);
         httpServer.createContext("/tasks/task", new TasksHandler(new FileBackedTasksManager()));
-        httpServer.start();
     }
 
-
-    public void stop() {
-        httpServer.stop(0);
-        System.out.println("Остановлен сервер на порту " + PORT);
+    public void start() {
+        System.out.println("Запускаем сервер на порту " + PORT);
+        httpServer.start();
     }
 
     static class TasksHandler implements HttpHandler {
@@ -61,38 +44,37 @@ public class HttpTaskServer {
         private Gson gson;
 
         public TasksHandler(TaskManager taskManager) {
-            /*GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter());
-            gson = gsonBuilder.create();*/
-            gson = new Gson();
+            gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter()).create();
             this.taskManager = taskManager;
         }
-
 
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
             String requestMethod = httpExchange.getRequestMethod();
 
             if ("DELETE".equals(requestMethod)) {
-                // taskManager.deleteTasks();
+                 taskManager.deleteAllTasks();
             }
             if (!"GET".equals(requestMethod)) {
-                httpExchange.sendResponseHeaders(405,0);
+                httpExchange.sendResponseHeaders(405, 0);
                 throw new RuntimeException();
             }
             if (httpExchange.getRequestURI().toString().contains("?id=")) {
                 // taskManager.getById();
             } else {
                 // taskManager.getAll();
-                httpExchange.sendResponseHeaders(200,0);
+                httpExchange.sendResponseHeaders(200, 0);
                 OutputStream outputStream = httpExchange.getResponseBody();
                 outputStream.write(gson.toJson(new Object()).getBytes(StandardCharsets.UTF_8));
                 httpExchange.close();
             }
-
         }
     }
 
+    public void stop() {
+        httpServer.stop(0);
+        System.out.println("Остановлен сервер на порту " + PORT);
+    }
 
 
 

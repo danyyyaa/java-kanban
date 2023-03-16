@@ -1,6 +1,9 @@
 import managers.server.HttpTaskManager;
 import managers.server.KVServer;
+import managers.util.Managers;
+import tasks.Epic;
 import tasks.Status;
+import tasks.Subtask;
 import tasks.Task;
 
 import java.io.IOException;
@@ -10,34 +13,37 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        KVServer kvServer = new KVServer();
-        kvServer.start();
-        //HttpTaskManager httpTaskManager = new HttpTaskManager(new URL("http://localhost:" + KVServer.PORT));
-        HttpTaskManager httpTaskManager = new HttpTaskManager(new URL("http://localhost:" + KVServer.PORT));
+        HttpTaskManager httpTaskManager = (HttpTaskManager) Managers.getDefaultHttp(new URL("http://localhost:" + KVServer.PORT));
 
 
-        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
-        List<Task> tasks = new ArrayList<>(httpTaskManager.getListAllTasks());
-        List<Task> subtasks = new ArrayList<>(httpTaskManager.getListAllSubtasks());
-        List<Task> epics = new ArrayList<>(httpTaskManager.getListAllEpics());
 
-        for (Task task : tasks) {
-            System.out.println(task);
-        }
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 16.07.21", "77"); // 0
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 17.07.21", "77"); // 1
 
-        for (Task task : subtasks) {
-            System.out.println(task);
-        }
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 18.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 19.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 20.07.21", "77");
 
-        for (Task task : epics) {
-            System.out.println(task);
-        }
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 13.07.21", "20");
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 14.07.21", "20");
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 15.07.21", "20");
+
 
         httpTaskManager.load();
 
-        httpTaskManager.stop();
-        kvServer.stop();
+        for (Task task : httpTaskManager.getListAllTasks()) {
+            System.out.println(task.getId());
+        }
 
+        for (Subtask subtask : httpTaskManager.getListAllSubtasks()) {
+            System.out.println(subtask);
+        }
+
+        for (Epic epic : httpTaskManager.getListAllEpics()) {
+            System.out.println(epic.getId());
+        }
+
+        httpTaskManager.stop();
     }
 
     private static void createTasks() {

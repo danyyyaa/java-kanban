@@ -26,7 +26,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public FileBackedTasksManager() {}
 
-
     public void save() throws ManagerSaveException {
         try (PrintWriter pw = new PrintWriter(path.toFile())) {
             pw.write("id,type,name,status,description,startTime,duration,endTime,epic\n");

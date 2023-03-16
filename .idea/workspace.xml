@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="feat: все переделать и начать делать HttpTaskManager">
+    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="refactor: изменить loadFromFile на load">
+      <change afterPath="$PROJECT_DIR$/src/managers/server/LocalDateTimeTypeAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/FileBackedTasksManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/server/HttpTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/HttpTaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/server/HttpTaskServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/HttpTaskServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/server/KVTaskClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/KVTaskClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +66,7 @@
       <recent name="managers.file" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in java-kanban">
+  <component name="RunManager">
     <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <option name="PACKAGE_NAME" value="" />
@@ -238,7 +241,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678881100284</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="refactor: собираюсь изменять название метода loadFromFile на load">
+      <created>1678941498946</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1678941498946</updated>
+    </task>
+    <task id="LOCAL-00019" summary="refactor: изменить loadFromFile на load">
+      <created>1678941599807</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1678941599807</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -269,7 +286,9 @@
     <MESSAGE value="refactor: убрать лишнее в KVServer" />
     <MESSAGE value="feat: начать писать HttpTaskManager" />
     <MESSAGE value="feat: все переделать и начать делать HttpTaskManager" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: все переделать и начать делать HttpTaskManager" />
+    <MESSAGE value="refactor: собираюсь изменять название метода loadFromFile на load" />
+    <MESSAGE value="refactor: изменить loadFromFile на load" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: изменить loadFromFile на load" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
