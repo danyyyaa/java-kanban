@@ -1,20 +1,28 @@
 package managers.server;
 
 import com.google.gson.*;
-import managers.file.FileBackedTasksManager;
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
 import tasks.Task;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HttpTaskManager extends FileBackedTasksManager {
+    HttpClient client = HttpClient.newHttpClient();
     public final URL url;
     private final KVServer kvServer;
     public final KVTaskClient kvTaskClient;
     public final HttpTaskServer httpTaskServer;
     private final Gson gson;
+
 
     public HttpTaskManager(URL url) throws IOException, InterruptedException {
         this.url = url;
@@ -23,65 +31,34 @@ public class HttpTaskManager extends FileBackedTasksManager {
         httpTaskServer = new HttpTaskServer();
         startServers();
         kvTaskClient = new KVTaskClient(url);
+        setHttpTaskServer(httpTaskServer);
+        setKvTaskClient(kvTaskClient);
     }
 
     @Override
-    public void save() {
-        try {
-            kvTaskClient.put("tasks", gson.toJson(getListAllTasks()));
-            kvTaskClient.put("subtasks", gson.toJson(getListAllSubtasks()));
-            kvTaskClient.put("epics", gson.toJson(getListAllEpics()));
-            kvTaskClient.put("history", gson.toJson(getHistory()));
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public void createTask(String name, String description, Status status, String startTime, String duration) {
+        super.createTask(name, description, status, startTime, duration);
     }
 
     @Override
-    public void load() {
+    public List<Task> getListAllTasks() {
+        URI uri = URI.create("http://localhost:" + HttpTaskServer.PORT + "/tasks/task");
+
+        HttpRequest httpRequest = HttpRequest.newBuilder().uri(uri).GET().build();
+
+
         try {
-            for (Task task : StringToJsonFormat(kvTaskClient.load("tasks"))) {
-                tasks.put(task.getId(), task);
-            }
-
-            for (Task task : StringToJsonFormat(kvTaskClient.load("subtasks"))) {
-                tasks.put(task.getId(), task);
-            }
-
-            for (Task task : StringToJsonFormat(kvTaskClient.load("epics"))) {
-                tasks.put(task.getId(), task);
-            }
-
-            for (Task task : StringToJsonFormat(kvTaskClient.load("history"))) {
-                historyManager.add(task);
-            }
+            String response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString()).body();
+            System.out.println("response " + response);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        // System.out.println("values " + tasks.values());
+        return null;
     }
 
-    private List<Task> StringToJsonFormat(String string) {
-        List<Task> tasks = new ArrayList<>();
-        string = string.substring(2, string.length() - 2);
-        StringBuilder tasksStringJson = new StringBuilder();
 
-        for (String s : string.split("\\\\")) {
-            tasksStringJson.append(s);
-        }
-
-        String[] splitTasksJson = tasksStringJson.toString().split("},\\{");
-
-        for (int i = 0; i < splitTasksJson.length; i++) {
-            if (i != splitTasksJson.length - 1) {
-                splitTasksJson[i] += "}";
-            }
-            if (i != 0) {
-                splitTasksJson[i] = "{" + splitTasksJson[i];
-            }
-            tasks.add(gson.fromJson(splitTasksJson[i], Task.class));
-        }
-        return tasks;
-    }
 
     public void stop() {
         httpTaskServer.stop();

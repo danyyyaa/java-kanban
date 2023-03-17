@@ -17,7 +17,7 @@ public class Main {
 
 
 
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 16.07.21", "77"); // 0
+        /*httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 16.07.21", "77"); // 0
         httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 17.07.21", "77"); // 1
 
         httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 18.07.21", "77");
@@ -25,24 +25,13 @@ public class Main {
         httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 20.07.21", "77");
 
         httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 13.07.21", "20");
-        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 14.07.21", "20");
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 14.07.21", "20");*/
         httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 15.07.21", "20");
-
-
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 16.07.21", "20");
         httpTaskManager.save();
         httpTaskManager.load();
+        //System.out.println(httpTaskManager.getListAllTasks());
 
-       /* for (Task task : httpTaskManager.getListAllTasks()) {
-            System.out.println(task.getId());
-        }
-
-        for (Subtask subtask : httpTaskManager.getListAllSubtasks()) {
-            System.out.println(subtask);
-        }
-
-        for (Epic epic : httpTaskManager.getListAllEpics()) {
-            System.out.println(epic.getId());
-        }*/
 
         httpTaskManager.stop();
     }

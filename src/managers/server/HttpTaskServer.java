@@ -5,9 +5,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import managers.file.FileBackedTasksManager;
 import managers.task.TaskManager;
 import tasks.Epic;
+import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
@@ -23,15 +23,16 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class HttpTaskServer {
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-    private static final int PORT = 8080;
+    public static final int PORT = 8080;
     private static final Gson gson = new Gson();
-    private HttpServer httpServer;
-    private TaskManager taskManager;
+    private final HttpServer httpServer;
+    private static FileBackedTasksManager fileManager;
 
     public HttpTaskServer() throws IOException {
         httpServer = HttpServer.create();
-        httpServer.bind(new InetSocketAddress(8080), 0);
-        httpServer.createContext("/tasks/task", new TasksHandler(new FileBackedTasksManager()));
+        httpServer.bind(new InetSocketAddress(PORT), 0);
+        httpServer.createContext("/tasks", new TasksHandler(new FileBackedTasksManager()));
+        fileManager = new FileBackedTasksManager();
     }
 
     public void start() {
@@ -39,59 +40,40 @@ public class HttpTaskServer {
         httpServer.start();
     }
 
-    static class TasksHandler implements HttpHandler {
-        private TaskManager taskManager;
-        private Gson gson;
-
-        public TasksHandler(TaskManager taskManager) {
-            gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter()).create();
-            this.taskManager = taskManager;
-        }
-
-        @Override
-        public void handle(HttpExchange httpExchange) throws IOException {
-            String requestMethod = httpExchange.getRequestMethod();
-
-            if ("DELETE".equals(requestMethod)) {
-                 taskManager.deleteAllTasks();
-            }
-            if (!"GET".equals(requestMethod)) {
-                httpExchange.sendResponseHeaders(405, 0);
-                throw new RuntimeException();
-            }
-            if (httpExchange.getRequestURI().toString().contains("?id=")) {
-                // taskManager.getById();
-            } else {
-                // taskManager.getAll();
-                httpExchange.sendResponseHeaders(200, 0);
-                OutputStream outputStream = httpExchange.getResponseBody();
-                outputStream.write(gson.toJson(new Object()).getBytes(StandardCharsets.UTF_8));
-                httpExchange.close();
-            }
-        }
-    }
-
     public void stop() {
         httpServer.stop(0);
         System.out.println("Остановлен сервер на порту " + PORT);
     }
 
+    public static class TasksHandler implements HttpHandler {
+        private TaskManager taskManager;
+        public TasksHandler(TaskManager taskManager) {
+            this.taskManager = taskManager;
+        }
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            Endpoint endpoint = getEndpoint(exchange.getRequestURI().getPath(), exchange.getRequestMethod());
 
+            switch (endpoint) {
+                case GET_ALL_TASKS:
+                    handleGetAllTasks(exchange);
+                    break;
+            }
+        }
+    }
 
-
-
-
-   /* private static Endpoint getEndpoint(String requestPath, String requestMethod) {
+    private static Endpoint getEndpoint(String requestPath, String requestMethod) {
         String[] pathParts = requestPath.split("[/?]");
 
-        *//*System.out.println(requestPath);
+        /*System.out.println(requestPath);
         for (int i = 0; i < pathParts.length; i++) {
             System.out.println(i + " " + pathParts[i]);
-        }*//*
+        }*/
 
         switch (requestMethod) {
             case "GET":
-                if (pathParts.length == 3 && pathParts[2].equals("tasks")) {
+                if (pathParts.length == 3 && pathParts[2].equals("task")) {
+                    System.out.println("GET_ALL_TASKS");
                     return Endpoint.GET_ALL_TASKS;
                 }
 
@@ -119,7 +101,7 @@ public class HttpTaskServer {
                 break;
         }
 
-        *//*if (pathParts.length == 3 && pathParts[2].equals("tasks") && requestMethod.equals("GET")) {
+        if (pathParts.length == 3 && pathParts[2].equals("tasks") && requestMethod.equals("GET")) {
             return Endpoint.GET_ALL_TASKS;
         }
 
@@ -138,7 +120,7 @@ public class HttpTaskServer {
         if (pathParts.length == 3 && pathParts[2].equals("prioritizedtasks") && requestMethod.equals("GET")) {
             return Endpoint.GET_PRIORITIZED_TASK;
         }
-*//*
+
 
         return Endpoint.UNKNOWN;
     }
@@ -153,9 +135,7 @@ public class HttpTaskServer {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } *//*finally {
-            exchange.close();
-        }*//*
+        }
     }
 
     private static void handleGetHistory(HttpExchange exchange) throws IOException {
@@ -172,6 +152,22 @@ public class HttpTaskServer {
     }
 
     private static void handleGetAllTasks(HttpExchange exchange) throws IOException {
+        System.out.println("fileManager.getListAllTasks() = " + fileManager.getListAllTasks());
+        List<Task> bytes = fileManager.getListAllTasks();
+        byte[] response = gson.toJson(bytes).getBytes();
+
+        exchange.sendResponseHeaders(200, 0);
+
+
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(response);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /*private static void handleGetAllTasks(HttpExchange exchange) throws IOException {
         List<Task> bytes = fileManager.getListAllTasks();
         byte[] response = gson.toJson(bytes).getBytes();
 
@@ -182,7 +178,7 @@ public class HttpTaskServer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     private static void handleGetAllSubtasks(HttpExchange exchange) throws IOException {
         List<Subtask> bytes = fileManager.getListAllSubtasks();
@@ -243,5 +239,5 @@ public class HttpTaskServer {
         GET_HISTORY,
         GET_PRIORITIZED_TASK,
         UNKNOWN
-    }*/
+    }
 }
