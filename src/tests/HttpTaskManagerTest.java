@@ -24,17 +24,18 @@ public class HttpTaskManagerTest {
     private KVServer kvServer;
 
     @BeforeEach
-    void setUp() throws IOException, InterruptedException {
+    public void setUp() throws IOException, InterruptedException {
         kvServer = new KVServer();
         httpTaskServer = new HttpTaskServer();
-        httpTaskManager = Managers.getDefault(new URL("http://localhost:" + KVServer.PORT));
 
         httpTaskServer.start();
         kvServer.start();
+
+        httpTaskManager = Managers.getDefault(new URL("http://localhost:" + KVServer.PORT));
     }
 
     @AfterEach
-    void afterEach() {
+    public void afterEach() {
         httpTaskServer.stop();
         kvServer.stop();
     }

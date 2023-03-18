@@ -80,9 +80,9 @@ public class Task {
         return duration.toString();
     }
 
-    public void setDuration(String duration) {
+    /*public void setDuration(String duration) {
         this.duration = Duration.parse(duration);
-    }
+    }*/
 
     @Override
     public String toString() {
