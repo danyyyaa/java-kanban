@@ -14,11 +14,11 @@ import java.nio.file.Path;
 
 public class Managers {
 
-    public static TaskManager getDefault() {
+    public static TaskManager getInMemoryTaskManager() {
         return new InMemoryTaskManager();
     }
 
-    public static TaskManager getDefaultHttp(URL url) throws IOException, InterruptedException {
+    public static TaskManager getDefault(URL url) throws IOException, InterruptedException {
         return new HttpTaskManager(url);
     }
 

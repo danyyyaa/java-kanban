@@ -29,7 +29,6 @@ public class KVServer {
     private void load(HttpExchange h) throws IOException {
         try {
             System.out.println("/load");
-            //System.out.println("data: " + data);
             if (!hasAuth(h)) {
                 System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
                 h.sendResponseHeaders(403, 0);
@@ -111,13 +110,6 @@ public class KVServer {
         }
     }
 
-    public void start() {
-        System.out.println("Запускаем сервер на порту " + PORT);
-        System.out.println("Открой в браузере http://localhost:" + PORT + "/");
-        System.out.println("API_TOKEN: " + apiToken);
-        server.start();
-    }
-
     private String generateApiToken() {
         return "" + System.currentTimeMillis();
     }
@@ -141,5 +133,12 @@ public class KVServer {
     public void stop() {
         server.stop(0);
         System.out.println("Остановлен сервер на порту " + PORT);
+    }
+
+    public void start() {
+        System.out.println("Запускаем сервер на порту " + PORT);
+        System.out.println("Открой в браузере http://localhost:" + PORT + "/");
+        System.out.println("API_TOKEN: " + apiToken);
+        server.start();
     }
 }

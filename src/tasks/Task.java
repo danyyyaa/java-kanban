@@ -23,6 +23,8 @@ public class Task {
         return status;
     }
 
+
+
     public Task(String name, String description, Status status, Integer id, String startTime, String duration) {
         this.name = name;
         this.description = description;

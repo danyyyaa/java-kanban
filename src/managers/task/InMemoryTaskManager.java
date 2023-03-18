@@ -339,9 +339,9 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    protected Map<Integer, Task> getTasks() {
+    public Map<Integer, Task> getTasks() {
         return tasks;
-    }
+    } // сделать protected
 
     protected Map<Integer, Subtask> getSubtasks() {
         return subtasks;

@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="feat: сделать save и load">
-      <change afterPath="$PROJECT_DIR$/src/managers/server/FileBackedTasksManager.java" afterDir="false" />
+    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="коммит">
+      <change afterPath="$PROJECT_DIR$/src/tests/HttpTaskManagerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/server/FileBackedTasksManager.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/server/HttpTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/HttpTaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/server/HttpTaskServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/HttpTaskServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/managers/server/KVServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/KVServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/server/LocalDateTimeTypeAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/util/Managers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/util/Managers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/FileBackedTasksManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/InMemoryTaskManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +35,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
+    <option name="RESET_MODE" value="SOFT" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -66,7 +74,7 @@
       <recent name="managers.file" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.HttpTaskManagerTest.createTasks">
     <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <option name="PACKAGE_NAME" value="" />
@@ -90,7 +98,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InMemoryTaskManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HttpTaskManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
         <pattern>
@@ -99,17 +107,51 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.InMemoryTaskManagerTest" />
+      <option name="MAIN_CLASS_NAME" value="tests.HttpTaskManagerTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpTaskManagerTest.createFirstTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.HttpTaskManagerTest" />
+      <option name="METHOD_NAME" value="createFirstTask" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpTaskManagerTest.createTasks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.HttpTaskManagerTest" />
+      <option name="METHOD_NAME" value="createTasks" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HttpTaskManagerTest.createTasks" />
+        <item itemvalue="JUnit.HttpTaskManagerTest" />
         <item itemvalue="JUnit.All in java-kanban" />
+        <item itemvalue="JUnit.HttpTaskManagerTest.createFirstTask" />
         <item itemvalue="JUnit.FileBackedTasksManagerTest" />
-        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -262,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678966269920</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="коммит">
+      <created>1679042227888</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1679042227888</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,7 +345,8 @@
     <MESSAGE value="refactor: собираюсь изменять название метода loadFromFile на load" />
     <MESSAGE value="refactor: изменить loadFromFile на load" />
     <MESSAGE value="feat: сделать save и load" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: сделать save и load" />
+    <MESSAGE value="коммит" />
+    <option name="LAST_COMMIT_MESSAGE" value="коммит" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
