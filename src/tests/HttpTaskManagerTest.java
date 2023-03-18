@@ -3,6 +3,7 @@ package tests;
 import managers.server.HttpTaskServer;
 import managers.server.KVServer;
 import managers.task.TaskManager;
+
 import managers.util.Managers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +42,73 @@ public class HttpTaskManagerTest {
     }
 
     @Test
+    void calculateEpicStatusWithEmptySubtasksList() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.calculateEpicStatus(0);
+
+        assertEquals(Status.NEW, httpTaskManager.getEpic(0).getStatus());
+    }
+
+    @Test
+    void calculateEpicStatusWithNEWSubtasksStatus() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 11.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 10.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 09.07.21", "77");
+
+        httpTaskManager.calculateEpicStatus(0);
+
+        assertEquals(Status.NEW, httpTaskManager.getEpic(0).getStatus());
+    }
+
+    @Test
+    void calculateEpicStatusWithDONESubtasksStatus() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.DONE, 0,"14:09, 11.07.21", "20");
+        httpTaskManager.createSubtask("name", "description", Status.DONE, 0,"14:09, 10.07.21", "20");
+
+        httpTaskManager.calculateEpicStatus(0);
+
+        assertEquals(Status.DONE, httpTaskManager.getEpic(0).getStatus());
+    }
+
+    @Test
+    void calculateEpicStatusWithNEWAndDONESubtasksStatus() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.DONE, 0,"14:09, 11.07.21", "20");
+
+        httpTaskManager.calculateEpicStatus(0);
+
+        assertEquals(Status.IN_PROGRESS, httpTaskManager.getEpic(0).getStatus());
+    }
+
+    @Test
+    void calculateEpicStatusWithIN_PROGRESSSubtasksStatus() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.IN_PROGRESS, 0,"14:09, 12.07.21", "20");
+        httpTaskManager.createSubtask("name", "description", Status.IN_PROGRESS, 0,"14:09, 11.07.21", "20");
+
+        httpTaskManager.calculateEpicStatus(0);
+
+        assertEquals(Status.IN_PROGRESS, httpTaskManager.getEpic(0).getStatus());
+    }
+
+    @Test
+    void getHistoryWithStandardBehaviour() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        httpTaskManager.getTask(0);
+
+        assertEquals(1, httpTaskManager.getHistory().size());
+    }
+    @Test
+    void getHistoryWithEmptyList() {
+        httpTaskManager.getTask(0);
+
+        assertEquals(0, httpTaskManager.getHistory().size());
+    }
+
+    @Test
     void createFirstTask() {
         httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
         final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
@@ -67,26 +135,81 @@ public class HttpTaskManagerTest {
     }
 
     @Test
-    void createSubtaskWithoutEpic() {
-        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
-        assertEquals(0, httpTaskManager.getListAllSubtasks().size());
+    void getNotEmptyListAllTasks() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        assertEquals(1, httpTaskManager.getListAllTasks().size());
     }
 
     @Test
-    void createFirstSubtask() {
+    void getEmptyListAllSubtasks() {
+        assertEquals(0, httpTaskManager.getListAllTasks().size());
+    }
+
+    @Test
+    void getNotEmptyListAllSubtasks() {
         httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
-
         assertEquals(1, httpTaskManager.getListAllSubtasks().size());
     }
 
     @Test
-    void createSubtasks() {
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 11.07.21", "77");
-        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 10.07.21", "77");
-        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 09.07.21", "77");
+    void getEmptyListAllEpics() {
+        assertEquals(0, httpTaskManager.getListAllEpics().size());
+    }
 
-        assertEquals(2, httpTaskManager.getListAllSubtasks().size());
+    @Test
+    void getNotEmptyListAllEpics() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        assertEquals(1, httpTaskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void getTaskWithIdMissed() {
+        assertNull(httpTaskManager.getTask(0));
+    }
+
+    @Test
+    void getTaskWithExistingId() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+
+        assertEquals(0, httpTaskManager.getTask(0).getId());
+    }
+
+    @Test
+    void getTaskWithTwoElementsList() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 11.07.21", "20");
+
+        assertEquals(0, httpTaskManager.getTask(0).getId());
+        assertEquals(1, httpTaskManager.getTask(1).getId());
+    }
+
+    @Test
+    void getSubtaskWithExistingId() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+
+        assertEquals(1, httpTaskManager.getSubtask(1).getId());
+    }
+
+    @Test
+    void getSubtaskWithIdMissed() {
+        assertNull(httpTaskManager.getSubtask(0));
+    }
+
+    @Test
+    void getSubtaskWithTwoElementList() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 11.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 10.07.21", "77");
+
+        assertEquals(1, httpTaskManager.getSubtask(1).getId());
+        assertEquals(2, httpTaskManager.getSubtask(2).getId());
+    }
+
+    @Test
+    void getEpicWithIdMissed() {
+        assertNull(httpTaskManager.getEpic(0));
     }
 
     @Test
@@ -123,6 +246,190 @@ public class HttpTaskManagerTest {
         final Epic epic1 = new Epic("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1");
 
         assertEquals(2, httpTaskManager.getListAllEpics().size());
+        assertEquals(epic, httpTaskManager.getEpic(0));
+        assertEquals(epic1, httpTaskManager.getEpic(1));
+    }
+
+    @Test
+    void createSubtaskWithoutEpic() {
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        assertEquals(0, httpTaskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void createFirstSubtask() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+
+        assertEquals(1, httpTaskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void createSubtasks() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 11.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 10.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 09.07.21", "77");
+
+        assertEquals(2, httpTaskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void getTaskListWithOneElement() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        assertEquals(1, httpTaskManager.getListAllTasks().size());
+    }
+
+    @Test
+    void getEmptyTasksList() {
+        assertEquals(0, httpTaskManager.getListAllTasks().size());
+    }
+
+    @Test
+    void getTaskListWithTwoElements() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 11.07.21", "20");
+        assertEquals(2, httpTaskManager.getListAllTasks().size());
+    }
+
+    @Test
+    void getSubtasksListWithOneElement() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        assertEquals(1, httpTaskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void getSubtasksListWithTwoElements() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 11.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 10.07.21", "77");
+        assertEquals(2, httpTaskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void getEmptySubtasksList() {
+        assertEquals(0, httpTaskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void getEpicsListWithOneElement() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        assertEquals(1, httpTaskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void getEpicsListWithTwoElements() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        assertEquals(2, httpTaskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void getEmptyEpicsList() {
+        assertEquals(0, httpTaskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void updateTaskMissedId() {
+        httpTaskManager.updateTask(0, new Task("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1"));
+        assertEquals(0, httpTaskManager.getListAllTasks().size());
+    }
+
+    @Test
+    void updateTaskWithEmptyList() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
+        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+
+        httpTaskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
+
+        assertEquals(0, httpTaskManager.getTask(0).getId());
+        assertEquals(task, httpTaskManager.getTask(0));
+    }
+
+    @Test
+    void updateTaskWithNotEmptyList() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "1");
+        httpTaskManager.createTask("name", "description", Status.IN_PROGRESS,"14:09, 11.07.21", "1");
+
+        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        final Task task1 = new Task("name", "description", Status.IN_PROGRESS, 1, "14:00, 11.07.21", "1");
+
+        httpTaskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1"));
+        httpTaskManager.updateTask(1, new Task("name", "description", Status.IN_PROGRESS, 1, "14:00, 11.07.21", "1"));
+
+        assertEquals(0, httpTaskManager.getTask(0).getId());
+        assertEquals(1, httpTaskManager.getTask(1).getId());
+        assertEquals(task, httpTaskManager.getTask(0));
+        assertEquals(task1, httpTaskManager.getTask(1));
+    }
+
+    @Test
+    void updateSubtaskMissedId() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.updateSubtask(0, new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 12.07.21", "1"));
+        assertEquals(0, httpTaskManager.getListAllSubtasks().size());
+    }
+
+    @Test
+    void updateSubtaskWithEmptyList() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
+        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 12.07.21", "1");
+
+        httpTaskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:09, 13.07.21", "77"));
+
+        assertEquals(1, httpTaskManager.getSubtask(1).getId());
+        assertEquals(subtask, httpTaskManager.getSubtask(1));
+    }
+
+    @Test
+    void updateSubtaskWithNotEmptyList() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "1");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 11.07.21", "1");
+        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 10.07.21", "1");
+        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 11.07.21", "1");
+        final Subtask subtask1 = new Subtask("name", "description", Status.NEW, 2, 0, "14:00, 10.07.21", "1");
+
+        httpTaskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 11.07.21", "1"));
+        httpTaskManager.updateSubtask(2, new Subtask("name", "description", Status.NEW, 2, 0, "14:00, 10.07.21", "1"));
+
+        assertEquals(1, httpTaskManager.getSubtask(1).getId());
+        assertEquals(2, httpTaskManager.getSubtask(2).getId());
+        assertEquals(subtask, httpTaskManager.getSubtask(1));
+        assertEquals(subtask1, httpTaskManager.getSubtask(2));
+    }
+
+    @Test
+    void updateEpicMissedId() {
+        httpTaskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1"));
+        assertEquals(0, httpTaskManager.getListAllEpics().size());
+    }
+
+    @Test
+    void updateEpicWithEmptyList() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+
+        httpTaskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
+
+        assertEquals(0, httpTaskManager.getEpic(0).getId());
+        assertEquals(epic, httpTaskManager.getEpic(0));
+    }
+
+    @Test
+    void updateEpicWithNotEmptyList() {
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
+
+        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
+        final Epic epic1 = new Epic("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1");
+
+        httpTaskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
+        httpTaskManager.updateEpic(1, new Epic("name", "description", Status.NEW, 1, "14:09, 13.07.21", "77"));
+
+        assertEquals(0, httpTaskManager.getEpic(0).getId());
+        assertEquals(1, httpTaskManager.getEpic(1).getId());
+
         assertEquals(epic, httpTaskManager.getEpic(0));
         assertEquals(epic1, httpTaskManager.getEpic(1));
     }
@@ -358,111 +665,6 @@ public class HttpTaskManagerTest {
     }
 
     @Test
-    void updateTaskMissedId() {
-        httpTaskManager.updateTask(0, new Task("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1"));
-        assertEquals(0, httpTaskManager.getListAllTasks().size());
-    }
-
-    @Test
-    void updateTaskWithEmptyList() {
-        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "20");
-        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
-
-        httpTaskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
-
-        assertEquals(0, httpTaskManager.getTask(0).getId());
-        assertEquals(task, httpTaskManager.getTask(0));
-    }
-
-    @Test
-    void updateTaskWithNotEmptyList() {
-        httpTaskManager.createTask("name", "description", Status.NEW,"14:09, 12.07.21", "1");
-        httpTaskManager.createTask("name", "description", Status.IN_PROGRESS,"14:09, 11.07.21", "1");
-
-        final Task task = new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
-        final Task task1 = new Task("name", "description", Status.IN_PROGRESS, 1, "14:00, 11.07.21", "1");
-
-        httpTaskManager.updateTask(0, new Task("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1"));
-        httpTaskManager.updateTask(1, new Task("name", "description", Status.IN_PROGRESS, 1, "14:00, 11.07.21", "1"));
-
-        assertEquals(0, httpTaskManager.getTask(0).getId());
-        assertEquals(1, httpTaskManager.getTask(1).getId());
-        assertEquals(task, httpTaskManager.getTask(0));
-        assertEquals(task1, httpTaskManager.getTask(1));
-    }
-
-    @Test
-    void updateSubtaskMissedId() {
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-        httpTaskManager.updateSubtask(0, new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 12.07.21", "1"));
-        assertEquals(0, httpTaskManager.getListAllSubtasks().size());
-    }
-
-    @Test
-    void updateSubtaskWithEmptyList() {
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 12.07.21", "77");
-        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 12.07.21", "1");
-
-        httpTaskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:09, 13.07.21", "77"));
-
-        assertEquals(1, httpTaskManager.getSubtask(1).getId());
-        assertEquals(subtask, httpTaskManager.getSubtask(1));
-    }
-
-    @Test
-    void updateSubtaskWithNotEmptyList() {
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "1");
-        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 11.07.21", "1");
-        httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 10.07.21", "1");
-        final Subtask subtask = new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 11.07.21", "1");
-        final Subtask subtask1 = new Subtask("name", "description", Status.NEW, 2, 0, "14:00, 10.07.21", "1");
-
-        httpTaskManager.updateSubtask(1, new Subtask("name", "description", Status.NEW, 1, 0, "14:00, 11.07.21", "1"));
-        httpTaskManager.updateSubtask(2, new Subtask("name", "description", Status.NEW, 2, 0, "14:00, 10.07.21", "1"));
-
-        assertEquals(1, httpTaskManager.getSubtask(1).getId());
-        assertEquals(2, httpTaskManager.getSubtask(2).getId());
-        assertEquals(subtask, httpTaskManager.getSubtask(1));
-        assertEquals(subtask1, httpTaskManager.getSubtask(2));
-    }
-
-    @Test
-    void updateEpicMissedId() {
-        httpTaskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1"));
-        assertEquals(0, httpTaskManager.getListAllEpics().size());
-    }
-
-    @Test
-    void updateEpicWithEmptyList() {
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
-
-        httpTaskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
-
-        assertEquals(0, httpTaskManager.getEpic(0).getId());
-        assertEquals(epic, httpTaskManager.getEpic(0));
-    }
-
-    @Test
-    void updateEpicWithNotEmptyList() {
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-        httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
-
-        final Epic epic = new Epic("name", "description", Status.NEW, 0, "14:00, 12.07.21", "1");
-        final Epic epic1 = new Epic("name", "description", Status.NEW, 1, "14:00, 12.07.21", "1");
-
-        httpTaskManager.updateEpic(0, new Epic("name", "description", Status.NEW, 0, "14:09, 13.07.21", "77"));
-        httpTaskManager.updateEpic(1, new Epic("name", "description", Status.NEW, 1, "14:09, 13.07.21", "77"));
-
-        assertEquals(0, httpTaskManager.getEpic(0).getId());
-        assertEquals(1, httpTaskManager.getEpic(1).getId());
-
-        assertEquals(epic, httpTaskManager.getEpic(0));
-        assertEquals(epic1, httpTaskManager.getEpic(1));
-    }
-
-    @Test
     void removeAnyTaskByIdWithOneElementInMap() {
         httpTaskManager.createEpic("name", "description", Status.NEW, "14:09, 12.07.21", "77");
         httpTaskManager.createSubtask("name", "description", Status.NEW, 0, "14:09, 11.07.21", "77");
@@ -531,5 +733,21 @@ public class HttpTaskManagerTest {
         httpTaskManager.calculateEpicTime(0);
         assertEquals("2021-07-12T14:10", httpTaskManager.getEpic(0).getEndTime().toString());
     }
+
+    @Test
+    void getPrioritizedTasks() {
+        httpTaskManager.createTask("name", "description", Status.NEW,"13:10, 12.07.21", "1");
+        httpTaskManager.createTask("name", "description", Status.NEW,"13:00, 12.07.21", "1");
+        httpTaskManager.createTask("name", "description", Status.NEW,"13:05, 12.07.21", "1");
+        httpTaskManager.createTask("name", "description", Status.NEW,"13:15, 12.07.21", "1");
+
+        StringBuilder result = new StringBuilder();
+        for (Task task : httpTaskManager.getPrioritizedTasks()) {
+            result.append(task.getId());
+        }
+
+        assertEquals("1203", result.toString());
+    }
 }
+
 

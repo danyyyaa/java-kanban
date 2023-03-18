@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="feat: сделать тз без тестов">
+    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="feat: сделать тесты">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/server/KVServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/KVServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/HttpTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/HttpTaskManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +117,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HttpTaskManagerTest.createTasks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InMemoryTaskManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
         <pattern>
@@ -128,9 +126,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.HttpTaskManagerTest" />
-      <option name="METHOD_NAME" value="createTasks" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="tests.InMemoryTaskManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,10 +135,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in java-kanban" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
+        <item itemvalue="JUnit.FileBackedTasksManagerTest" />
         <item itemvalue="JUnit.HttpTaskManagerTest" />
         <item itemvalue="JUnit.HttpTaskManagerTest.createFirstTask" />
-        <item itemvalue="JUnit.HttpTaskManagerTest.createTasks" />
-        <item itemvalue="JUnit.FileBackedTasksManagerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -308,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679162684108</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="feat: сделать тесты">
+      <created>1679163213465</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1679163213465</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -344,7 +348,8 @@
     <MESSAGE value="feat: сделать save и load" />
     <MESSAGE value="коммит" />
     <MESSAGE value="feat: сделать тз без тестов" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: сделать тз без тестов" />
+    <MESSAGE value="feat: сделать тесты" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: сделать тесты" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
