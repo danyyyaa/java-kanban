@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="feat: сделать тесты">
+    <list default="true" id="fe73d579-fa52-4d40-9e02-99677019af6c" name="Changes" comment="refactor: исправить тесты">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/HttpTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/HttpTaskManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/server/HttpTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/server/HttpTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/task/InMemoryTaskManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +63,7 @@
       <recent name="managers.file" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in java-kanban">
+  <component name="RunManager" selected="JUnit.tests in java-kanban">
     <configuration name="All in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <option name="PACKAGE_NAME" value="" />
@@ -101,22 +102,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HttpTaskManagerTest.createFirstTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.HttpTaskManagerTest" />
-      <option name="METHOD_NAME" value="createFirstTask" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="InMemoryTaskManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
@@ -132,13 +117,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="tests in java-kanban" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.tests in java-kanban" />
         <item itemvalue="JUnit.All in java-kanban" />
         <item itemvalue="JUnit.InMemoryTaskManagerTest" />
         <item itemvalue="JUnit.FileBackedTasksManagerTest" />
         <item itemvalue="JUnit.HttpTaskManagerTest" />
-        <item itemvalue="JUnit.HttpTaskManagerTest.createFirstTask" />
       </list>
     </recent_temporary>
   </component>
@@ -312,7 +311,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679163213465</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="refactor: исправить тесты">
+      <created>1679164808316</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1679164808316</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -349,7 +355,8 @@
     <MESSAGE value="коммит" />
     <MESSAGE value="feat: сделать тз без тестов" />
     <MESSAGE value="feat: сделать тесты" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: сделать тесты" />
+    <MESSAGE value="refactor: исправить тесты" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: исправить тесты" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
@@ -363,6 +370,9 @@
       <FILTER>tests.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/java_kanban$FileBackedTasksManagerTest.ic" NAME="FileBackedTasksManagerTest Coverage Results" MODIFIED="1677835841305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>tests.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/java_kanban$tests_in_java_kanban.ic" NAME="tests in java-kanban Coverage Results" MODIFIED="1679165789326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>tests.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/java_kanban$Main.ic" NAME="Main Coverage Results" MODIFIED="1679034670856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

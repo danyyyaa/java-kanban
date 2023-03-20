@@ -11,12 +11,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.function.Predicate;
 
 public class InMemoryTaskManager implements TaskManager {
-    final protected Map<Integer, Task> tasks;
-    final protected Map<Integer, Subtask> subtasks;
-    final protected Map<Integer, Epic> epics;
+    protected final Map<Integer, Task> tasks;
+    protected final Map<Integer, Subtask> subtasks;
+    protected final Map<Integer, Epic> epics;
     private static int id;
     public HistoryManager historyManager;
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm, dd.MM.yy");
@@ -31,13 +30,14 @@ public class InMemoryTaskManager implements TaskManager {
         timeLocalDateTimeMap = new HashMap<>();
     }
 
-    @Override
     public List<Task> getPrioritizedTasks() {
         Set<Task> treeSet = new TreeSet<>((o1, o2) -> {
             if (o1.getStartTime().plus(o1.getDuration()).isAfter(o2.getStartTime().plus(o1.getDuration()))) {
                 return 1;
-            } else {
+            } else if (o1.getStartTime().plus(o1.getDuration()).isBefore(o2.getStartTime().plus(o1.getDuration()))){
                 return -1;
+            } else {
+                return 0;
             }
         });
         treeSet.addAll(getListAllTypeTasks());

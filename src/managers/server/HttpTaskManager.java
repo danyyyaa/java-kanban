@@ -85,6 +85,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
             }
             return tasks;
         }
-        return null;
+        return new ArrayList<>();
     }
 }
